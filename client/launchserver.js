@@ -2,8 +2,14 @@ const Express = require('express');
 const App = Express();
 const Port = 8080;
 
-App.use(express.static('public'))
+const CATALOUGE_SERVER = 'localhost:8081';
 
-App.listen(port, () => {
-    console.log(`INFO: SERVER LISTENING ON ${{Port}}`);
-})
+App.use(Express.static('public'));
+
+App.get('catalogue', async (req, res, next) => {
+    res.end({server: CATALOUGE_SERVER});
+});
+
+App.listen(Port, () => {
+    console.log(`INFO: SERVER LISTENING ON ${Port}`);
+});
