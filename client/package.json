@@ -1,0 +1,16 @@
+{
+  "name": "scrabble",
+  "version": "1.0.0",
+  "description": "G600 L4 Application Programming Coursework 2020",
+  "main": "launchserver.js",
+  "scripts": {
+    "start": "node launchserver.js",
+    "setup": "npm i",
+    "test": "nodemon launchserver.js"
+  },
+  "author": "Ben Kyd <benjaminkyd@gmail.com> (https://benkyd.co.uk)",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
