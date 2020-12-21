@@ -11,6 +11,8 @@
   "author": "Ben Kyd <benjaminkyd@gmail.com> (https://benkyd.co.uk)",
   "license": "UNLICENSED",
   "dependencies": {
-    "express": "^4.17.1"
+    "colors": "^1.4.0",
+    "express": "^4.17.1",
+    "momnet": "^2.29.1"
   }
 }
