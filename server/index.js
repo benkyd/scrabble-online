@@ -1,13 +1,21 @@
-const Express = require('express');
-const App = Express();
-const Port = 8081;
+const Logger = require('./logger.js');
+const Server = require('./webserver.js');
+const Router = require('./router.js')
 
-App.use(Express.static('../client/public'));
+require('dotenv').config()
 
-App.get('catalogue', async (req, res, next) => {
-    res.end({server: CATALOUGE_SERVER});
-});
+async function main()
+{
+    Logger.SetLevel(Logger.VERBOSE_LOGS);
+    Logger.init();
 
-App.listen(Port, () => {
-    console.log(`INFO: GAMESERVER LISTENING ON ${Port}`);
-});
+    await Server.init();
+    await Router.init();
+
+    // await Server.
+
+    Logger.ready();
+}
+
+main();
+

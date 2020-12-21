@@ -10,7 +10,7 @@ UsernameForm.addEventListener('submit', onUsernameSubmit);
 
 
 // User submits their desired username
-function onUsernameSubmit(e)
+async function onUsernameSubmit(e)
 {
     // Stop form refreshing page
     e.preventDefault();
@@ -21,8 +21,15 @@ function onUsernameSubmit(e)
         username: chosenUsername
     };
 
-    
+    const res = await fetch('/login', {
+        method: 'POST',
+        body: JSON.stringify(req),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+    });
+    const body = JSON.parse(await res.text());
 
-    console.log(chosenUsername);
-    
+    console.log(body);
+
 }
