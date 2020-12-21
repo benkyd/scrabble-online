@@ -1,12 +1,12 @@
 {
-  "name": "scrabble_catalogue_server",
+  "name": "scrabble_game_server",
   "version": "1.0.0",
   "description": "G600 L4 Application Programming Coursework 2020",
   "main": "launchserver.js",
   "scripts": {
-    "start": "node launchserver.js",
+    "start": "node index.js",
     "setup": "npm i",
-    "test": "nodemon launchserver.js"
+    "test": "nodemon index.js"
   },
   "author": "Ben Kyd <benjaminkyd@gmail.com> (https://benkyd.co.uk)",
   "license": "UNLICENSED",
