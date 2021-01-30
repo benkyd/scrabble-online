@@ -35,9 +35,17 @@ function CountIPs(ip)
     return count;
 }
 
+function ValidUsername(username)
+{
+    if (username.match(/[^A-Za-z0-9_-]/)) {
+        return false;
+    }
+    return true;
+}
+
 function RegisterPlayer(username, ip)
 {
-    // TODO: Don't assume this is unique, even with Crypto
+    // TODO: Don't assume this is unique, even with Crypto, UUIDv4?
     const id = Crypto.randomBytes(32).toString("hex");
 
     OnlinePlayers[id] = { 
@@ -57,5 +65,6 @@ module.exports = {
 
     CheckUsernameAvailability: CheckUsernameAvailability,
     CountIPs: CountIPs,
+    ValidUsername: ValidUsername,
     RegisterPlayer: RegisterPlayer
 }

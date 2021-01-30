@@ -1,5 +1,9 @@
-const UsernameForm = document.querySelector('#input-username');
+const UsernameForm = document.querySelector('#input-username'); 
 const UsernameInput = document.querySelector('#input-text-username');
+
+const ClientID = document.querySelector('#client-id');
+const ConnectionState = document.querySelector('#connection-state');
+
 UsernameForm.addEventListener('submit', onUsernameSubmit);
 
 (()=>{
@@ -31,4 +35,22 @@ async function onUsernameSubmit(e)
 
     console.log(body);
 
+    if (body.errors)
+    {
+        ConnectionState.classList.add('red');
+        ConnectionState.innerHTML = `ERROR: ${body.errors[body.errors.length - 1].desc}`;
+        return;
+    }
+
+    if (ConnectionState.classList.contains('red'))
+        ConnectionState.classList.remove('red');
+    ConnectionState.innerHTML = '';
+
+    // If success server garuntees user object
+    if (body.login.success)
+    {
+        sessionStorage.setItem('user', JSON.stringify(body.login.user));
+        console.log(sessionStorage.user)
+        ClientID.innerHTML = `ClientID: ${JSON.parse(sessionStorage.user).uid}`;
+    }
 }

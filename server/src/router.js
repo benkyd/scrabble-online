@@ -69,7 +69,7 @@ class Error
 
     get toString()
     {
-        return JSON.stringify(this.toErrorObject);
+        return JSON.stringify({errors: this.toErrorObject});
     }
 
     get code()
@@ -91,9 +91,8 @@ RESPONDS
     login:
     {
         success: true,
-        userid: uid,
+        user: {userobject},
     }
-    errors: []
 }
 */
 function HandleLogin(req, res, next)
@@ -109,6 +108,13 @@ function HandleLogin(req, res, next)
 
     const username = req.body.username;
 
+    if (!Game.Registrar.ValidUsername(username))
+    {
+        err.addError(403, 'Forbidden', 'Invalid username');
+        err.end(res);
+        return;
+    }
+    
     if (!Game.Registrar.CheckUsernameAvailability(username))
     {
         err.addError(403, 'Forbidden', 'Username taken');
@@ -129,9 +135,16 @@ function HandleLogin(req, res, next)
         return;
     }
 
-    Game.Registrar.RegisterPlayer(username, ip);
+    const user = Game.Registrar.RegisterPlayer(username, ip);
 
-    res.end(JSON.stringify(req.body.username));
+    const response = {
+        login: {
+            success: true,
+            user: user
+        }
+    }
+
+    res.end(JSON.stringify(response));
 
     // Continue to later middleware
     next();
