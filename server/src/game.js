@@ -1,22 +1,11 @@
-const Logger = require('./logger.js');
-const Server = require('./server.js');
+const Registrar = require('./game-registrar.js');
 
-module.exports.OnlinePlayers = [];
-
-
-function CheckUsernameAvailability(username)
-{
-    if (this.OnlinePlayers[username]) return false;
-    return true;
-}
-
-function RegisterPlayer()
-{
-    
-}
-
+/**
+ * This is just to manage the "game" module
+ * and control logic for the game, seperating
+ * networking, game logic and domain logic
+ */
 
 module.exports = {
-    CheckUsernameAvailability: CheckUsernameAvailability,
-    RegisterPlayer: RegisterPlayer
+    Registrar: Registrar
 }

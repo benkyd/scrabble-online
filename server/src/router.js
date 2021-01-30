@@ -1,10 +1,12 @@
 const Logger = require('./logger.js');
 const Server = require('./webserver.js');
+const Game = require('./game.js')
 
 const Express = require('express');
+const game = require('./game.js');
 
 /**
- * Most buisness logic is in this file, processing routes before
+ * Most domain logic is in this file, processing routes before
  * further processing from gamelogic or socket logic, not too
  * much point modularising this for a project of this fine scope
  */
@@ -36,8 +38,9 @@ STANDARD ERROR RESPONSE
     ]
 }
 */
-
-
+// Would automatically convert code to error
+// but that would be too much effort and i cba
+// TODO: That ^
 class Error
 {
     constructor()
@@ -53,6 +56,11 @@ class Error
     isErrored()
     {
         return this.errors.length >= 0;
+    }
+
+    end(expressRes)
+    {
+        expressRes.status(this.code).end(this.toString);
     }
 
     get toErrorObject()
@@ -96,13 +104,25 @@ function HandleLogin(req, res, next)
     if (!req.body.username)
     {
         err.addError(400, 'Bad Request', 'Username not present');
-        res.status(err.code).end(err.toString);
+        err.end(res);
         return;
     }
 
+    const username = req.body.username;
 
+    if (!game.Registrar.CheckUsernameAvailability(username))
+    {
+        err.addError(403, 'Forbidden', 'Username taken');
+        err.end(res);
+        return;
+    }
+
+    game.Registrar.RegisterPlayer(username, req);
 
     res.end(JSON.stringify(req.body.username));
+
+    // Continue to later middleware
+    next();
 }
 
 

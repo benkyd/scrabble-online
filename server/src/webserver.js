@@ -5,13 +5,13 @@ const BodyParser = require('body-parser');
 
 async function init()
 {
-    // yes all of these should be exported
+    // Yes all of these should be exported
     module.exports.Port = process.env.SERVER_PORT || 8080;
     module.exports.App = Express();
 
     module.exports.App.use(BodyParser.json());
 
-    // will throw if port is in use or if process
+    // Will throw if port is in use or if process
     // has no permission to listen on port x
     try
     {
