@@ -8,6 +8,7 @@ USER OBJECT
 {
     username: username,
     uid: id,
+    ip: ip
 }
 */
 // TODO: Maybe stringify this for easy session persistence
@@ -20,11 +21,18 @@ let OnlinePlayers = [];
 function CheckUsernameAvailability(username)
 {
     for (const player in OnlinePlayers)
-    {
         if (OnlinePlayers[player].username == username)
             return false;
-    }
     return true;
+}
+
+function CountIPs(ip)
+{
+    let count = 0;
+    for (const player in OnlinePlayers)
+        if (OnlinePlayers[player].ip == ip)
+            count++
+    return count;
 }
 
 function RegisterPlayer(username, ip)
@@ -34,7 +42,8 @@ function RegisterPlayer(username, ip)
 
     OnlinePlayers[id] = { 
         username: username,
-        id: id
+        uid: id,
+        ip: ip
     };
 
     console.log(`New player registering: ${username}, ${id}`);
@@ -47,5 +56,6 @@ module.exports = {
     OnlinePlayers: OnlinePlayers,
 
     CheckUsernameAvailability: CheckUsernameAvailability,
+    CountIPs: CountIPs,
     RegisterPlayer: RegisterPlayer
 }

@@ -3,7 +3,6 @@ const Server = require('./webserver.js');
 const Game = require('./game.js')
 
 const Express = require('express');
-const game = require('./game.js');
 
 /**
  * Most domain logic is in this file, processing routes before
@@ -110,14 +109,27 @@ function HandleLogin(req, res, next)
 
     const username = req.body.username;
 
-    if (!game.Registrar.CheckUsernameAvailability(username))
+    if (!Game.Registrar.CheckUsernameAvailability(username))
     {
         err.addError(403, 'Forbidden', 'Username taken');
         err.end(res);
         return;
     }
 
-    game.Registrar.RegisterPlayer(username, req);
+    // Check headers for proxied IP, incase server is in production on NGinx
+    // 100000% going to forget about this when it comes to do the socket code
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+    // Cheeky bit of spam protection, no 10 clients can come from the same
+    // remote network
+    if (Game.Registrar.CountIPs(ip) > 10)
+    {
+        err.addError(429, 'Too Many Requests', 'Too many clients');
+        err.end(res);
+        return;
+    }
+
+    Game.Registrar.RegisterPlayer(username, ip);
 
     res.end(JSON.stringify(req.body.username));
 
