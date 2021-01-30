@@ -144,6 +144,8 @@ function HandleLogin(req, res, next)
         }
     }
 
+    Logger.info(`NEW USER ID ${user.uid}`);
+
     res.end(JSON.stringify(response));
 
     // Continue to later middleware

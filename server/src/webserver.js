@@ -3,28 +3,34 @@ const Logger = require('./logger.js');
 const Express = require('express');
 const BodyParser = require('body-parser');
 
+let App;
+let Port;
+
 async function init()
 {
     // Yes all of these should be exported
-    module.exports.Port = process.env.SERVER_PORT || 8080;
-    module.exports.App = Express();
+    Port = process.env.SERVER_PORT || 8080;
+    App = Express();
 
-    module.exports.App.use(BodyParser.json());
+    App.use(BodyParser.json());
 
     // Will throw if port is in use or if process
     // has no permission to listen on port x
     try
     {
-        module.exports.App.listen(module.exports.Port, () => {
-            Logger.info(`WEBSERVER LISTENING ON ${module.exports.Port}`);
+        App.listen(Port, () => {
+            Logger.info(`WEB SERVER LISTENING ON ${Port}`);
         },);
     } catch (e)
     {
-        Logger.panic(`Cannot listen on port ${module.exports.Port}: ${e}`);
+        Logger.panic(`CANNOT LISTEN ON PORT ${Port}: ${e}`);
     }
 }
 
 
 module.exports = {
+    App: App,
+    Port: Port,
+
     init: init
 }

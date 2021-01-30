@@ -54,7 +54,7 @@ function RegisterPlayer(username, ip)
         ip: ip
     };
 
-    console.log(`New player registering: ${username}, ${id}`);
+    Logger.info(`${id}: REGISTERING`);
     
     return OnlinePlayers[id];
 }

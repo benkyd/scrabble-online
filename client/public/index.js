@@ -6,11 +6,9 @@ const ConnectionState = document.querySelector('#connection-state');
 
 UsernameForm.addEventListener('submit', onUsernameSubmit);
 
-(()=>{
 
-    // Presettup
+const socket = io('localhost:8080');
 
-})()
 
 // User submits their desired username
 async function onUsernameSubmit(e)
