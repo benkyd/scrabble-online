@@ -9,13 +9,18 @@ const Express = require('express');
  * much point modularising this for a project of this fine scope
  */
 
-module.exports.init = async function()
+async function init()
 {
     Server.App.use(Express.static('../client/public'));
 
     Server.App.post('/login', HandleLogin);
 
     Logger.info('ROTUER SETUP');
+}
+
+
+module.exports = {
+    init: init
 }
 
 
@@ -87,6 +92,7 @@ RESPONDS
 function HandleLogin(req, res, next)
 {
     const err = new Error;
+
     if (!req.body.username)
     {
         err.addError(400, 'Bad Request', 'Username not present');
@@ -94,5 +100,9 @@ function HandleLogin(req, res, next)
         return;
     }
 
+
+
     res.end(JSON.stringify(req.body.username));
 }
+
+
