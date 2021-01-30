@@ -8,7 +8,6 @@ UsernameForm.addEventListener('submit', onUsernameSubmit);
 
 })()
 
-
 // User submits their desired username
 async function onUsernameSubmit(e)
 {

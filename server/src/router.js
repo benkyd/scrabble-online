@@ -3,6 +3,12 @@ const Server = require('./webserver.js');
 
 const Express = require('express');
 
+/**
+ * Most buisness logic is in this file, processing routes before
+ * further processing from gamelogic or socket logic, not too
+ * much point modularising this for a project of this fine scope
+ */
+
 module.exports.init = async function()
 {
     Server.App.use(Express.static('../client/public'));
@@ -11,6 +17,7 @@ module.exports.init = async function()
 
     Logger.info('ROTUER SETUP');
 }
+
 
 /*
 STANDARD ERROR RESPONSE
@@ -24,6 +31,7 @@ STANDARD ERROR RESPONSE
     ]
 }
 */
+
 
 class Error
 {
@@ -54,9 +62,12 @@ class Error
 
     get code()
     {
+        // Get the error code of the last error in the list
+        // to return to the client if there is multiple
         return this.errors[this.errors.length - 1].code;
     }
 }
+
 
 /*
 EXPECTS
@@ -68,7 +79,7 @@ RESPONDS
     login:
     {
         success: true,
-        userid: uuid,
+        userid: uid,
     }
     errors: []
 }
@@ -83,5 +94,5 @@ function HandleLogin(req, res, next)
         return;
     }
 
-    res.end('{}');
+    res.end(JSON.stringify(req.body.username));
 }

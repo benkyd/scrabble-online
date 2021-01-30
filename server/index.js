@@ -1,6 +1,6 @@
-const Logger = require('./logger.js');
-const Server = require('./webserver.js');
-const Router = require('./router.js')
+const Logger = require('./src/logger.js');
+const Server = require('./src/webserver.js');
+const Router = require('./src/router.js')
 
 require('dotenv').config()
 
