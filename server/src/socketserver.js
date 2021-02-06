@@ -1,5 +1,6 @@
 const Logger = require('./logger.js');
 const WebServer = require('./webserver.js');
+const Game = require('./game.js');
 
 /**
  * All socket communication follows a standard call/response & event
@@ -25,24 +26,40 @@ function init()
     Logger.info('SOCKET SERVER LISTENING');
 }
 
+
+// 
+let ActiveSockets = [];
+
 async function Router(socket)
 {
-
     // First, ask socket to identify it's self
-    socket.emit('identify');
-
-
+    socket.on('connect', (...args) => {
+        socket.emit('identify');
+    })
 
     socket.on('identify', userid => ClientIdentify(socket, userid));
+
+
+    socket.on('disconnect', args => HandleDisconnect(socket, ...args));
 
 }
 
 
 function ClientIdentify(socket, userid)
 {
-    console.log(userid)
+    const user = Game.Registrar.GetUserByUID(userid);
+    
+    if (!user)
+    {
+        
+    }
+
 }
 
+function HandleDisconnect(socket, args)
+{
+
+}
 
 
 module.exports = {

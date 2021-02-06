@@ -94,6 +94,8 @@ RESPONDS
         user: {userobject},
     }
 }
+NOTES
+    - userobject is defined in the game registrar
 */
 function HandleLogin(req, res, next)
 {

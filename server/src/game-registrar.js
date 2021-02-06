@@ -2,6 +2,7 @@ const Logger = require('./logger.js');
 const Server = require('./webserver.js');
 
 const Crypto = require("crypto");
+const { getuid } = require('process');
 
 /* 
 USER OBJECT
@@ -10,6 +11,9 @@ USER OBJECT
     uid: id,
     ip: ip
 }
+NOTES
+    - Socket relations are handled by the socket server in order
+      to seperate domain logic from game and networking logic
 */
 // TODO: Maybe stringify this for easy session persistence
 // poor substitute for a proper database but it's better
@@ -20,8 +24,8 @@ let OnlineUsers = [];
 // TODO: This won't scale very well lol
 function CheckUsernameAvailability(username)
 {
-    for (const player in OnlineUsers)
-        if (OnlineUsers[player].username == username)
+    for (const user in OnlineUsers)
+        if (OnlineUsers[user].username == username)
             return false;
     return true;
 }
@@ -34,8 +38,8 @@ function CheckValidUID(uid)
 function CountIPs(ip)
 {
     let count = 0;
-    for (const player in OnlineUsers)
-        if (OnlineUsers[player].ip == ip)
+    for (const user in OnlineUsers)
+        if (OnlineUsers[user].ip == ip)
             count++
     return count;
 }
@@ -46,6 +50,18 @@ function ValidUsername(username)
         return false;
     }
     return true;
+}
+
+function GetUserByUID(uid)
+{
+    return OnlineUsers[id];
+}
+
+function GetUserByUsername(username)
+{
+    for (const user in OnlineUsers)
+        if (OnlineUsers[user].username == username)
+            return OnlineUsers[user];
 }
 
 function RegisterUser(username, ip)
@@ -71,6 +87,11 @@ module.exports = {
     CheckUsernameAvailability: CheckUsernameAvailability,
     CheckValidUID: CheckValidUID,
     CountIPs: CountIPs,
+
+    GetUserByUID: GetUserByUID,
+    GetUserByUsername: GetUserByUsername,
+    
     ValidUsername: ValidUsername,
+    
     RegisterUser: RegisterUser
 }

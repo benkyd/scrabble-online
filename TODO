@@ -1,7 +1,14 @@
 [ ] SERVER 
     [ ] Socket user identifying
         [ ] Fix user timeouts / deletion
+            [ ] User login checks if there's an active socket
+                [ ] If there's no active socket, delete the user and allow new user to connect
+                [ ] User sockets, or "users" are made innactive after timeout on socket
+                -  Prevents softlock of users and stops socket spamming
     [ ] 1v1 game framework that allows spectators#
         [ ] 
+    [ ] Game logic implementation
 [ ] CLIENT
     [ ] 
+
+    
