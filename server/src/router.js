@@ -135,7 +135,7 @@ function HandleLogin(req, res, next)
         return;
     }
 
-    const user = Game.Registrar.RegisterPlayer(username, ip);
+    const user = Game.Registrar.RegisterUser(username, ip);
 
     const response = {
         login: {

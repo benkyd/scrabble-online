@@ -14,23 +14,28 @@ USER OBJECT
 // TODO: Maybe stringify this for easy session persistence
 // poor substitute for a proper database but it's better
 // than nothing 
-let OnlinePlayers = [];
+let OnlineUsers = [];
 
 
 // TODO: This won't scale very well lol
 function CheckUsernameAvailability(username)
 {
-    for (const player in OnlinePlayers)
-        if (OnlinePlayers[player].username == username)
+    for (const player in OnlineUsers)
+        if (OnlineUsers[player].username == username)
             return false;
     return true;
+}
+
+function CheckValidUID(uid)
+{
+    return (OnlineUsers[uid]) ? true : false;
 }
 
 function CountIPs(ip)
 {
     let count = 0;
-    for (const player in OnlinePlayers)
-        if (OnlinePlayers[player].ip == ip)
+    for (const player in OnlineUsers)
+        if (OnlineUsers[player].ip == ip)
             count++
     return count;
 }
@@ -43,12 +48,12 @@ function ValidUsername(username)
     return true;
 }
 
-function RegisterPlayer(username, ip)
+function RegisterUser(username, ip)
 {
     // TODO: Don't assume this is unique, even with Crypto, UUIDv4?
     const id = Crypto.randomBytes(32).toString("hex");
 
-    OnlinePlayers[id] = { 
+    OnlineUsers[id] = { 
         username: username,
         uid: id,
         ip: ip
@@ -56,15 +61,16 @@ function RegisterPlayer(username, ip)
 
     Logger.info(`${id}: REGISTERING`);
     
-    return OnlinePlayers[id];
+    return OnlineUsers[id];
 }
 
 
 module.exports = {
-    OnlinePlayers: OnlinePlayers,
+    OnlineUsers: OnlineUsers,
 
     CheckUsernameAvailability: CheckUsernameAvailability,
+    CheckValidUID: CheckValidUID,
     CountIPs: CountIPs,
     ValidUsername: ValidUsername,
-    RegisterPlayer: RegisterPlayer
+    RegisterUser: RegisterUser
 }

@@ -7,9 +7,6 @@ const ConnectionState = document.querySelector('#connection-state');
 UsernameForm.addEventListener('submit', onUsernameSubmit);
 
 
-const socket = io('localhost:8080');
-
-
 // User submits their desired username
 async function onUsernameSubmit(e)
 {
@@ -50,5 +47,6 @@ async function onUsernameSubmit(e)
         sessionStorage.setItem('user', JSON.stringify(body.login.user));
         console.log(sessionStorage.user)
         ClientID.innerHTML = `ClientID: ${JSON.parse(sessionStorage.user).uid}`;
+        document.location.href = document.location.href + '/lobby';
     }
 }
