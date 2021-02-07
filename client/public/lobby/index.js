@@ -5,7 +5,10 @@ ConnectionState.innerHTML = 'Waiting for connection'
 
 const socket = io(window.location.host);
 
-ConnectionState.innerHTML = 'Waiting for identify'
+socket.on('connect', (...args) => {
+    console.log('Socket Connected');
+    ConnectionState.innerHTML = 'Waiting for identify'
+});
 
 socket.on('identify', (...args) => {
     ConnectionState.innerHTML = 'Identify recived'
@@ -29,15 +32,16 @@ socket.on('identify', (...args) => {
         return;
     }
 
-    socket.emit('identify', { playerid: user.uid });
+    socket.emit('identify', { userid: user.uid });
     ConnectionState.innerHTML = 'Identify response';
 });
 
 socket.on('identify-success', (...args) => {
-
+    console.log(args);
 });
 
 socket.on('identify-error', (...args) => {
-
+    console.log(args);
+    ConnectionState.innerHTML = JSON.stringify(args[0]);
 });
 

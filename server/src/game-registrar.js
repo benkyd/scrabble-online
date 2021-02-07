@@ -2,7 +2,6 @@ const Logger = require('./logger.js');
 const Server = require('./webserver.js');
 
 const Crypto = require("crypto");
-const { getuid } = require('process');
 
 /* 
 USER OBJECT
@@ -54,7 +53,7 @@ function ValidUsername(username)
 
 function GetUserByUID(uid)
 {
-    return OnlineUsers[id];
+    return OnlineUsers[uid];
 }
 
 function GetUserByUsername(username)
@@ -63,6 +62,7 @@ function GetUserByUsername(username)
         if (OnlineUsers[user].username == username)
             return OnlineUsers[user];
 }
+
 
 function RegisterUser(username, ip)
 {
@@ -78,6 +78,16 @@ function RegisterUser(username, ip)
     Logger.info(`${id}: REGISTERING`);
     
     return OnlineUsers[id];
+}
+
+function UserConnect()
+{
+
+}
+
+function UserDisconnect()
+{
+
 }
 
 
