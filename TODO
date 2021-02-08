@@ -9,6 +9,6 @@
         [ ] 
     [ ] Game logic implementation
 [ ] CLIENT
-    [ ] 
+    [ ] Save username and re-request automatically if uid changed
+    [ ] Display and save last error on main screen 
 
-    

@@ -14,7 +14,8 @@ const Error = require('./error.js');
  * Again, networking code will be seperated from domain logic with sockets
  * 
  * Sockets will error with HTTP error codes because it's a pretty decent
- * standard for standard errors that may occur
+ * standard for standard errors that may occur. Then general errors will
+ * be 500 errors with a description
  */
 
 function init()
