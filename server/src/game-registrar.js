@@ -21,7 +21,7 @@ let OnlineUsers = [];
 
 
 // TODO: This won't scale very well lol
-function CheckUsernameAvailability(username)
+function CheckUsernameAvailability(username) 
 {
     for (const user in OnlineUsers)
         if (OnlineUsers[user].username == username)
@@ -38,14 +38,15 @@ function CountIPs(ip)
 {
     let count = 0;
     for (const user in OnlineUsers)
-        if (OnlineUsers[user].ip == ip)
+        if (OnlineUsers[user].ip === ip)
             count++
     return count;
 }
 
 function ValidUsername(username)
 {
-    if (username.match(/[^A-Za-z0-9_-]/)) {
+    if (username.match(/[^A-Za-z0-9_-]/)) 
+    {
         return false;
     }
     return true;
@@ -59,7 +60,7 @@ function GetUserByUID(uid)
 function GetUserByUsername(username)
 {
     for (const user in OnlineUsers)
-        if (OnlineUsers[user].username == username)
+        if (OnlineUsers[user].username === username)
             return OnlineUsers[user];
 }
 
@@ -67,25 +68,35 @@ function GetUserByUsername(username)
 function RegisterUser(username, ip)
 {
     // TODO: Don't assume this is unique, even with Crypto, UUIDv4?
-    const id = Crypto.randomBytes(32).toString("hex");
+    const uid = Crypto.randomBytes(32).toString("hex");
 
-    OnlineUsers[id] = { 
+    OnlineUsers[uid] = { 
         username: username,
-        uid: id,
-        ip: ip
+        uid: uid,
+        ip: ip,
+        // REGISTERED, CONNECTED, DISCONNECTED
+        state: 'REGISTERED',
+        // Doesn't update if state changes
+        connectionid: 'none',
     };
 
-    Logger.info(`${id}: REGISTERING`);
+    Logger.info(`${uid} REGISTERING`);
     
-    return OnlineUsers[id];
+    return OnlineUsers[uid];
 }
 
-function UserConnect()
+
+// Can return string errors, or true if success
+// yes multiple return types i know its bad
+function UserConnect(userid, connectionid)
 {
+    if (OnlineUsers[userid].state === 'CONNECTED') return 'User Connected';
 
+
+    return true;
 }
 
-function UserDisconnect()
+function UserDisconnect(userid, connectionid)
 {
 
 }
@@ -97,11 +108,13 @@ module.exports = {
     CheckUsernameAvailability: CheckUsernameAvailability,
     CheckValidUID: CheckValidUID,
     CountIPs: CountIPs,
+    ValidUsername: ValidUsername,
 
     GetUserByUID: GetUserByUID,
     GetUserByUsername: GetUserByUsername,
     
-    ValidUsername: ValidUsername,
-    
-    RegisterUser: RegisterUser
+    RegisterUser: RegisterUser,
+
+    UserConnect: UserConnect,
+    UserDisconnect: UserDisconnect
 }

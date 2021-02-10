@@ -55,22 +55,32 @@ function ClientIdentify(socket, userid)
     
     const user = Game.Registrar.GetUserByUID(userid);
     
-    console.log(user);
-
     if (!user)
     {
         err.addError(403, 'Forbidden', 'Unknown uid');
         socket.emit('identify-error', err.toError);
         return;
     }
+    
+    console.log(user);
+    
+    const status = Game.Registrar.UserConnect(userid, socket.id);
 
-
-
+    if (status === true)
+    {
+        socket.emit('identify-success', {connected: true, user: user});
+        return;
+    } else
+    {
+        err.addError(500, 'Internal Server Error', 'Socket busy');
+        socket.emit('identify-error', err.toError);
+        return;
+    }
 }
 
 function HandleDisconnect(socket, args)
 {
-
+    Logger.debug(`${socket.id} DISCONNECTED`)
 }
 
 

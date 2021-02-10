@@ -84,23 +84,23 @@ module.exports.warn = function(message) {
     let d = moment().format(dateFormat);
     fs.appendFileSync(logPath, `[${d.toLocaleString()}] [WARN] ${message} \n`);
     if (LogLevel > 3) return; 
-    console.log('[' + d.toLocaleString() + '] [' 
+    console.warn('[' + d.toLocaleString() + '] [' 
         + colours.yellow('WARN') + '] ' + message);
 }
 
 module.exports.error = function(message) {
     let d = moment().format(dateFormat);
     fs.appendFileSync(logPath, `[${d.toLocaleString()}] [ERROR] ${message} \n`);
-    console.log('[' + d.toLocaleString() + '] [' 
+    console.error('[' + d.toLocaleString() + '] [' 
         + colours.red('ERROR') + '] ' + message);
 }
 
 module.exports.panic = function(message) {
     let d = moment().format(dateFormat);
     fs.appendFileSync(logPath, `[${d.toLocaleString()}] [PANIC] ${message} \n`);
-    console.log('[' + d.toLocaleString() + '] [' 
+    console.error('[' + d.toLocaleString() + '] [' 
         + colours.red('PANIC') + '] ' + message);
-    console.log('[' + d.toLocaleString() + '] [' 
+    console.error('[' + d.toLocaleString() + '] [' 
         + colours.red('PANIC') + '] ABORTING...');
     process.exit();
 }

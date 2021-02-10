@@ -98,5 +98,3 @@ function HandleLogin(req, res, next)
     // Continue to later middleware
     next();
 }
-
-

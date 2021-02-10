@@ -10,24 +10,41 @@ socket.on('connect', (...args) => {
     ConnectionState.innerHTML = 'Waiting for identify'
 });
 
+socket.on('disconnect', (...args) => {
+    console.log('Socket Disconnected');
+    ConnectionState.innerHTML = 'Disconnected'
+});
+
 socket.on('identify', (...args) => {
     ConnectionState.innerHTML = 'Identify recived'
 
+
     if (!sessionStorage.user)
     {
-        socket.emit('identify', { playerid: 'none' });
-        ConnectionState.innerHTML = 'Identify cannot proceed';
+        socket.disconnect();
+        ConnectionState.innerHTML = 'Identify cannot proceed, no user';
         document.location.href = document.location.href + '../';
         return;
     }
 
-    const user = JSON.parse(sessionStorage.user);
-
     // If, for some reason, the user in sessionstorage was corrupted
+    // TODO: Session storage error object to display on the login screen
+    let user = {};
+    try
+    {
+        user = JSON.parse(sessionStorage.user);
+    } catch (e)
+    {
+        socket.disconnect();
+        ConnectionState.innerHTML = 'Identify cannot proceed, corrupted user';
+        document.location.href = document.location.href + '../';
+        return;
+    }
+
     if (!user.uid)
     {
-        socket.emit('identify', { playerid: 'none' });
-        ConnectionState.innerHTML = 'Identify cannot proceed';
+        socket.disconnect();
+        ConnectionState.innerHTML = 'Identify cannot proceed, corrupted user';
         document.location.href = document.location.href + '../';
         return;
     }
@@ -36,8 +53,10 @@ socket.on('identify', (...args) => {
     ConnectionState.innerHTML = 'Identify response';
 });
 
+
 socket.on('identify-success', (...args) => {
     console.log(args);
+    ConnectionState.innerHTML = JSON.stringify(args[0]);
 });
 
 socket.on('identify-error', (...args) => {

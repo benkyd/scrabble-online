@@ -47,6 +47,6 @@ async function onUsernameSubmit(e)
         sessionStorage.setItem('user', JSON.stringify(body.login.user));
         console.log(sessionStorage.user)
         ClientID.innerHTML = `ClientID: ${JSON.parse(sessionStorage.user).uid}`;
-        document.location.href = document.location.href + '/lobby';
+        document.location.href = document.location.href + '/game';
     }
 }
