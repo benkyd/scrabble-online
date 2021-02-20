@@ -49,18 +49,18 @@ socket.on('identify', (...args) => {
         return;
     }
 
-    socket.emit('identify', { userid: user.uid });
+    socket.emit('identify', { userid: user.uid, intent: 'LOBYING' });
     ConnectionState.innerHTML = 'Identify response';
 });
 
 
 socket.on('identify-success', (...args) => {
     console.log(args);
-    ConnectionState.innerHTML = JSON.stringify(args[0]);
+    ConnectionState.innerHTML = JSON.stringify(args[0], undefined, 4);
 });
 
 socket.on('identify-error', (...args) => {
     console.log(args);
-    ConnectionState.innerHTML = JSON.stringify(args[0]);
+    ConnectionState.innerHTML = JSON.stringify(args[0], undefined, 4);
 });
 

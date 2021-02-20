@@ -16,6 +16,10 @@ const Error = require('./error.js');
  * Sockets will error with HTTP error codes because it's a pretty decent
  * standard for standard errors that may occur. Then general errors will
  * be 500 errors with a description
+ * 
+ * Clients connect to identify with an 'intent' to be placed in a game or to
+ * be part of the lobbying system, the intent of the client defines what 
+ * sort of communication they will be recieving
  */
 
 function init()
@@ -41,7 +45,7 @@ async function Router(socket)
     socket.emit('identify');
 
 
-    socket.on('identify', user => ClientIdentify(socket, user.userid));
+    socket.on('identify', args => ClientIdentify(socket, args));
 
 
     socket.on('disconnect', args => HandleDisconnect(socket, ...args));
@@ -49,21 +53,29 @@ async function Router(socket)
 }
 
 
-function ClientIdentify(socket, userid)
+function ClientIdentify(socket, args)
 {
     const err = new Error;
     
-    const user = Game.Registrar.GetUserByUID(userid);
-    
+    const user = Game.Registrar.GetUserByUID(args.userid);
+    const intent = args.intent;
+
+    if (!intent)
+    {
+        err.addError(403, 'Forbidden', 'Client has no intent');
+        socket.emit('identify-error', err.toError);
+        return;
+    }
+
     if (!user)
     {
         err.addError(403, 'Forbidden', 'Unknown uid');
         socket.emit('identify-error', err.toError);
         return;
     }
-    
-    console.log(user);
-    
+
+    // TODO: Sort out client intent 
+        
     const status = Game.Registrar.UserConnect(userid, socket.id);
 
     if (status === true)
@@ -72,6 +84,7 @@ function ClientIdentify(socket, userid)
         return;
     } else
     {
+        // TODO: wrong error
         err.addError(500, 'Internal Server Error', 'Socket busy');
         socket.emit('identify-error', err.toError);
         return;
@@ -80,7 +93,10 @@ function ClientIdentify(socket, userid)
 
 function HandleDisconnect(socket, args)
 {
-    Logger.debug(`${socket.id} DISCONNECTED`)
+    Logger.debug(`${socket.id} DISCONNECTED`);
+    const user = Game.Registrar.GetUserbyConnection(socket.id);
+    if (!user) return;
+    Game.Registrar.UserDisconnect(user.id, socket.id);
 }
 
 

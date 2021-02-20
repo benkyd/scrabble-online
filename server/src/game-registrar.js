@@ -8,7 +8,11 @@ USER OBJECT
 {
     username: username,
     uid: id,
-    ip: ip
+    ip: ip,
+    // REGISTERED, CONNECTED, DISCONNECTED, INGAME
+    state: 'REGISTERED',
+    // Doesn't update if state changes
+    connectionid: 'none',
 }
 NOTES
     - Socket relations are handled by the socket server in order
@@ -62,6 +66,7 @@ function GetUserByUsername(username)
     for (const user in OnlineUsers)
         if (OnlineUsers[user].username === username)
             return OnlineUsers[user];
+    return false;
 }
 
 
@@ -74,7 +79,7 @@ function RegisterUser(username, ip)
         username: username,
         uid: uid,
         ip: ip,
-        // REGISTERED, CONNECTED, DISCONNECTED
+        // REGISTERED, CONNECTED, DISCONNECTED, INGAME
         state: 'REGISTERED',
         // Doesn't update if state changes
         connectionid: 'none',
@@ -86,8 +91,21 @@ function RegisterUser(username, ip)
 }
 
 
-// Can return string errors, or true if success
-// yes multiple return types i know its bad
+
+function UserConnectionExists(userid)
+{
+    if (OnlineUsers[userid].state === 'CONNECTED') return true;
+
+}
+
+function GetUserbyConnection(connectionid)
+{
+    for (const user in OnlineUsers)
+        if (OnlineUsers[user].connectionid === connectionid)
+            return OnlineUsers[user];
+    return false;
+}
+
 function UserConnect(userid, connectionid)
 {
     if (OnlineUsers[userid].state === 'CONNECTED') return 'User Connected';
@@ -114,6 +132,11 @@ module.exports = {
     GetUserByUsername: GetUserByUsername,
     
     RegisterUser: RegisterUser,
+
+
+    UserConnectionExists: UserConnectionExists,
+    
+    GetUserbyConnection: GetUserbyConnection,
 
     UserConnect: UserConnect,
     UserDisconnect: UserDisconnect
