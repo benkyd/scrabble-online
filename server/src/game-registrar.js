@@ -2,6 +2,7 @@ const Logger = require('./logger.js');
 const Server = require('./webserver.js');
 
 const Crypto = require("crypto");
+const { CONNREFUSED } = require('dns');
 
 /* 
 USER OBJECT
@@ -11,6 +12,8 @@ USER OBJECT
     ip: ip,
     // REGISTERED, CONNECTED, DISCONNECTED, INGAME
     state: 'REGISTERED',
+    // LOBYING, GAME, UNDECIDED
+    intent: 'LOBYING',
     // Doesn't update if state changes
     connectionid: 'none',
 }
@@ -110,12 +113,19 @@ function UserConnect(userid, connectionid)
 {
     if (OnlineUsers[userid].state === 'CONNECTED') return 'User Connected';
 
+    OnlineUsers[userid].connectionid = connectionid;
+    OnlineUsers[userid].state = 'CONNECTED';
+
+    Logger.info(`SOCKET ${connectionid} IDENTIFIED AS ${userid}`);
 
     return true;
 }
 
-function UserDisconnect(userid, connectionid)
+function UserDisconnect(userid)
 {
+    if (!OnlineUsers[userid]) return false;
+    if (OnlineUsers[userid].state === 'DISCONNECTED') return false; // no change
+    OnlineUsers[userid].state = 'DISCONNECTED';
 
 }
 

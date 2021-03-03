@@ -76,15 +76,20 @@ function ClientIdentify(socket, args)
 
     // TODO: Sort out client intent 
         
-    const status = Game.Registrar.UserConnect(userid, socket.id);
+    const status = Game.Registrar.UserConnect(user.uid, socket.id);
 
     if (status === true)
     {
         socket.emit('identify-success', {connected: true, user: user});
         return;
+    } 
+    else if (status === 'User Connected')
+    {
+        err.addError(500, 'Internal Server Error', 'User already connected');
+        socket.emit('identify-error', err.toError);
+        return;
     } else
     {
-        // TODO: wrong error
         err.addError(500, 'Internal Server Error', 'Socket busy');
         socket.emit('identify-error', err.toError);
         return;
@@ -96,7 +101,7 @@ function HandleDisconnect(socket, args)
     Logger.debug(`${socket.id} DISCONNECTED`);
     const user = Game.Registrar.GetUserbyConnection(socket.id);
     if (!user) return;
-    Game.Registrar.UserDisconnect(user.id, socket.id);
+    Game.Registrar.UserDisconnect(user.uid);
 }
 
 
