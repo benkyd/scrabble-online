@@ -13,8 +13,41 @@
         <h1>Game Lobby</h1>
 
         <div id="connection-state"></div>
+        <p>
+
+        <div id="lobbies" style="display:none">
+            <input type="button" value="Create Lobby" onclick="createLobby()">
+            <input type="button" value="Join Lobby" onclick="joinLobby()">
+    
+            <div id="lobbyid">
+
+            </div>
+
+        </div>
+
+        <div id="lobby-create" style="display:none">
+            <h3>Create a Lobby</h3>
+            <input type="text" id="" placeholder="name">
+            <p>
+            <input type="checkbox" id=""> private lobby
+            <p>
+            <input type="checkbox" id=""> allow spectators
+            <p>
+            <input type="button" value="create">
+            <input type="button" value="back" onclick="back()">
+        </div>
+
+        <div id="lobby-join" style="display:none">
+            <h3>Join a Lobby</h3>
+            <input type="text" id="" placeholder="lobby code">
+            <p>
+            <input type="button" value="join">
+            <input type="button" value="back" onclick="back()">
+        </div>
 
 
+        <script src="lobbies.js"></script>
+        <script src="index.js"></script>
         <script src="init.js"></script>
     </body>
 </html>

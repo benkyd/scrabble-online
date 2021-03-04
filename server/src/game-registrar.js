@@ -2,18 +2,17 @@ const Logger = require('./logger.js');
 const Server = require('./webserver.js');
 
 const Crypto = require("crypto");
-const { CONNREFUSED } = require('dns');
 
 /* 
 USER OBJECT
 {
     username: username,
-    uid: id,
+    uid: uid,
     ip: ip,
     // REGISTERED, CONNECTED, DISCONNECTED, INGAME
     state: 'REGISTERED',
     // LOBYING, GAME, UNDECIDED
-    intent: 'LOBYING',
+    intent: 'LOBBYING',
     // Doesn't update if state changes
     connectionid: 'none',
 }
@@ -30,8 +29,13 @@ let OnlineUsers = [];
 // TODO: This won't scale very well lol
 function CheckUsernameAvailability(username) 
 {
+    // un-reserve username if original owner has disconnected
     for (const user in OnlineUsers)
-        if (OnlineUsers[user].username == username)
+        if (OnlineUsers[user].username === username && OnlineUsers[user].state === 'DISCONNECTED')
+            return true;
+
+    for (const user in OnlineUsers)
+        if (OnlineUsers[user].username === username)
             return false;
     return true;
 }
@@ -78,6 +82,18 @@ function RegisterUser(username, ip)
     // TODO: Don't assume this is unique, even with Crypto, UUIDv4?
     const uid = Crypto.randomBytes(32).toString("hex");
 
+    // Free up disconnected users with likewise usernames
+    for (const user in OnlineUsers)
+    {
+        if (OnlineUsers[user].username === username && OnlineUsers[user].state === 'DISCONNECTED')
+        {
+            DeRegisterUser(user);
+        } else
+        {
+            return;
+        }
+    }
+
     OnlineUsers[uid] = { 
         username: username,
         uid: uid,
@@ -93,12 +109,16 @@ function RegisterUser(username, ip)
     return OnlineUsers[uid];
 }
 
+function DeRegisterUser(userid)
+{
+    delete OnlineUsers[userid];
+}
 
 
 function UserConnectionExists(userid)
 {
     if (OnlineUsers[userid].state === 'CONNECTED') return true;
-
+    if (OnlineUsers[userid].state === 'DISCONNECTED') return false;
 }
 
 function GetUserbyConnection(connectionid)
@@ -111,7 +131,7 @@ function GetUserbyConnection(connectionid)
 
 function UserConnect(userid, connectionid)
 {
-    if (OnlineUsers[userid].state === 'CONNECTED') return 'User Connected';
+    if (OnlineUsers[userid].state === 'CONNECTED') return 'User Already Connected';
 
     OnlineUsers[userid].connectionid = connectionid;
     OnlineUsers[userid].state = 'CONNECTED';
@@ -126,7 +146,7 @@ function UserDisconnect(userid)
     if (!OnlineUsers[userid]) return false;
     if (OnlineUsers[userid].state === 'DISCONNECTED') return false; // no change
     OnlineUsers[userid].state = 'DISCONNECTED';
-
+    return true;
 }
 
 
@@ -142,6 +162,7 @@ module.exports = {
     GetUserByUsername: GetUserByUsername,
     
     RegisterUser: RegisterUser,
+    DeRegisterUser: DeRegisterUser,
 
 
     UserConnectionExists: UserConnectionExists,

@@ -83,7 +83,7 @@ function ClientIdentify(socket, args)
         socket.emit('identify-success', {connected: true, user: user});
         return;
     } 
-    else if (status === 'User Connected')
+    else if (status === 'User Already Connected')
     {
         err.addError(500, 'Internal Server Error', 'User already connected');
         socket.emit('identify-error', err.toError);

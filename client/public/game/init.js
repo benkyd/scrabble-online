@@ -13,6 +13,7 @@ socket.on('connect', (...args) => {
 socket.on('disconnect', (...args) => {
     console.log('Socket Disconnected');
     ConnectionState.innerHTML = 'Disconnected'
+    onDisconnect();
 });
 
 socket.on('identify', (...args) => {
@@ -55,12 +56,14 @@ socket.on('identify', (...args) => {
 
 
 socket.on('identify-success', (...args) => {
-    console.log(args);
-    ConnectionState.innerHTML = JSON.stringify(args[0], undefined, 4);
+    console.log(args[0]);
+    ConnectionState.innerHTML = args[0].user.state;
+    onConnect();
 });
 
 socket.on('identify-error', (...args) => {
-    console.log(args);
-    ConnectionState.innerHTML = JSON.stringify(args[0], undefined, 4);
+    console.log(args[0]);
+    ConnectionState.innerHTML = JSON.stringify(args[0]);
+    onDisconnect();
 });
 

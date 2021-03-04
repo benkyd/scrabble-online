@@ -1,14 +1,23 @@
 [ ] SERVER 
-    [ ] Socket user identifying
+    [x] Socket user identifying
         [x] User login checks if there's an active socket
-            [ ] If there's no active socket, delete the user and allow new user to connect
-        [ ] Fix user timeouts / deletion
-            [ ] User sockets, or "users" are made innactive after timeout on socket
+            [x] If there's no active socket, delete the user and allow new user to connect
+        [x] Fix user timeouts / deletion
+            [x] User sockets, or "users" are made innactive after timeout on socket
              -  Prevents softlock of users and stops socket spamming
+    [ ] Game lobying system
+        [ ] Delete lobby once user disconnects
+        [ ] Matchmaking system
     [ ] 1v1 game framework that allows spectators
         [ ] 
     [ ] Game logic implementation
 [ ] CLIENT
+    [ ] Lobby page
+        [x] Basic connection stuff
+        [ ] Create lobby
+        [ ] Join lobby
+        [ ] Public lobby list
+        [ ] Matchmaking with ELO system (?)
     [ ] Save username and re-request automatically if uid changed
     [ ] Display and save last error on main screen 
     [ ] Error reporting for the user
