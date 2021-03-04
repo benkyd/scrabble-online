@@ -80,7 +80,7 @@ function GetUserByUsername(username)
 function RegisterUser(username, ip)
 {
     // TODO: Don't assume this is unique, even with Crypto, UUIDv4?
-    const uid = Crypto.randomBytes(32).toString("hex");
+    const uid = Crypto.randomBytes(8).toString("hex");
 
     // Free up disconnected users with likewise usernames
     for (const user in OnlineUsers)
@@ -90,7 +90,7 @@ function RegisterUser(username, ip)
             DeRegisterUser(user);
         } else
         {
-            return;
+            return false;
         }
     }
 

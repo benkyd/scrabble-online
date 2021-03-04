@@ -4,6 +4,7 @@ const Router = require('./src/router.js');
 const Socket = require('./src/socketserver.js');
 
 require('dotenv').config()
+const Crypto = require("crypto");
 
 async function main()
 {
