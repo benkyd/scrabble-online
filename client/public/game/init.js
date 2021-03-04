@@ -57,7 +57,7 @@ socket.on('identify', (...args) => {
 
 socket.on('identify-success', (...args) => {
     console.log(args[0]);
-    ConnectionState.innerHTML = args[0].user.state;
+    ConnectionState.innerHTML = `${args[0].user.state} as ${args[0].user.username}`;
     onConnect();
 });
 
