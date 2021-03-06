@@ -30,6 +30,9 @@ function RegisterLobby(ownerid, name, private, spectators)
 {
     if (!CheckUserAvailability(ownerid)) return false;
 
+    // Easy to remember and to read out to friends, not very unique though
+    // will def need to do some checking
+    // TODO: ^that
     const uid = Math.random().toString(36).substring(7).toUpperCase();
 
 }
