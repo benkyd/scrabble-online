@@ -47,8 +47,8 @@ async function Router(socket)
 
     socket.on('identify', args => ClientIdentify(socket, args));
 
-    socket.on('lobby-create', console.log);
-    socket.on('lobby-join', console.log);
+    socket.on('lobby-create', args => LobbyCreate(socket, args));
+    socket.on('lobby-join', args => LobbyJoin(socket, args));
 
 
     socket.on('disconnect', args => HandleDisconnect(socket, ...args));
@@ -97,6 +97,16 @@ function ClientIdentify(socket, args)
         socket.emit('identify-error', err.toError);
         return;
     }
+}
+
+function LobbyCreate(socket, args)
+{
+    console.log(args);
+}
+
+function LobbyJoin(socket, args)
+{
+
 }
 
 function HandleDisconnect(socket, args)

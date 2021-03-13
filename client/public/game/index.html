@@ -3,9 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
         <link rel="stylesheet" href="../main.css">
+        <link rel="stylesheet" href="./lobby.css">
+
         <title>Lobby</title>
     </head>
     <body>
@@ -20,10 +23,25 @@
             <input type="button" value="Create Lobby" onclick="showCreateLobby()">
             <input type="button" value="Join Lobby" onclick="showJoinLobby()">
     
-            <div id="lobbyid">
+            <p><p>
 
+            <table border="1">
+                <tr><td>Host</td><td>Name</td><td>Players</td><td>Spectators</td></tr>
+                <tr><td>Ben</td><td>Cool Lobby</td><td>1/2</td><td>2</td><td><input type="button" value="join"></td><td><input type="button" value="spectate"></td></tr>
+                <tr><td>Ines</td><td>bruh Lobby</td><td>2/2</td><td>5</td><td><input type="button" value="join" disabled></td><td><input type="button" value="spectate"></td></tr>
+                <tr><td>test</td><td>Test LOL Lobby</td><td>2/2</td><td>25</td><td><input type="button" value="join" disabled></td><td><input type="button" value="spectate"></td></tr>
+            </table>
+
+            <p><p>
+
+            <div id="lobby-pageinator"> 
+                page 
+                <div id="lobby-page-number" style="display: inline-block;">1</div>
+                 out of 
+                <div id="lobby-page-ammount" style="display: inline-block;">1</div>
+                <input type="button" value="previous page (3)" onclick="previousPageOfLobbies()">
+                <input type="button" value="next page (3)" onclick="nextPageOfLobbies()">
             </div>
-
         </div>
 
 
@@ -50,8 +68,12 @@
             <input type="button" value="back" onclick="showBack()">
         </div>
 
-        <script src="lobbies.js"></script>
+        <div id="lobby-active" style="display:none">
+
+        </div>
+
         <script src="index.js"></script>
         <script src="init.js"></script>
+        <script src="lobbies.js"></script>
     </body>
 </html>

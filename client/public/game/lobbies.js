@@ -1,11 +1,12 @@
 const LobbiesBlock = document.querySelector('#lobbies');
 const CreateLobbyBlock = document.querySelector('#lobby-create');
 const JoinLobbyBlock = document.querySelector('#lobby-join');
-
+const ActiveLobbyBlock = document.querySelector('#lobby-active')
 
 function initLobbies()
 {
     LobbiesBlock.style.display = 'block';
+    showBack();
 }
 
 function showCreateLobby()
@@ -13,7 +14,7 @@ function showCreateLobby()
     LobbiesBlock.style.display = 'none';
     JoinLobbyBlock.style.display = 'none';
     CreateLobbyBlock.style.display = 'block';
-    
+    ActiveLobbyBlock.style.display = 'none';
 }
 
 function showJoinLobby()
@@ -21,6 +22,7 @@ function showJoinLobby()
     LobbiesBlock.style.display = 'none';
     CreateLobbyBlock.style.display = 'none';
     JoinLobbyBlock.style.display = 'block';
+    ActiveLobbyBlock.style.display = 'none';
 }
 
 function showBack()
@@ -28,8 +30,16 @@ function showBack()
     CreateLobbyBlock.style.display = 'none';
     JoinLobbyBlock.style.display = 'none';
     LobbiesBlock.style.display = 'block';
+    ActiveLobbyBlock.style.display = 'none';
 }
 
+function showActive()
+{
+    CreateLobbyBlock.style.display = 'none';
+    JoinLobbyBlock.style.display = 'none';
+    LobbiesBlock.style.display = 'none';
+    ActiveLobbyBlock.style.display = 'block';
+}
 
 
 function createLobby()
@@ -63,7 +73,8 @@ function createLobby()
     socket.emit('lobby-create', {
         user: {
             uid: user.uid
-        },        lobbyName: lobbyName,
+        },        
+        lobbyName: lobbyName,
         lobbyPrivate: lobbyPrivate,
         lobbySpectators: lobbySpectators
     });
@@ -71,6 +82,15 @@ function createLobby()
     if (document.querySelector('#lobby-error'))
         document.querySelector('#lobby-error').remove();
 }
+
+socket.on('lobby-create-success', (...args) => {
+    console.log(args);
+});
+
+socket.on('lobby-create-error', (...args) => {
+    console.log('ERROR:', args);
+});
+
 
 function joinLobby()
 {
@@ -111,6 +131,13 @@ function joinLobby()
         document.querySelector('#lobby-error').remove();
 }
 
+socket.on('lobby-join-success', (...args) => {
+
+});
+
+socket.on('lobby-join-error', (...args) => {
+
+});
 
 
 function destructLobbies()

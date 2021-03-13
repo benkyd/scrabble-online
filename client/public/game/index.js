@@ -8,6 +8,11 @@ function onConnect()
 
 }
 
+function onLobbyJoin(lobby)
+{
+    
+}
+
 function onDisconnect()
 {
     destructLobbies();
