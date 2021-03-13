@@ -23,11 +23,28 @@ NOTES
 let Lobbies = [];
 
 
-function CheckUserAvailability(ownerid)
+function CheckUserAvailability(owneruid)
+{
+    // if user owns lobby
+    for (const lobby in Lobbies)
+        if (Lobbies[lobby].owneruid == owneruid) return false;
+
+    // if user is in any lobbies already
+
+    return true;
+}
+
+
+function GetLobbyByUID(lobbyUID)
+{
+    return Lobbies[lobbyUID];
+}
+
+function GetLobbyByUserUID(owneruid)
 {
     for (const lobby in Lobbies)
-        if (Lobbies[lobby].ownerid == ownerid) return false;
-    return true;
+        if (Lobbies[lobby].owneruid == owneruid) return Lobbies[lobby];
+    return false;
 }
 
 
@@ -40,6 +57,19 @@ function RegisterLobby(owneruid, name, private, spectators)
     // TODO: ^that
     const uid = Math.random().toString(36).substring(7).toUpperCase();
 
+    Lobbies[uid] = {
+        uid: uid,
+        name: name,
+        owneruid: owneruid,
+        players: [], // Owner should join lobby seperately
+        spectators: [],
+        visibility: private ? "PRIVATE" : "PUBLIC",
+        allowspectators: spectators,
+        state: 'OPEN'
+    };
+
+    return Lobbies[uid];
+
 }
 
 function DeRegisterLobby(lobbyid)
@@ -50,6 +80,9 @@ function DeRegisterLobby(lobbyid)
 
 module.exports = {
     CheckUserAvailability: CheckUserAvailability,
+
+    GetLobbyByUID: GetLobbyByUID,
+    GetLobbyByUserUID: GetLobbyByUserUID,
 
     RegisterLobby: RegisterLobby,
     DeRegisterLobby: DeRegisterLobby

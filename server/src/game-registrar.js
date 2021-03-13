@@ -101,7 +101,7 @@ function RegisterUser(username, ip)
         connectionid: 'none',
     };
 
-    Logger.info(`${uid} REGISTERING WITH ${ip}`);
+    Logger.info(`${uid} REGISTERING WITH ${ip} AS ${username}`);
     
     return OnlineUsers[uid];
 }
@@ -127,23 +127,23 @@ function GetUserbyConnection(connectionid)
     return false;
 }
 
-function UserConnect(userid, connectionid)
+function UserConnect(useruid, connectionid)
 {
-    if (OnlineUsers[userid].state === 'CONNECTED') return 'User Already Connected';
+    if (OnlineUsers[useruid].state === 'CONNECTED') return 'User Already Connected';
 
-    OnlineUsers[userid].connectionid = connectionid;
-    OnlineUsers[userid].state = 'CONNECTED';
+    OnlineUsers[useruid].connectionid = connectionid;
+    OnlineUsers[useruid].state = 'CONNECTED';
 
-    Logger.info(`SOCKET ${connectionid} IDENTIFIED AS ${userid}`);
+    Logger.info(`SOCKET ${connectionid} IDENTIFIED AS ${useruid} (${OnlineUsers[useruid].username})`);
 
     return true;
 }
 
-function UserDisconnect(userid)
+function UserDisconnect(useruid)
 {
-    if (!OnlineUsers[userid]) return false;
-    if (OnlineUsers[userid].state === 'DISCONNECTED') return false; // no change
-    OnlineUsers[userid].state = 'DISCONNECTED';
+    if (!OnlineUsers[useruid]) return false;
+    if (OnlineUsers[useruid].state === 'DISCONNECTED') return false; // no change
+    OnlineUsers[useruid].state = 'DISCONNECTED';
     return true;
 }
 
