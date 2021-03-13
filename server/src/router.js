@@ -84,6 +84,13 @@ function HandleLogin(req, res, next)
 
     const user = Game.Registrar.RegisterUser(username, ip);
 
+    if (!user)
+    {
+        err.addError(500, 'Internal Server Error', 'User Connected');
+        err.end(res);
+        return;
+    }
+
     const response = {
         login: {
             success: true,

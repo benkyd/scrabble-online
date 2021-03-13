@@ -88,9 +88,6 @@ function RegisterUser(username, ip)
         if (OnlineUsers[user].username === username && OnlineUsers[user].state === 'DISCONNECTED')
         {
             DeRegisterUser(user);
-        } else
-        {
-            return false;
         }
     }
 
@@ -104,7 +101,7 @@ function RegisterUser(username, ip)
         connectionid: 'none',
     };
 
-    Logger.info(`${uid} REGISTERING`);
+    Logger.info(`${uid} REGISTERING WITH ${ip}`);
     
     return OnlineUsers[uid];
 }
