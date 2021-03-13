@@ -29,6 +29,7 @@ async function onUsernameSubmit(e)
     });
     const body = JSON.parse(await res.text());
 
+    // TODO: remove debug symbols
     console.log(body);
 
     if (body.errors)

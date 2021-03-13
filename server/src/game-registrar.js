@@ -9,7 +9,7 @@ USER OBJECT
     username: username,
     uid: uid,
     ip: ip,
-    // REGISTERED, CONNECTED, DISCONNECTED, INGAME
+    // REGISTERED, CONNECTED, DISCONNECTED
     state: 'REGISTERED',
     // LOBYING, GAME, UNDECIDED
     intent: 'LOBBYING',
@@ -112,6 +112,7 @@ function DeRegisterUser(userid)
 }
 
 
+
 function UserConnectionExists(userid)
 {
     if (OnlineUsers[userid].state === 'CONNECTED') return true;
@@ -121,7 +122,7 @@ function UserConnectionExists(userid)
 function GetUserbyConnection(connectionid)
 {
     for (const user in OnlineUsers)
-        if (OnlineUsers[user].connectionid === connectionid)
+        if (OnlineUsers[user].connectionid === connectionid && OnlineUsers[user].state === 'CONNECTED')
             return OnlineUsers[user];
     return false;
 }

@@ -17,8 +17,8 @@
             
 
         <div id="lobbies" style="display:none">
-            <input type="button" value="Create Lobby" onclick="createLobby()">
-            <input type="button" value="Join Lobby" onclick="joinLobby()">
+            <input type="button" value="Create Lobby" onclick="showCreateLobby()">
+            <input type="button" value="Join Lobby" onclick="showJoinLobby()">
     
             <div id="lobbyid">
 
@@ -29,25 +29,26 @@
 
         <div id="lobby-create" style="display:none">
             <h3>Create a Lobby</h3>
-            <input type="text" id="" placeholder="name">
+            <input type="text" id="lobby-input-name" placeholder="name">
             <p>
-            <input type="checkbox" id=""> private lobby
+            <input type="checkbox" id="lobby-input-private"> private lobby
             <p>
-            <input type="checkbox" id=""> allow spectators
+            <input type="checkbox" id="lobby-input-spectators"> allow spectators
             <p>
-            <input type="button" value="create">
-            <input type="button" value="back" onclick="back()">
+            <input type="button" value="create" onclick="createLobby()">
+            <input type="button" value="back" onclick="showBack()">
         </div>
 
 
         <div id="lobby-join" style="display:none">
             <h3>Join a Lobby</h3>
-            <input type="text" id="" placeholder="lobby code">
+            <input type="text" id="lobby-input-join-id" placeholder="lobby code">
             <p>
-            <input type="button" value="join">
-            <input type="button" value="back" onclick="back()">
+            <input type="checkbox" id="lobby-input-join-spectator"> join as spectator
+            <p>
+            <input type="button" value="join" onclick="joinLobby()">
+            <input type="button" value="back" onclick="showBack()">
         </div>
-
 
         <script src="lobbies.js"></script>
         <script src="index.js"></script>

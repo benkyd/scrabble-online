@@ -5,10 +5,15 @@ const Logger = require('./logger.js');
 LOBBY OBJECT
 {
     uid: uid,
-    ownerid: userid,
+    name: string
+    owneruid: useruid,
+    players: [uids],
+    spectators: [uids],
     // PUBLIC, PRIVATE
     visibility: 'PUBLIC',
     allowspectators: bool,
+    // OPEN, CLOSED, INGAME
+    state: 'OPEN'
 }
 NOTES
     - Users can only own one lobby
@@ -26,9 +31,9 @@ function CheckUserAvailability(ownerid)
 }
 
 
-function RegisterLobby(ownerid, name, private, spectators)
+function RegisterLobby(owneruid, name, private, spectators)
 {
-    if (!CheckUserAvailability(ownerid)) return false;
+    if (!CheckUserAvailability(owneruid)) return false;
 
     // Easy to remember and to read out to friends, not very unique though
     // will def need to do some checking

@@ -36,16 +36,19 @@ function init()
 }
 
 
-// 
-let ActiveSockets = [];
 
 async function Router(socket)
 {
     // First, ask socket to identify it's self
+    // everything else should be event / intent
+    // based
     socket.emit('identify');
 
 
     socket.on('identify', args => ClientIdentify(socket, args));
+
+    socket.on('lobby-create', console.log);
+    socket.on('lobby-join', console.log);
 
 
     socket.on('disconnect', args => HandleDisconnect(socket, ...args));
