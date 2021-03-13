@@ -1,5 +1,6 @@
 const UsernameForm = document.querySelector('#input-username'); 
 const UsernameInput = document.querySelector('#input-text-username');
+// TODO: ^ LOWECASE U
 
 const ClientID = document.querySelector('#client-id');
 const ConnectionState = document.querySelector('#connection-state');

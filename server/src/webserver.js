@@ -7,11 +7,12 @@ const Http = require('http');
 async function init()
 {
     // Yes all of these should be exported
+    // TODO: just call it port
     module.exports.Port = process.env.SERVER_PORT || 8080;
     module.exports.App = Express();
     // must use HTTP server instead of express server so
     // that websockets can be hooked to the listen
-    module.exports.Server = Http.Server(module.exports.App)
+    module.exports.Server = Http.Server(module.exports.App);
 
     module.exports.App.use(BodyParser.json());
 
