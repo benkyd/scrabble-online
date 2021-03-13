@@ -10,12 +10,12 @@ function onConnect()
 
 function onLobbyJoin(lobby)
 {
-    
+
 }
 
 function onDisconnect()
 {
     destructLobbies();
     
-
+    document.location.href = document.location.href + '../';
 }

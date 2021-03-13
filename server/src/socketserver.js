@@ -50,7 +50,10 @@ async function Router(socket)
     socket.on('identify', args => ClientIdentify(socket, args));
 
     socket.on('lobby-create', args => LobbyCreate(socket, args));
+    socket.on('lobby-destroy');
+
     socket.on('lobby-join', args => LobbyJoin(socket, args));
+    socket.on('lobby-leave');
 
 
     socket.on('disconnect', args => HandleDisconnect(socket, ...args));
@@ -114,8 +117,7 @@ function LobbyCreate(socket, args)
         return;
     }
 
-    console.log(args);
-    if (!args.lobbyName || args.lobbyPrivate === undefined || args.lobbySpectators === undefined)
+        if (!args.lobbyName || args.lobbyPrivate === undefined || args.lobbySpectators === undefined)
     {
         err.addError(400, 'Bad Request', 'Lobby malformed');
         socket.emit('lobby-create-error', err.toError);

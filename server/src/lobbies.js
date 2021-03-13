@@ -7,8 +7,8 @@ LOBBY OBJECT
     uid: uid,
     name: string
     owneruid: useruid,
-    players: [uids],
-    spectators: [uids],
+    players: [{uid, name}],
+    spectators: [{uid, name}],
     // PUBLIC, PRIVATE
     visibility: 'PUBLIC',
     allowspectators: bool,
