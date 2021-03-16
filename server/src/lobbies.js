@@ -79,11 +79,14 @@ function DeRegisterLobby(lobbyid)
 
 
 module.exports = {
+    // Lobby validation exports
     CheckUserAvailability: CheckUserAvailability,
 
+    // Get lobby exports
     GetLobbyByUID: GetLobbyByUID,
     GetLobbyByUserUID: GetLobbyByUserUID,
 
+    // Change lobby state exports
     RegisterLobby: RegisterLobby,
     DeRegisterLobby: DeRegisterLobby
 }

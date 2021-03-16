@@ -5,17 +5,17 @@
         [x] Fix user timeouts / deletion
             [x] User sockets, or "users" are made innactive after timeout on socket
              -  Prevents softlock of users and stops socket spamming
-    [ ] Game lobying system
+    [-] Game lobying system
         [ ] Delete lobby once user disconnects
         [ ] Matchmaking system
     [ ] 1v1 game framework that allows spectators
         [ ] 
     [ ] Game logic implementation
 [ ] CLIENT
-    [ ] Lobby page
+    [-] Lobby page
         [x] Basic connection stuff
-        [ ] Create lobby
-        [ ] Join lobby
+        [x] Create lobby
+        [x] Join lobby
         [ ] Public lobby list
         [ ] Matchmaking with ELO system (?)
     [ ] Save username and re-request automatically if uid changed

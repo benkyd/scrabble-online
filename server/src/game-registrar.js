@@ -149,24 +149,31 @@ function UserDisconnect(useruid)
 
 
 module.exports = {
+    // Global exports
     OnlineUsers: OnlineUsers,
 
+    // User validation exports
     CheckUsernameAvailability: CheckUsernameAvailability,
     CheckValidUID: CheckValidUID,
     CountIPs: CountIPs,
     ValidUsername: ValidUsername,
 
+    // Get user exports
     GetUserByUID: GetUserByUID,
     GetUserByUsername: GetUserByUsername,
     
+    // Change user state exports
     RegisterUser: RegisterUser,
     DeRegisterUser: DeRegisterUser,
 
 
+    // User connection validation exports
     UserConnectionExists: UserConnectionExists,
     
+    // Get user connection exports
     GetUserbyConnection: GetUserbyConnection,
 
+    // Change user connection state exports
     UserConnect: UserConnect,
     UserDisconnect: UserDisconnect
 }
