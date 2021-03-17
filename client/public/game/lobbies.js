@@ -216,7 +216,7 @@ socket.on('lobby-update', obj => {
 
     if (obj.state === 'lobby-deregister')
     {
-        pageLog(`${obj.updateuser.username} deregistered lobby`);
+        pageLog(`${obj.updateuser.username} deleted lobby`);
         leaveLobby();
     }
 });

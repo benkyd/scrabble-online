@@ -11,7 +11,7 @@ USER OBJECT
     ip: ip,
     // REGISTERED, CONNECTED, DISCONNECTED
     state: 'CONNECTED',
-    // LOBYING, GAME, UNDECIDED
+    // LOBYING, GAMETRANSITION, GAME, UNDECIDED
     intent: 'LOBBYING',
     // Doesn't update if state changes
     connectionid: 'none',
