@@ -49,6 +49,14 @@ module.exports.database = function(message) {
         + colours.magenta(Dialect) + '] ' + message);
 }
 
+module.exports.game = function(message) {
+    let d = moment().format(dateFormat);
+    fs.appendFileSync(logPath, `[${d.toLocaleString()}] [GAME] ${message} \n`);
+    if (LogLevel > 1) return; 
+    console.log('[' + d.toLocaleString() + '] [' 
+        + colours.brightBlue('GAME') + '] ' + message);
+}
+
 module.exports.middleware = function(origin, message) {
     let d = moment().format(dateFormat);
     fs.appendFileSync(logPath, `[${d.toLocaleString()}] [MIDDLEWARE: ${origin}] ${message} \n`);

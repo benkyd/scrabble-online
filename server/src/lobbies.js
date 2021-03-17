@@ -1,5 +1,5 @@
 const Logger = require('./logger.js');
-
+const Registrar = require('./game-registrar.js');
 
 /* 
 LOBBY OBJECT
@@ -19,25 +19,51 @@ NOTES
     - Users can only own one lobby
     - Lobby UID is "join code", will be much shorter than userid
     - When inactive will be deleted, unlike users
+    - It's a waste of memory to store the name along with the useruid, however
+        i believe it will save complexity in the domain logic
 */
 let Lobbies = [];
 
 
-function CheckUserAvailability(owneruid)
+function CheckUserAvailability(useruid)
 {
-    // if user owns lobby
     for (const lobby in Lobbies)
-        if (Lobbies[lobby].owneruid == owneruid) return false;
-
-    // if user is in any lobbies already
+    {
+        // if user owns lobby
+        if (Lobbies[lobby].owneruid === useruid) return false;
+        // if user is in any lobbies already
+        if (Lobbies[lobby].players.includes(useruid)) return false;
+        // if user is spectating any lobbies already
+        if (Lobbies[lobby].spectators.includes(useruid)) return false;
+    }
 
     return true;
 }
 
-
-function GetLobbyByUID(lobbyUID)
+function IsUserInLobby(useruid)
 {
-    return Lobbies[lobbyUID];
+    for (const lobby in Lobbies)
+    {
+        // if user is in any lobbies already
+        if (Lobbies[lobby].players.includes(useruid)) return true;
+        // if user is spectating any lobbies already
+        if (Lobbies[lobby].spectators.includes(useruid)) return true;
+    }
+
+    return false;
+}
+
+function DoesUserOwnLobby(lobbyuid, useruid)
+{
+    if (!Lobbies[lobbyuid]) return false;
+    if (Lobbies[lobbyuid].owneruid === useruid) return true;
+    return false;
+}
+
+
+function GetLobbyByUID(lobbyuid)
+{
+    return Lobbies[lobbyuid];
 }
 
 function GetLobbyByUserUID(owneruid)
@@ -72,7 +98,23 @@ function RegisterLobby(owneruid, name, private, spectators)
 
 }
 
-function DeRegisterLobby(lobbyid)
+function DeRegisterLobby(lobbyuid)
+{
+    delete Lobbies[lobbyuid];
+}
+
+function UserJoinLobby(lobbyuid, useruid)
+{
+    if (IsUserInLobby(useruid)) return false;
+    if (!Lobbies[lobbyuid]) return false;
+    if (!Registrar.GetUserByUID(useruid)) return false;
+
+    Lobbies[lobbyuid].players.push({uid: useruid, name: Registrar.GetUserByUID(useruid).username});
+
+    return GetLobbyByUID(lobbyuid);
+}
+
+function SpectatorJoinLobby(lobbyuid, useruid)
 {
 
 }
@@ -81,6 +123,8 @@ function DeRegisterLobby(lobbyid)
 module.exports = {
     // Lobby validation exports
     CheckUserAvailability: CheckUserAvailability,
+    DoesUserOwnLobby: DoesUserOwnLobby,
+    IsUserInLobby: IsUserInLobby,
 
     // Get lobby exports
     GetLobbyByUID: GetLobbyByUID,
@@ -88,5 +132,7 @@ module.exports = {
 
     // Change lobby state exports
     RegisterLobby: RegisterLobby,
-    DeRegisterLobby: DeRegisterLobby
+    DeRegisterLobby: DeRegisterLobby,
+    UserJoinLobby: UserJoinLobby,
+    SpectatorJoinLobby: SpectatorJoinLobby
 }

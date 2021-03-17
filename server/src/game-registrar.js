@@ -10,7 +10,7 @@ USER OBJECT
     uid: uid,
     ip: ip,
     // REGISTERED, CONNECTED, DISCONNECTED
-    state: 'REGISTERED',
+    state: 'CONNECTED',
     // LOBYING, GAME, UNDECIDED
     intent: 'LOBBYING',
     // Doesn't update if state changes
@@ -95,8 +95,10 @@ function RegisterUser(username, ip)
         username: username,
         uid: uid,
         ip: ip,
-        // REGISTERED, CONNECTED, DISCONNECTED, INGAME
+        // REGISTERED, CONNECTED, DISCONNECTED
         state: 'REGISTERED',
+        // LOBYING, GAME, UNDECIDED
+        intent: 'UNDECIDED',
         // Doesn't update if state changes
         connectionid: 'none',
     };
@@ -117,6 +119,7 @@ function UserConnectionExists(userid)
 {
     if (OnlineUsers[userid].state === 'CONNECTED') return true;
     if (OnlineUsers[userid].state === 'DISCONNECTED') return false;
+    if (OnlineUsers[userid].state === 'REGISTERED') return false;
 }
 
 function GetUserbyConnection(connectionid)
@@ -127,6 +130,7 @@ function GetUserbyConnection(connectionid)
     return false;
 }
 
+// TODO: User intent
 function UserConnect(useruid, connectionid)
 {
     if (OnlineUsers[useruid].state === 'CONNECTED') return 'User Already Connected';

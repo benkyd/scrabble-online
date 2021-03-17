@@ -84,29 +84,10 @@ function createLobby()
 }
 
 socket.on('lobby-create-success', lobby => {
-    showActive();
-    const lobbyDiv = document.createElement('div');
-    lobbyDiv.id = lobby.id;
-
-    // TODO: Make drawlobby function
-    lobbyDiv.innerHTML += `<h2>Lobby ${lobby.name}</h2><p><h3>Join Code: <b>${lobby.uid}</b></h3><p>Players:`;
-    
-    for (const player of lobby.players)
-        lobbyDiv.innerHTML += player.name + ' ';
-
-    if (lobby.allowspectators)
-    {
-        lobbyDiv.innerHTML += '<p>Spectators:';
-        for (const player of lobby.spectators)
-            lobbyDiv.innerHTML += player.name + ' '; 
-    }
-
-    lobbyDiv.innerHTML += `<p>Visibility: ${lobby.visibility}<p>State: ${lobby.state}`
-
-    lobbyDiv.innerHTML += '<input type="button" value="Start Game" onclick="" disabled>'
-    lobbyDiv.innerHTML += '<input type="button" value="Leave Lobby" onclick="destructLobbies()">'
-
-    ActiveLobbyBlock.appendChild(lobbyDiv);
+    const successDiv = document.createElement('div');
+    successDiv.id = 'lobby-success';
+    successDiv.innerHTML = 'SUCCESS: Lobby created, Joining...';
+    CreateLobbyBlock.appendChild(successDiv);
 });
 
 socket.on('lobby-create-error', (...args) => {
@@ -157,12 +138,38 @@ function joinLobby()
         document.querySelector('#lobby-error').remove();
 }
 
-socket.on('lobby-join-success', (...args) => {
+socket.on('lobby-join-success', (lobby) => {
+    showActive();
+    const lobbyDiv = document.createElement('div');
+    lobbyDiv.id = lobby.id;
 
+    // TODO: Make drawlobby function
+    lobbyDiv.innerHTML += `<h2>Lobby ${lobby.name}</h2><p><h3>Join Code: <b>${lobby.uid}</b></h3><p>Players:`;
+    
+    for (const player of lobby.players)
+        lobbyDiv.innerHTML += player.name + ' ';
+
+    if (lobby.allowspectators)
+    {
+        lobbyDiv.innerHTML += '<p>Spectators:';
+        for (const player of lobby.spectators)
+            lobbyDiv.innerHTML += player.name + ' '; 
+    }
+
+    lobbyDiv.innerHTML += `<p>Visibility: ${lobby.visibility}<p>State: ${lobby.state}`
+
+    lobbyDiv.innerHTML += '<input type="button" value="Start Game" onclick="" disabled>'
+    lobbyDiv.innerHTML += '<input type="button" value="Leave Lobby" onclick="destructLobbies()">'
+
+    ActiveLobbyBlock.appendChild(lobbyDiv);
 });
 
 socket.on('lobby-join-error', (...args) => {
-
+    const errorDiv = document.createElement('div');
+    errorDiv.id = 'lobby-error';
+    errorDiv.innerHTML = 'ERROR: An error occured while joining the lobby' + JSON.stringify(args);
+    errorDiv.classList.add('red');
+    CreateLobbyBlock.appendChild(errorDiv);
 });
 
 
