@@ -6,7 +6,7 @@
             [x] User sockets, or "users" are made innactive after timeout on socket
              -  Prevents softlock of users and stops socket spamming
     [-] Game lobying system
-        [ ] Delete lobby once user disconnects
+        [ ] Delete lobby once user disconnects - no reconnection
         [ ] Matchmaking system
     [ ] 1v1 game framework that allows spectators
         [ ] 

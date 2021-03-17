@@ -50,10 +50,8 @@ async function Router(socket)
     socket.on('identify', args => ClientIdentify(socket, args));
 
     socket.on('lobby-create', args => LobbyCreate(socket, args));
-    // socket.on('lobby-destroy');
-
     socket.on('lobby-join', args => LobbyJoin(socket, args));
-    // socket.on('lobby-leave');
+    socket.on('lobby-leave', args => LobbyLeave(socket, args));
 
 
     socket.on('disconnect', args => HandleDisconnect(socket, ...args));
@@ -117,7 +115,7 @@ function LobbyCreate(socket, args)
         return;
     }
 
-        if (!args.lobbyName || args.lobbyPrivate === undefined || args.lobbySpectators === undefined)
+    if (!args.lobbyName || args.lobbyPrivate === undefined || args.lobbySpectators === undefined)
     {
         err.addError(400, 'Bad Request', 'Lobby malformed');
         socket.emit('lobby-create-error', err.toError);
@@ -133,7 +131,7 @@ function LobbyCreate(socket, args)
         return;
     }
 
-    // Make sure user doesn't already own a lobby
+    // Make sure user isn't already in a lobby or owns one
     if (!Game.Lobbies.CheckUserAvailability(useruid))
     {
         err.addError(400, 'Bad Request', 'User already owns lobby');
@@ -161,7 +159,6 @@ function LobbyCreate(socket, args)
         return;
     }
 
-    console.log(lobby, lobbyJoined);
     if (lobbyJoined.uid !== lobby.uid)
     {
         err.addError(500, 'Internal Server Error', 'Illegal lobby');
@@ -174,15 +171,87 @@ function LobbyCreate(socket, args)
 
 function LobbyJoin(socket, args)
 {
+    const err = new Error;
 
+    const useruid = args.user.uid;
+
+    if (!useruid)
+    {
+        err.addError(400, 'Bad Request', 'Unknown uid');
+        socket.emit('lobby-join-error', err.toError);
+        return;
+    }
+
+    if (!args.lobbyID || args.joinAsSpectator === undefined)
+    {
+        err.addError(400, 'Bad Request', 'Lobby malformed');
+        socket.emit('lobby-join-error', err.toError);
+        return;
+    }
+
+    // Make sure user is who they say they are
+    const user = Game.Registrar.GetUserbyConnection(socket.id);
+    if (!user || user.uid != useruid)
+    {
+        err.addError(403, 'Forbidden', 'Illegal user');
+        socket.emit('lobby-join-error', err.toError);
+        return;
+    }
+
+    // Make sure user isn't already in a lobby
+    if (!Game.Lobbies.CheckUserAvailability(useruid))
+    {
+        err.addError(400, 'Bad Request', 'User already owns lobby');
+        socket.emit('lobby-join-error', err.toError);
+        return;
+    }
+
+    const lobby = Game.Lobbies.GetLobbyByUID(args.lobbyID);
+    if (!lobby)
+    {
+        err.addError(400, 'Bad Request', 'Lobby does not exist');
+        socket.emit('lobby-join-error', err.toError);
+        return;
+    }
+
+    if (args.joinAsSpectator)
+    {
+        // TODO
+    } else 
+    {
+        const status = Game.Lobbies.UserJoinLobby(lobby.uid, useruid);
+    
+        if (!status)
+        {
+            err.addError(403, 'Forbidden', 'Cannot join lobby');
+            socket.emit('lobby-join-error', err.toError);
+            return;
+        }
+    
+        socket.emit('lobby-join-success', lobby);
+    }
 }
+
+function LobbyLeave(socket, args)
+{
+    const user = Game.Registrar.GetUserbyConnection(socket.id);
+    Logger.debug(`USER ${user.uid} (${Game.Registrar.GetUserByUID(user.uid).username}) ATTEMPTING TO LEAVE LOBBY`);
+    Game.Lobbies.UserLeaveLobby(user.uid);
+}
+
 
 function HandleDisconnect(socket, args)
 {
-    Logger.debug(`${socket.id} DISCONNECTED`);
     const user = Game.Registrar.GetUserbyConnection(socket.id);
     if (!user) return;
+    
+    // if user is in a lobby, leave and if user own's a lobby, destruct
+    // leave lobby before user is disconnected
+    LobbyLeave(socket);
+
     Game.Registrar.UserDisconnect(user.uid);
+    
+    Logger.info(`SOCKET ${socket.id} DISCONNECTED`);
 }
 
 

@@ -103,7 +103,7 @@ function RegisterUser(username, ip)
         connectionid: 'none',
     };
 
-    Logger.info(`${uid} REGISTERING WITH ${ip} AS ${username}`);
+    Logger.info(`USER ${uid} (${username}) REGISTERING WITH ${ip} AS ${username}`);
     
     return OnlineUsers[uid];
 }
@@ -138,7 +138,7 @@ function UserConnect(useruid, connectionid)
     OnlineUsers[useruid].connectionid = connectionid;
     OnlineUsers[useruid].state = 'CONNECTED';
 
-    Logger.info(`SOCKET ${connectionid} IDENTIFIED AS ${useruid} (${OnlineUsers[useruid].username})`);
+    Logger.game(`SOCKET ${connectionid} IDENTIFIED AS ${useruid} (${OnlineUsers[useruid].username})`);
 
     return true;
 }
