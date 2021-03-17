@@ -204,7 +204,6 @@ module.exports = {
     GetPublicLobbies: GetPublicLobbies,
 
     // Change lobby state exports
-    // TODO: take callback for update client event
     RegisterLobby: RegisterLobby,
     DeRegisterLobby: DeRegisterLobby,
     UserJoinLobby: UserJoinLobby,
