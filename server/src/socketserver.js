@@ -182,7 +182,7 @@ function LobbyJoin(socket, args)
         return;
     }
 
-    if (!args.lobbyID || args.joinAsSpectator === undefined)
+    if (!args.lobbyuid || args.joinAsSpectator === undefined)
     {
         err.addError(400, 'Bad Request', 'Lobby malformed');
         socket.emit('lobby-join-error', err.toError);
@@ -206,7 +206,7 @@ function LobbyJoin(socket, args)
         return;
     }
 
-    const lobby = Game.Lobbies.GetLobbyByUID(args.lobbyID);
+    const lobby = Game.Lobbies.GetLobbyByUID(args.lobbyuid);
     if (!lobby)
     {
         err.addError(400, 'Bad Request', 'Lobby does not exist');

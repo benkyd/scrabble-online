@@ -1,8 +1,22 @@
+textarea {
+    resize: none;
+}
+
+#log-console {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
 
 .lobby-type {
-    display: block;
+    /* display: block;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid green ;
-
+    border: 1px solid green ;*/
 }
+
+

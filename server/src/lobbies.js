@@ -138,7 +138,7 @@ function UserJoinLobby(lobbyuid, useruid, callback)
     if (!Lobbies[lobbyuid]) return false;
     if (!Registrar.GetUserByUID(useruid)) return false;
 
-    // check users and change lobby status
+    // TODO: check users and change lobby status
 
     const user = Registrar.GetUserByUID(useruid);
     Lobbies[lobbyuid].players.push({uid: useruid, name: user.username});
