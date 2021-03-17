@@ -64,7 +64,6 @@ function DoesUserOwnLobby(useruid)
 {
     for (const lobby in Lobbies)
         if (Lobbies[lobby].owneruid === useruid) return true;
-        
     return false;
 }
 
@@ -125,13 +124,15 @@ function RegisterLobby(owneruid, name, private, spectators)
     return Lobbies[uid];
 }
 
-function DeRegisterLobby(lobbyuid)
+function DeRegisterLobby(useruid, lobbyuid, callback)
 {
+    callback(Registrar.GetUserByUID(useruid), Lobbies[lobbyuid], 'lobby-deregister');
     delete Lobbies[lobbyuid];
     Logger.game(`LOBBY ${lobbyuid} DEREGISTERED`);
 }
 
-function UserJoinLobby(lobbyuid, useruid)
+
+function UserJoinLobby(lobbyuid, useruid, callback)
 {
     if (IsUserInLobby(useruid)) return false;
     if (!Lobbies[lobbyuid]) return false;
@@ -144,11 +145,13 @@ function UserJoinLobby(lobbyuid, useruid)
 
     Logger.game(`LOBBY ${lobbyuid} USER ${useruid} (${user.username}) JOINING`);
 
+    callback(user, Lobbies[lobbyuid], 'lobby-join');
+
     return GetLobbyByUID(lobbyuid);
 }
 
 // works for spectators too
-function UserLeaveLobby(useruid)
+function UserLeaveLobby(useruid, callback)
 {
     if (!IsUserInLobby(useruid)) return false;
    
@@ -157,21 +160,32 @@ function UserLeaveLobby(useruid)
     {
         const lobby = GetLobbyByOwnerUID(useruid);
         Logger.game(`LOBBY ${lobby.uid} OWNER ${useruid} (${Registrar.GetUserByUID(useruid).username}) LEAVING`);
-        DeRegisterLobby(lobby.uid);
+        DeRegisterLobby(useruid, lobby.uid, callback);
         return true;
     }
 
     const lobby = GetLobbyByUserUID(useruid);
 
-    console.log(Lobbies[lobby.uid]);
-    delete Lobbies[lobby.uid].players[useruid];
-    delete Lobbies[lobby.uid].spectators[useruid];
-    console.log(Lobbies[lobby.uid]);
+    for (const player in Lobbies[lobby.uid].players)
+        if (Lobbies[lobby.uid].players[player].uid === useruid)
+            delete Lobbies[lobby.uid].players[player];
+
+    for (const spectator in Lobbies[lobby.uid].spectators)
+        if (Lobbies[lobby.uid].spectators[player].uid === useruid)
+            delete Lobbies[lobby.uid].spectators[spectator];
+
+    // clean "empty" array elements
+    // for some reason JS leaves deleted elements in a non-single-type
+    // array "empty-type", a new filtered array is required to not error
+    Lobbies[lobby.uid].players = Lobbies[lobby.uid].players.filter(x => x);
+    Lobbies[lobby.uid].spectators = Lobbies[lobby.uid].spectators.filter(x => x);
+
+    callback(Registrar.GetUserByUID(useruid), lobby, 'lobby-leave');
 
     return true;
 }
 
-function SpectatorJoinLobby(lobbyuid, useruid)
+function SpectatorJoinLobby(lobbyuid, useruid, callback)
 {
 
 }

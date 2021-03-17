@@ -68,6 +68,20 @@ function GetUserByUID(uid)
     return OnlineUsers[uid];
 }
 
+// gets a safe user with no personal information 
+// for the API to send to other users
+function GetSafeUserByUID(uid)
+{
+    const user = GetUserByUID(uid);
+    const ret = {
+        uid: user.uid,
+        connectionid: user.connectionid,
+        username: user.username,
+        state: user.state
+    }
+    return ret;
+}
+
 function GetUserByUsername(username)
 {
     for (const user in OnlineUsers)
@@ -164,6 +178,7 @@ module.exports = {
 
     // Get user exports
     GetUserByUID: GetUserByUID,
+    GetSafeUserByUID: GetSafeUserByUID,
     GetUserByUsername: GetUserByUsername,
     
     // Change user state exports

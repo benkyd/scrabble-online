@@ -2,8 +2,8 @@ const Logger = require('./logger.js');
 const WebServer = require('./webserver.js');
 const Game = require('./game.js');
 const Error = require('./error.js');
-const { Registrar } = require('./game.js');
-const { RegisterLobby } = require('./lobbies.js');
+
+let io = {};
 
 /**
  * All socket communication follows a standard call/response & event
@@ -26,8 +26,7 @@ const { RegisterLobby } = require('./lobbies.js');
 
 function init()
 {
-    const io = require('socket.io')(WebServer.Server);
-
+    io = require('socket.io')(WebServer.Server);
     io.on('connection', (socket) => {
         Logger.info(`NEW SOCKET CIENT ID ${socket.id}`);
         // Pass socket onto router
@@ -148,10 +147,10 @@ function LobbyCreate(socket, args)
         return;
     }
 
-    // Lobby created 
+    // Lobby created
     socket.emit('lobby-create-success', {created: true, lobby: lobby});
 
-    const lobbyJoined = Game.Lobbies.UserJoinLobby(lobby.uid, useruid);
+    const lobbyJoined = Game.Lobbies.UserJoinLobby(lobby.uid, useruid, LobbyUpdateCallback);
     if (!lobbyJoined)
     {
         err.addError(403, 'Forbidden', 'Cannot join lobby');
@@ -165,7 +164,8 @@ function LobbyCreate(socket, args)
         socket.emit('lobby-create-error', err.toError);
         return;
     }
-
+    
+    socket.join(lobby.uid);
     socket.emit('lobby-join-success', lobby);
 }
 
@@ -219,7 +219,7 @@ function LobbyJoin(socket, args)
         // TODO
     } else 
     {
-        const status = Game.Lobbies.UserJoinLobby(lobby.uid, useruid);
+        const status = Game.Lobbies.UserJoinLobby(lobby.uid, useruid, LobbyUpdateCallback);
     
         if (!status)
         {
@@ -227,7 +227,8 @@ function LobbyJoin(socket, args)
             socket.emit('lobby-join-error', err.toError);
             return;
         }
-    
+
+        socket.join(lobby.uid);
         socket.emit('lobby-join-success', lobby);
     }
 }
@@ -235,8 +236,10 @@ function LobbyJoin(socket, args)
 function LobbyLeave(socket, args)
 {
     const user = Game.Registrar.GetUserbyConnection(socket.id);
+    const lobby = Game.Lobbies.GetLobbyByUserUID(user.uid);
     Logger.debug(`USER ${user.uid} (${Game.Registrar.GetUserByUID(user.uid).username}) ATTEMPTING TO LEAVE LOBBY`);
-    Game.Lobbies.UserLeaveLobby(user.uid);
+    socket.leave(lobby.uid);
+    Game.Lobbies.UserLeaveLobby(user.uid, LobbyUpdateCallback);
 }
 
 
@@ -254,6 +257,18 @@ function HandleDisconnect(socket, args)
     Logger.info(`SOCKET ${socket.id} DISCONNECTED`);
 }
 
+
+
+function LobbyUpdateCallback(user, lobby, state)
+{
+    // TODO: if the lobby was destroyed, users and spectators need to be kicked
+    // Just send updated lobby object for now
+    io.to(lobby.uid).emit('lobby-update', {
+        state: state, 
+        updateuser: Game.Registrar.GetSafeUserByUID(user.uid), 
+        lobby: lobby
+    });
+}
 
 module.exports = {
     init: init

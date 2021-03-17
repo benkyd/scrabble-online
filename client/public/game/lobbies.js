@@ -41,7 +41,6 @@ function showActive()
     ActiveLobbyBlock.style.display = 'block';
 }
 
-
 function createLobby()
 {
     const lobbyName = document.querySelector('#lobby-input-name').value;
@@ -84,15 +83,19 @@ function createLobby()
 }
 
 socket.on('lobby-create-success', lobby => {
-    document.querySelector('#lobby-success').innerHTML = "";
+    if (document.querySelector('#lobby-success'))
+        document.querySelector('#lobby-success').innerHTML = "";
+
     const successDiv = document.createElement('div');
     successDiv.id = 'lobby-success';
     successDiv.innerHTML = 'SUCCESS: Lobby created, Joining...';
     CreateLobbyBlock.appendChild(successDiv);
 });
 
-socket.on('lobby-create-error', (...args) => {
-    document.querySelector('#lobby-error').innerHTML = "";
+socket.on('lobby-create-error', obj => {
+    if (document.querySelector('#lobby-error'))
+        document.querySelector('#lobby-error').innerHTML = "";
+
     const errorDiv = document.createElement('div');
     errorDiv.id = 'lobby-error';
     errorDiv.innerHTML = 'ERROR: An error occured while creating the lobby' + JSON.stringify(args);
@@ -140,7 +143,7 @@ function joinLobby()
         document.querySelector('#lobby-error').remove();
 }
 
-socket.on('lobby-join-success', (lobby) => {
+socket.on('lobby-join-success', lobby => {
     showActive();
     const lobbyDiv = document.createElement('div');
     ActiveLobbyBlock.innerHTML = "";
@@ -170,17 +173,28 @@ socket.on('lobby-join-success', (lobby) => {
     ActiveLobbyBlock.appendChild(lobbyDiv);
 });
 
-socket.on('lobby-join-error', (...args) => {
-    document.querySelector('#lobby-error').innerHTML = "";
+socket.on('lobby-join-error', obj => {
+    if (document.querySelector('#lobby-error'))
+        document.querySelector('#lobby-error').innerHTML = "";
+        
     const errorDiv = document.createElement('div');
     errorDiv.id = 'lobby-error';
-    errorDiv.innerHTML = 'ERROR: An error occured while joining the lobby' + JSON.stringify(args);
+    errorDiv.innerHTML = 'ERROR: An error occured while joining the lobby ' + JSON.stringify(args);
     errorDiv.classList.add('red');
-    CreateLobbyBlock.appendChild(errorDiv);
+    JoinLobbyBlock.appendChild(errorDiv);
 });
 
 
-socket.on('lobby-update');
+socket.on('lobby-update', obj => {
+    console.log(args[0]);
+
+    if (!obj) return;
+    if (!obj.state) return;
+    if (!obj.updateuser) return;
+    if (!obj.lobby) return;
+    
+
+});
 
 
 function leaveLobby()
