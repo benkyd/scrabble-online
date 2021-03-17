@@ -41,6 +41,38 @@ function showActive()
     ActiveLobbyBlock.style.display = 'block';
 }
 
+function drawLobby(lobby)
+{
+    const lobbyDiv = document.createElement('div');
+    ActiveLobbyBlock.innerHTML = "";
+    lobbyDiv.id = lobby.id;
+
+    // TODO: Make drawlobby function
+    lobbyDiv.innerHTML += `<h2>Lobby ${lobby.name}</h2><p><h3>Join Code: <b>${lobby.uid}</b></h3><p>Players:`;
+    
+    for (const player of lobby.players)
+        lobbyDiv.innerHTML += `<b>${player.name}</b>, `
+    // remove trailing comma
+    lobbyDiv.innerHTML = lobbyDiv.innerHTML.slice(0, -2);
+
+    if (lobby.allowspectators)
+    {
+        lobbyDiv.innerHTML += '<p>Spectators:';
+        for (const player of lobby.spectators)
+            lobbyDiv.innerHTML += `<b>${player.name}</b>, `
+        lobbyDiv.innerHTML = lobbyDiv.innerHTML.slice(0, -2);
+    }
+
+    lobbyDiv.innerHTML += `<p>Visibility: ${lobby.visibility}<p>State: ${lobby.state}`
+
+    lobbyDiv.innerHTML += '<input type="button" value="Start Game" onclick="" disabled>'
+    lobbyDiv.innerHTML += '<input type="button" value="Leave Lobby" onclick="leaveLobby()">'
+
+    ActiveLobbyBlock.appendChild(lobbyDiv);
+}
+
+
+
 function createLobby()
 {
     const lobbyName = document.querySelector('#lobby-input-name').value;
@@ -145,32 +177,7 @@ function joinLobby()
 
 socket.on('lobby-join-success', lobby => {
     showActive();
-    const lobbyDiv = document.createElement('div');
-    ActiveLobbyBlock.innerHTML = "";
-    lobbyDiv.id = lobby.id;
-
-    // TODO: Make drawlobby function
-    lobbyDiv.innerHTML += `<h2>Lobby ${lobby.name}</h2><p><h3>Join Code: <b>${lobby.uid}</b></h3><p>Players:`;
-    
-    for (const player of lobby.players)
-        lobbyDiv.innerHTML += `<b>${player.name}</b>, `
-    // remove trailing comma
-    lobbyDiv.innerHTML = lobbyDiv.innerHTML.slice(0, -2);
-
-    if (lobby.allowspectators)
-    {
-        lobbyDiv.innerHTML += '<p>Spectators:';
-        for (const player of lobby.spectators)
-            lobbyDiv.innerHTML += `<b>${player.name}</b>, `
-        lobbyDiv.innerHTML = lobbyDiv.innerHTML.slice(0, -2);
-    }
-
-    lobbyDiv.innerHTML += `<p>Visibility: ${lobby.visibility}<p>State: ${lobby.state}`
-
-    lobbyDiv.innerHTML += '<input type="button" value="Start Game" onclick="" disabled>'
-    lobbyDiv.innerHTML += '<input type="button" value="Leave Lobby" onclick="leaveLobby()">'
-
-    ActiveLobbyBlock.appendChild(lobbyDiv);
+    drawLobby(lobby);
 });
 
 socket.on('lobby-join-error', obj => {
@@ -186,14 +193,12 @@ socket.on('lobby-join-error', obj => {
 
 
 socket.on('lobby-update', obj => {
-    console.log(args[0]);
-
     if (!obj) return;
     if (!obj.state) return;
     if (!obj.updateuser) return;
     if (!obj.lobby) return;
-    
 
+    drawLobby(obj.lobby);
 });
 
 
