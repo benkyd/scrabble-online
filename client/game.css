@@ -1,0 +1,51 @@
+
+#game-board {
+    display: table;
+    text-align: center;
+    font-size: 10px;
+
+    width: 50%;
+}
+
+.game-board-header {
+    display: table-row-group;
+    background-color: gray;
+}
+
+.game-board-header-cell {
+    display: table-cell;
+}
+
+.game-board-col-header {
+    display: table-column-group;
+    background-color: gray;
+}
+
+.game-board-col-header-cell {
+    display: table-cell;
+}
+
+.game-board-row {
+    display: table-row;
+}
+
+.game-board-cell {
+    display: table-cell;
+    /* width: 5%; */
+}
+
+.double-word {
+
+}
+
+.tripple-word {
+
+}
+
+.tripple-letter {
+    
+}
+
+.double-letter {
+
+}

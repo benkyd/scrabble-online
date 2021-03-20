@@ -5,13 +5,380 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <link rel="stylesheet" href="./game.css">
+
         <title>Scrabble!</title>
     </head>
     <body>
         
+<!--
 
+    Tile's have classes
+    Tile's go in table boxes
+
+
+-->
+
+    <div id="game-board">
+
+        <div class=game-board-header>
+            <div class="game-board-col-header game-board-col-header-cell"></div>
+            <div class="game-board-header-cell">A</div>
+            <div class="game-board-header-cell">B</div>
+            <div class="game-board-header-cell">C</div>
+            <div class="game-board-header-cell">D</div>
+            <div class="game-board-header-cell">E</div>
+            <div class="game-board-header-cell">F</div>
+            <div class="game-board-header-cell">G</div>
+            <div class="game-board-header-cell">H</div>
+            <div class="game-board-header-cell">I</div>
+            <div class="game-board-header-cell">J</div>
+            <div class="game-board-header-cell">K</div>
+            <div class="game-board-header-cell">L</div>
+            <div class="game-board-header-cell">M</div>
+            <div class="game-board-header-cell">N</div>
+            <div class="game-board-header-cell">O</div>
+            <div class="game-board-col-header game-board-col-header-cell"></div>
+        </div>
+
+
+        <div class="game-board-row" id="row-1">
+            <div class="game-board-col-header game-board-col-header-cell">1</div>
+
+            <div class="game-board-cell" id="col-a">1a</div>
+            <div class="game-board-cell" id="col-b">1b</div>
+            <div class="game-board-cell" id="col-c">1c</div>
+            <div class="game-board-cell" id="col-d">1d</div>
+            <div class="game-board-cell" id="col-e">1e</div>
+            <div class="game-board-cell" id="col-f">1f</div>
+            <div class="game-board-cell" id="col-g">1g</div>
+            <div class="game-board-cell" id="col-h">1h</div>
+            <div class="game-board-cell" id="col-i">1i</div>
+            <div class="game-board-cell" id="col-j">1j</div>
+            <div class="game-board-cell" id="col-k">1k</div>
+            <div class="game-board-cell" id="col-l">1l</div>
+            <div class="game-board-cell" id="col-m">1m</div>
+            <div class="game-board-cell" id="col-n">1n</div>
+            <div class="game-board-cell" id="col-o">1o</div>
+
+            <div class="game-board-col-header game-board-col-header-cell">1</div>
+        </div>
+        <div class="game-board-row" id="row-2">
+            <div class="game-board-col-header game-board-col-header-cell">2</div>
+
+            <div class="game-board-cell" id="col-a">2a</div>
+            <div class="game-board-cell" id="col-b">2b</div>
+            <div class="game-board-cell" id="col-c">2c</div>
+            <div class="game-board-cell" id="col-d">2d</div>
+            <div class="game-board-cell" id="col-e">2e</div>
+            <div class="game-board-cell" id="col-f">2f</div>
+            <div class="game-board-cell" id="col-g">2g</div>
+            <div class="game-board-cell" id="col-h">2h</div>
+            <div class="game-board-cell" id="col-i">2i</div>
+            <div class="game-board-cell" id="col-j">2j</div>
+            <div class="game-board-cell" id="col-k">2k</div>
+            <div class="game-board-cell" id="col-l">2l</div>
+            <div class="game-board-cell" id="col-m">2m</div>
+            <div class="game-board-cell" id="col-n">2n</div>
+            <div class="game-board-cell" id="col-o">2o</div>
+
+            <div class="game-board-col-header game-board-col-header-cell">2</div>
+        </div>
+        <div class="game-board-row" id="row-3">
+            <div class="game-board-col-header game-board-col-header-cell">3</div>
+
+            <div class="game-board-cell" id="col-a">3a</div>
+            <div class="game-board-cell" id="col-b">3b</div>
+            <div class="game-board-cell" id="col-c">3c</div>
+            <div class="game-board-cell" id="col-d">3d</div>
+            <div class="game-board-cell" id="col-e">3e</div>
+            <div class="game-board-cell" id="col-f">3f</div>
+            <div class="game-board-cell" id="col-g">3g</div>
+            <div class="game-board-cell" id="col-h">3h</div>
+            <div class="game-board-cell" id="col-i">3i</div>
+            <div class="game-board-cell" id="col-j">3j</div>
+            <div class="game-board-cell" id="col-k">3k</div>
+            <div class="game-board-cell" id="col-l">3l</div>
+            <div class="game-board-cell" id="col-m">3m</div>
+            <div class="game-board-cell" id="col-n">3n</div>
+            <div class="game-board-cell" id="col-o">3o</div>
+            
+            <div class="game-board-col-header game-board-col-header-cell">3</div>
+        </div>
+        <div class="game-board-row" id="row-4">
+            <div class="game-board-col-header game-board-col-header-cell">4</div>
+
+            <div class="game-board-cell" id="col-a">4a</div>
+            <div class="game-board-cell" id="col-b">4b</div>
+            <div class="game-board-cell" id="col-c">4c</div>
+            <div class="game-board-cell" id="col-d">4d</div>
+            <div class="game-board-cell" id="col-e">4e</div>
+            <div class="game-board-cell" id="col-f">4f</div>
+            <div class="game-board-cell" id="col-g">4g</div>
+            <div class="game-board-cell" id="col-h">4h</div>
+            <div class="game-board-cell" id="col-i">4i</div>
+            <div class="game-board-cell" id="col-j">4j</div>
+            <div class="game-board-cell" id="col-k">4k</div>
+            <div class="game-board-cell" id="col-l">4l</div>
+            <div class="game-board-cell" id="col-m">4m</div>
+            <div class="game-board-cell" id="col-n">4n</div>
+            <div class="game-board-cell" id="col-o">4o</div>
+            
+            <div class="game-board-col-header game-board-col-header-cell">4</div>
+        </div>
+        <div class="game-board-row" id="row-5">
+            <div class="game-board-col-header game-board-col-header-cell">5</div>
+
+            <div class="game-board-cell" id="col-a">5a</div>
+            <div class="game-board-cell" id="col-b">5b</div>
+            <div class="game-board-cell" id="col-c">5c</div>
+            <div class="game-board-cell" id="col-d">5d</div>
+            <div class="game-board-cell" id="col-e">5e</div>
+            <div class="game-board-cell" id="col-f">5f</div>
+            <div class="game-board-cell" id="col-g">5g</div>
+            <div class="game-board-cell" id="col-h">5h</div>
+            <div class="game-board-cell" id="col-i">5i</div>
+            <div class="game-board-cell" id="col-j">5j</div>
+            <div class="game-board-cell" id="col-k">5k</div>
+            <div class="game-board-cell" id="col-l">5l</div>
+            <div class="game-board-cell" id="col-m">5m</div>
+            <div class="game-board-cell" id="col-n">5n</div>
+            <div class="game-board-cell" id="col-o">5o</div>
+
+            <div class="game-board-col-header game-board-col-header-cell">5</div>
+        </div>
+        <div class="game-board-row" id="row-6">
+            <div class="game-board-col-header game-board-col-header-cell">6</div>
+
+            <div class="game-board-cell" id="col-a">6a</div>
+            <div class="game-board-cell" id="col-b">6b</div>
+            <div class="game-board-cell" id="col-c">6c</div>
+            <div class="game-board-cell" id="col-d">6d</div>
+            <div class="game-board-cell" id="col-e">6e</div>
+            <div class="game-board-cell" id="col-f">6f</div>
+            <div class="game-board-cell" id="col-g">6g</div>
+            <div class="game-board-cell" id="col-h">6h</div>
+            <div class="game-board-cell" id="col-i">6i</div>
+            <div class="game-board-cell" id="col-j">6j</div>
+            <div class="game-board-cell" id="col-k">6k</div>
+            <div class="game-board-cell" id="col-l">6l</div>
+            <div class="game-board-cell" id="col-m">6m</div>
+            <div class="game-board-cell" id="col-n">6n</div>
+            <div class="game-board-cell" id="col-o">6o</div>
+
+            <div class="game-board-col-header game-board-col-header-cell">6</div>
+        </div>
+        <div class="game-board-row" id="row-7">
+            <div class="game-board-col-header game-board-col-header-cell">7</div>
+
+            <div class="game-board-cell" id="col-a">7a</div>
+            <div class="game-board-cell" id="col-b">7b</div>
+            <div class="game-board-cell" id="col-c">7c</div>
+            <div class="game-board-cell" id="col-d">7d</div>
+            <div class="game-board-cell" id="col-e">7e</div>
+            <div class="game-board-cell" id="col-f">7f</div>
+            <div class="game-board-cell" id="col-g">7g</div>
+            <div class="game-board-cell" id="col-h">7h</div>
+            <div class="game-board-cell" id="col-i">7i</div>
+            <div class="game-board-cell" id="col-j">7j</div>
+            <div class="game-board-cell" id="col-k">7k</div>
+            <div class="game-board-cell" id="col-l">7l</div>
+            <div class="game-board-cell" id="col-m">7m</div>
+            <div class="game-board-cell" id="col-n">7n</div>
+            <div class="game-board-cell" id="col-o">7o</div>
+            
+            <div class="game-board-col-header game-board-col-header-cell">7</div>
+        </div>
+        <div class="game-board-row" id="row-8">
+            <div class="game-board-col-header game-board-col-header-cell">8</div>
+
+            <div class="game-board-cell" id="col-a">8a</div>
+            <div class="game-board-cell" id="col-b">8b</div>
+            <div class="game-board-cell" id="col-c">8c</div>
+            <div class="game-board-cell" id="col-d">8d</div>
+            <div class="game-board-cell" id="col-e">8e</div>
+            <div class="game-board-cell" id="col-f">8f</div>
+            <div class="game-board-cell" id="col-g">8g</div>
+            <div class="game-board-cell" id="col-h">8h</div>
+            <div class="game-board-cell" id="col-i">8i</div>
+            <div class="game-board-cell" id="col-j">8j</div>
+            <div class="game-board-cell" id="col-k">8k</div>
+            <div class="game-board-cell" id="col-l">8l</div>
+            <div class="game-board-cell" id="col-m">8m</div>
+            <div class="game-board-cell" id="col-n">8n</div>
+            <div class="game-board-cell" id="col-o">8o</div>
+
+            <div class="game-board-col-header game-board-col-header-cell">8</div>
+        </div>
+        <div class="game-board-row" id="row-9">
+            <div class="game-board-col-header game-board-col-header-cell">9</div>
+
+            <div class="game-board-cell" id="col-a">9a</div>
+            <div class="game-board-cell" id="col-b">9b</div>
+            <div class="game-board-cell" id="col-c">9c</div>
+            <div class="game-board-cell" id="col-d">9d</div>
+            <div class="game-board-cell" id="col-e">9e</div>
+            <div class="game-board-cell" id="col-f">9f</div>
+            <div class="game-board-cell" id="col-g">9g</div>
+            <div class="game-board-cell" id="col-h">9h</div>
+            <div class="game-board-cell" id="col-i">9i</div>
+            <div class="game-board-cell" id="col-j">9j</div>
+            <div class="game-board-cell" id="col-k">9k</div>
+            <div class="game-board-cell" id="col-l">9l</div>
+            <div class="game-board-cell" id="col-m">9m</div>
+            <div class="game-board-cell" id="col-n">9n</div>
+            <div class="game-board-cell" id="col-o">9o</div>
+
+            <div class="game-board-col-header game-board-col-header-cell">9</div>
+        </div>
+        <div class="game-board-row" id="row-10">
+            <div class="game-board-col-header game-board-col-header-cell">10</div>
+
+            <div class="game-board-cell" id="col-a">10a</div>
+            <div class="game-board-cell" id="col-b">10b</div>
+            <div class="game-board-cell" id="col-c">10c</div>
+            <div class="game-board-cell" id="col-d">10d</div>
+            <div class="game-board-cell" id="col-e">10e</div>
+            <div class="game-board-cell" id="col-f">10f</div>
+            <div class="game-board-cell" id="col-g">10g</div>
+            <div class="game-board-cell" id="col-h">10h</div>
+            <div class="game-board-cell" id="col-i">10i</div>
+            <div class="game-board-cell" id="col-j">10j</div>
+            <div class="game-board-cell" id="col-k">10k</div>
+            <div class="game-board-cell" id="col-l">10l</div>
+            <div class="game-board-cell" id="col-m">10m</div>
+            <div class="game-board-cell" id="col-n">10n</div>
+            <div class="game-board-cell" id="col-o">10o</div>
+
+            <div class="game-board-col-header game-board-col-header-cell">10</div>
+        </div>
+        <div class="game-board-row" id="row-11">
+            <div class="game-board-col-header game-board-col-header-cell">11</div>
+
+            <div class="game-board-cell" id="col-a">11a</div>
+            <div class="game-board-cell" id="col-b">11b</div>
+            <div class="game-board-cell" id="col-c">11c</div>
+            <div class="game-board-cell" id="col-d">11d</div>
+            <div class="game-board-cell" id="col-e">11e</div>
+            <div class="game-board-cell" id="col-f">11f</div>
+            <div class="game-board-cell" id="col-g">11g</div>
+            <div class="game-board-cell" id="col-h">11h</div>
+            <div class="game-board-cell" id="col-i">11i</div>
+            <div class="game-board-cell" id="col-j">11j</div>
+            <div class="game-board-cell" id="col-k">11k</div>
+            <div class="game-board-cell" id="col-l">11l</div>
+            <div class="game-board-cell" id="col-m">11m</div>
+            <div class="game-board-cell" id="col-n">11n</div>
+            <div class="game-board-cell" id="col-o">11o</div>
+
+            <div class="game-board-col-header game-board-col-header-cell">11</div>
+        </div>
+        <div class="game-board-row" id="row-12">
+            <div class="game-board-col-header game-board-col-header-cell">12</div>
+
+            <div class="game-board-cell" id="col-a">12a</div>
+            <div class="game-board-cell" id="col-b">12b</div>
+            <div class="game-board-cell" id="col-c">12c</div>
+            <div class="game-board-cell" id="col-d">12d</div>
+            <div class="game-board-cell" id="col-e">12e</div>
+            <div class="game-board-cell" id="col-f">12f</div>
+            <div class="game-board-cell" id="col-g">12g</div>
+            <div class="game-board-cell" id="col-h">12h</div>
+            <div class="game-board-cell" id="col-i">12i</div>
+            <div class="game-board-cell" id="col-j">12j</div>
+            <div class="game-board-cell" id="col-k">12k</div>
+            <div class="game-board-cell" id="col-l">12l</div>
+            <div class="game-board-cell" id="col-m">12m</div>
+            <div class="game-board-cell" id="col-n">12n</div>
+            <div class="game-board-cell" id="col-o">12o</div>
+            
+            <div class="game-board-col-header game-board-col-header-cell">12</div>
+        </div>
+        <div class="game-board-row" id="row-13">
+            <div class="game-board-col-header game-board-col-header-cell">13</div>
+
+            <div class="game-board-cell" id="col-a">13a</div>
+            <div class="game-board-cell" id="col-b">13b</div>
+            <div class="game-board-cell" id="col-c">13c</div>
+            <div class="game-board-cell" id="col-d">13d</div>
+            <div class="game-board-cell" id="col-e">13e</div>
+            <div class="game-board-cell" id="col-f">13f</div>
+            <div class="game-board-cell" id="col-g">13g</div>
+            <div class="game-board-cell" id="col-h">13h</div>
+            <div class="game-board-cell" id="col-i">13i</div>
+            <div class="game-board-cell" id="col-j">13j</div>
+            <div class="game-board-cell" id="col-k">13k</div>
+            <div class="game-board-cell" id="col-l">13l</div>
+            <div class="game-board-cell" id="col-m">13m</div>
+            <div class="game-board-cell" id="col-n">13n</div>
+            <div class="game-board-cell" id="col-o">13o</div>
+
+            <div class="game-board-col-header game-board-col-header-cell">13</div>
+        </div>
+        <div class="game-board-row" id="row-14">
+            <div class="game-board-col-header game-board-col-header-cell">14</div>
+
+            <div class="game-board-cell" id="col-a">14a</div>
+            <div class="game-board-cell" id="col-b">14b</div>
+            <div class="game-board-cell" id="col-c">14c</div>
+            <div class="game-board-cell" id="col-d">14d</div>
+            <div class="game-board-cell" id="col-e">14e</div>
+            <div class="game-board-cell" id="col-f">14f</div>
+            <div class="game-board-cell" id="col-g">14g</div>
+            <div class="game-board-cell" id="col-h">14h</div>
+            <div class="game-board-cell" id="col-i">14i</div>
+            <div class="game-board-cell" id="col-j">14j</div>
+            <div class="game-board-cell" id="col-k">14k</div>
+            <div class="game-board-cell" id="col-l">14l</div>
+            <div class="game-board-cell" id="col-m">14m</div>
+            <div class="game-board-cell" id="col-n">14n</div>
+            <div class="game-board-cell" id="col-o">14o</div>
+            
+            <div class="game-board-col-header game-board-col-header-cell">14</div>
+        </div>
+        <div class="game-board-row" id="row-15">
+            <div class="game-board-col-header game-board-col-header-cell">15</div>
+
+            <div class="game-board-cell" id="col-a">15a</div>
+            <div class="game-board-cell" id="col-b">15b</div>
+            <div class="game-board-cell" id="col-c">15c</div>
+            <div class="game-board-cell" id="col-d">15d</div>
+            <div class="game-board-cell" id="col-e">15e</div>
+            <div class="game-board-cell" id="col-f">15f</div>
+            <div class="game-board-cell" id="col-g">15g</div>
+            <div class="game-board-cell" id="col-h">15h</div>
+            <div class="game-board-cell" id="col-i">15i</div>
+            <div class="game-board-cell" id="col-j">15j</div>
+            <div class="game-board-cell" id="col-k">15k</div>
+            <div class="game-board-cell" id="col-l">15l</div>
+            <div class="game-board-cell" id="col-m">15m</div>
+            <div class="game-board-cell" id="col-n">15n</div>
+            <div class="game-board-cell" id="col-o">15o</div>
         
+            <div class="game-board-col-header game-board-col-header-cell">15</div>
+        </div>
 
+
+        <div class=game-board-header>
+            <div class="game-board-col-header game-board-col-header-cell"></div>
+            <div class="game-board-header-cell">A</div>
+            <div class="game-board-header-cell">B</div>
+            <div class="game-board-header-cell">C</div>
+            <div class="game-board-header-cell">D</div>
+            <div class="game-board-header-cell">E</div>
+            <div class="game-board-header-cell">F</div>
+            <div class="game-board-header-cell">G</div>
+            <div class="game-board-header-cell">H</div>
+            <div class="game-board-header-cell">I</div>
+            <div class="game-board-header-cell">J</div>
+            <div class="game-board-header-cell">K</div>
+            <div class="game-board-header-cell">L</div>
+            <div class="game-board-header-cell">M</div>
+            <div class="game-board-header-cell">N</div>
+            <div class="game-board-header-cell">O</div>
+            <div class="game-board-col-header game-board-col-header-cell"></div>
+        </div>
+    </div>
 
     </body>
 </html>
