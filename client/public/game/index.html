@@ -71,11 +71,14 @@
         </div>
 
         <div id="lobby-active" style="display:none">
-
+            <!--Generated in code-->
         </div>
 
 
-        <textarea id="log-console" rows="10" cols=auto placeholder="log console" disabled></textarea>
+        <div id="console">
+            <textarea id="log-console" rows="10" cols=auto placeholder="log console" disabled></textarea>
+            <input id="log-console-message" type="text" placeholder="message"> <input id="log-console-button" type="button" value="send" onclick="sendMessage()">
+        </div>
 
         <script src="index.js"></script>
         <script src="init.js"></script>

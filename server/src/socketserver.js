@@ -261,7 +261,6 @@ function HandleDisconnect(socket, args)
 
 function LobbyUpdateCallback(user, lobby, state)
 {
-    // TODO: if the lobby was destroyed, users and spectators need to be kicked
     // Just send updated lobby object for now
     io.to(lobby.uid).emit('lobby-update', {
         state: state, 
