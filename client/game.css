@@ -97,5 +97,5 @@ piece {
 }
 
 .center-star {
-    background: lightsalmon;
+    background: radial-gradient(circle, rgba(255,226,132,1) 32%, rgba(249,202,91,1) 84%);
 }
