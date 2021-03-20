@@ -17,3 +17,17 @@ body {
     -ms-user-select: none;
     user-select: none;
 }
+
+/* Responsive mobile & touch support */
+@media screen and (max-width: 768px) {
+    body {
+      -webkit-overflow-scrolling: touch; /* Safari 3.1+ */
+      -moz-overflow-scrolling: touch; /* Firefox 2+ */
+      -ms-overflow-scrolling: touch; /* IE 10+ */
+      overflow-scrolling: touch; /* Standard syntax */
+      -webkit-user-select: none; /* Safari 3.1+ */
+      -moz-user-select: none; /* Firefox 2+ */
+      -ms-user-select: none; /* IE 10+ */
+      user-select: none; /* Standard syntax */
+    }
+  }
