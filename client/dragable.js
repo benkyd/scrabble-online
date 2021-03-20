@@ -34,7 +34,7 @@ function mouseMove(event)
 
     if (selectedElement.pointerEvents === 'none') {
    
-        // Update top/left directly in the dom element:
+        // TODO: Scale for %
         selectedElement.style.left = `${event.clientX - state.dx}px`;
         selectedElement.style.top = `${event.clientY - state.dy}px`;
     }
