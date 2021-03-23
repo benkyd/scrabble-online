@@ -2,14 +2,16 @@
 #game-container {
     border: 1px dotted black;
     padding-bottom: 20%;
-    position: relative;
+    position: absolute;
+
+    height: 80%;
+    overflow: hidden;
 }
 
 piece {
     display: flex;
 
     cursor: move;
-    border: 1px dotted black;
     background: radial-gradient(circle, rgba(255,214,45,1) 41%, rgba(255,179,0,1) 84%);
 
     text-align: center;
@@ -84,9 +86,10 @@ score {
 .game-board-cell {
     display: table-cell;
 
-    width: 100%;
-    height: 0;
-    padding-bottom: 0%;
+    /* width: 100%; */
+    height: 4vw;
+    /* width: 10vw; */
+    /* padding-bottom: 0%; */
 
     font-size: 2vw; /* roughly 15 / table width */
     vertical-align: middle;

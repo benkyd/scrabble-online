@@ -24,8 +24,6 @@ function mouseDown(event, element)
 
     element.pointerEvents = 'none';
     selectedElement = element;
-
-    console.log(element);
 }
 
 function mouseMove(event)
