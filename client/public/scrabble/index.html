@@ -6,19 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="./game.css">
-        <link rel="stylesheet" href="./public/main.css">
+        <link rel="stylesheet" href="../main.css">
 
         <title>Scrabble!</title>
     </head>
     <body>
-        
-<!--
-
-    Tile's have classes
-    Tile's go in table boxes
-
-
--->
 
     <div id="game-container">
         
@@ -385,18 +377,18 @@
 
     <p><p><p>
         
-    <piece class="unselectable">A<score>4</score></piece>
-    <piece class="unselectable">A<score>4</score></piece>
-    <piece class="unselectable">A<score>4</score></piece>
-    <piece class="unselectable">A<score>4</score></piece>
-    <piece class="unselectable">A<score>4</score></piece>
-    <piece class="unselectable">A<score>4</score></piece>
-    <piece class="unselectable">A<score>4</score></piece>
+    <piece class="unselectable unplayed-piece">A<score>4</score></piece>
+    <piece class="unselectable unplayed-piece">A<score>4</score></piece>
+    <nopiece></nopiece>
+    <piece class="unselectable unplayed-piece">A<score>4</score></piece>
+    <piece class="unselectable unplayed-piece">A<score>4</score></piece>
+    <piece class="unselectable unplayed-piece">A<score>4</score></piece>
+    <piece class="unselectable unplayed-piece">A<score>4</score></piece>
 
     </div>
 
     <script src="dragable.js"></script>
     <script src="board.js"></script>
-
+    <script src="pieces.js"></script>
     </body>
 </html>

@@ -7,6 +7,10 @@ const ConnectionState = document.querySelector('#connection-state');
 
 UsernameForm.addEventListener('submit', onUsernameSubmit);
 
+function playSingleplayer()
+{
+    document.location.href += 'scrabble';
+}
 
 // User submits their desired username
 async function onUsernameSubmit(e)
@@ -49,6 +53,6 @@ async function onUsernameSubmit(e)
         sessionStorage.setItem('user', JSON.stringify(body.login.user));
         console.log(sessionStorage.user)
         ClientID.innerHTML = `ClientID: ${JSON.parse(sessionStorage.user).uid}`;
-        document.location.href = document.location.href + '/game';
+        document.location.href += 'game';
     }
 }

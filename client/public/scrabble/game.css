@@ -1,6 +1,14 @@
 
+/**
+  * This would be responsive, ie, resizing with the size of the window
+  * but decided it against the scope of the project as it would be 
+  * technically difficult to resize dynamically and have all the elements
+  * needed, visible at the times they needed to be visible
+  */
+
 piece {
     display: flex;
+    position: absolute;
 
     cursor: move;
     background: radial-gradient(circle, rgba(255,214,45,1) 41%, rgba(255,179,0,1) 84%);
@@ -13,22 +21,33 @@ piece {
 
     width: 80px;
     height: 80px;
+}
 
+nopiece {
+    display: flex;
     position: absolute;
+
+    background: none;
+
+    width: 80px;
+    height: 80px;
 }
 
 score {
     display: inline-block;
+    position: absolute;
 
     text-align: right;
     right: 5px;
 
-    width: 100%;
-    height: 100%;
-
     font-size: 20px;
 
-    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.dragging-piece {
+
 }
 
 #game-container {
@@ -40,12 +59,14 @@ score {
     flex-wrap: wrap;
     margin: auto;
     
-    width: 600px;
+    width: 700px;
     height: 700px;
 
 }
 
 #game-board {
+    outline: 2px inset black;
+
     display: table;
     table-layout: fixed;
 
@@ -54,7 +75,6 @@ score {
     height: 600px;
 
     text-align: center;
-    font-size: 3vw; /* roughly 15 / table width */
 }
 
 .game-board-row {
@@ -63,12 +83,14 @@ score {
 }
 
 .game-board-cell {
+    outline: 1px inset black;
+
     display: table-cell;
 
     width: 40px;
     height: 40px;
 
-    font-size: 15px; /* roughly 15 / table width */
+    font-size: 17px;
     vertical-align: middle;
     
     background: radial-gradient(circle, rgba(255,255,255,1) 38%, rgba(244,244,244,1) 94%);
