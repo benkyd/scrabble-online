@@ -9,10 +9,10 @@ const BoardSounds = [
     new Audio('../place3.mp3') // place
 ];
 
-const RackSounds = [
-    new Audio('../rack1.mp3'),
-    new Audio('../rack2.mp3'),
-    new Audio('../rack3.mp3')
+const DrawerSounds = [
+    new Audio('../drawer1.mp3'),
+    new Audio('../drawer2.mp3'),
+    new Audio('../drawer3.mp3')
 ];
 
 // BoardSounds.forEach(sound => {
@@ -21,7 +21,7 @@ const RackSounds = [
 //     });
 // });
 
-// RackSounds.forEach(sound => {
+// DrawerSounds.forEach(sound => {
 //     sound.addEventListener('loadeddata', () => {
 //         sound.volume = 1;
 //     });

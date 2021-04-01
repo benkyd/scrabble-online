@@ -22,7 +22,7 @@ function mouseDown(event, element)
     event.preventDefault();
 
     // disalow picking up of played pieces
-    if (element.classList.contains('played-piece')) return;
+    // if (element.classList.contains('played-piece')) return;
 
     piecePickedUp(element);
     
@@ -36,8 +36,8 @@ function mouseDown(event, element)
     selectedElement = element;
     
     // move to the centre of the mouse to simulat pickup
-    selectedElement.style.top = event.clientY;
-    selectedElement.style.left = event.clientX;
+    // selectedElement.style.top = event.clientY;
+    // selectedElement.style.left = event.clientX;
 }
 
 function mouseMove(event)

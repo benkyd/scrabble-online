@@ -45,6 +45,7 @@ score {
     height: 100%;
 }
 
+/*for small pieces - played or not*/
 .dragging-piece {
     width: 40px;
     height: 40px;
@@ -63,7 +64,6 @@ score {
     
     width: 700px;
     height: 700px;
-
 }
 
 #game-board {
