@@ -21,7 +21,7 @@ function mouseDown(event, element)
     event.preventDefault();
 
     // disalow picking up of played pieces
-    // if (element.classList.contains('played-piece')) return;
+    if (element.classList.contains('played-piece')) return;
 
     piecePickedUp(element);
     
@@ -33,8 +33,8 @@ function mouseDown(event, element)
     selectedElement = element;
     
     // move to the centre of the mouse to simulate pickup
-    selectedElement.style.left = `${event.clientX - 20}px`;
-    selectedElement.style.top = `${event.clientY - 20}px`;
+    selectedElement.style.left = `${window.scrollX + (event.clientX - 20)}px`;
+    selectedElement.style.top = `${window.scrollY + (event.clientY - 20)}px`;
 }
 
 function mouseMove(event)
@@ -46,9 +46,8 @@ function mouseMove(event)
         if (event.type === 'touchmove')
             event = event.changedTouches[0];
 
-        // TODO: Scale for %
-        selectedElement.style.left = `${event.clientX - 20}px`;
-        selectedElement.style.top = `${event.clientY - 20}px`;
+        selectedElement.style.left = `${window.scrollX + (event.clientX - 20)}px`;
+        selectedElement.style.top = `${window.scrollY + (event.clientY - 20)}px`;
     }
 }
 

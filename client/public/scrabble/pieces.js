@@ -6,7 +6,7 @@ const BOARD_H = 600;
 let BOARD_X = document.querySelector('#game-container').getBoundingClientRect().left + window.scrollX;
 let BOARD_Y = document.querySelector('#game-container').getBoundingClientRect().top + window.scrollY;
 
-// only when in drawer, otherwise 40
+// is 80 while in drawer, otherwise 40
 const PIECE_WIDTH = 80;
 const PIECE_HEIGHT = 80;
 
@@ -15,7 +15,7 @@ Number.prototype.clamp = function(min, max) {
     return Math.min(Math.max(this, min), max);
 };
 
-function updateBoardCoord()
+function updateBoardCoords()
 {
     BOARD_X = document.querySelector('#game-container').getBoundingClientRect().left + window.scrollX;
     BOARD_Y = document.querySelector('#game-container').getBoundingClientRect().top + window.scrollY;
@@ -23,7 +23,7 @@ function updateBoardCoord()
 
 function isCoordInBoard(px, py, pw, ph)
 {
-    updateBoardCoord();
+    updateBoardCoords();
 
     // to make it more readable
     let x = BOARD_X;
@@ -39,45 +39,37 @@ function isCoordInBoard(px, py, pw, ph)
     return false;
 }
 
-function placePieceSnapped(piece)
+function boardCoordsFromScreenSpace(ssx, ssy)
 {
-    updateBoardCoord();
-
-    // snap to grid
-    let x = BOARD_X - piece.offsetLeft + 20; // get center of piece
-    let y = BOARD_Y - piece.offsetTop + 20;
-
-    console.log(x,y);
+    updateBoardCoords();
+    let x = ssx - BOARD_X;
+    let y = ssy - BOARD_Y;
 
     // make 1-15 so can work out what tile it's in
     x /= (BOARD_W / 15);
     y /= (BOARD_H / 15);
-    
-    console.log(x,y);
-
 
     x.clamp(1, 15);
     y.clamp(1, 15);
 
-    console.log(x,y);
-
-
     y = Math.floor(y);
     x = Math.floor(x);
 
-    console.log(x,y);
+    return {x: x, y: y};
+}
 
-    x = BOARD_X - (x * 40) + 1; // back to px space
-    x = BOARD_Y - (y * 40) + 1;
+// places for board coordinate (0-14)
+function placePiece(piece, x, y)
+{
+    x = (x * 40) + BOARD_X + 1;
+    y = (y * 40) + BOARD_Y + 1;
 
-    console.log(x,y);
-    console.log("");
     // undo offset
     piece.style.left = `${x}px`;
     piece.style.top = `${y}px`;
 }
 
-
+// events from drag & drop api
 function piecePickedUp(piece)
 {
     BoardSounds[2].play();
@@ -86,6 +78,7 @@ function piecePickedUp(piece)
     piece.classList.add('dragging-piece');
 }
 
+// events from drag & drop api
 function piecePlaced(piece)
 {    
     
@@ -93,12 +86,15 @@ function piecePlaced(piece)
     if (isCoordInBoard(piece.offsetLeft, piece.offsetTop, 40, 40))
     {
         BoardSounds[0].play();
-        updateBoardCoord();
+        updateBoardCoords();
 
-        placePieceSnapped(piece);
+        let coords = boardCoordsFromScreenSpace(piece.offsetLeft + 20, piece.offsetTop + 20);
+        placePiece(piece, coords.x, coords.y);
 
         piece.classList.remove('unplayed-piece');
         piece.classList.add('played-piece');
+        piece.dataset.coords = JSON.stringify(coords);
+
         setupPieces();
     } else
     {
@@ -107,6 +103,7 @@ function piecePlaced(piece)
         piece.classList.add('unplayed-piece');
         piece.classList.remove('played-piece');
         piece.classList.remove('dragging-piece');
+        delete piece.dataset.coords;
 
         setupPieces();
     }
@@ -122,7 +119,7 @@ function setupPieces() // also resets pieces
         document.querySelector('#game-container').style.width = '600px';
         document.querySelector('#game-container').style.height = '700px';
         // needs to happen after resize
-        updateBoardCoord();
+        updateBoardCoords();
         
         let index = 0;
         for (const piece of document.querySelectorAll('piece, nopiece'))
@@ -143,7 +140,7 @@ function setupPieces() // also resets pieces
         document.querySelector('#game-container').style.width = '700px';
         document.querySelector('#game-container').style.height = '600px';
         
-        updateBoardCoord();
+        updateBoardCoords();
 
         let index = 0;
         for (const piece of document.querySelectorAll('piece, nopiece'))
@@ -162,7 +159,9 @@ function setupPieces() // also resets pieces
 
     for (const piece of document.querySelectorAll('.played-piece'))
     {
-        placePieceSnapped(piece);
+        // cheating lol
+        coords = JSON.parse(piece.dataset.coords);
+        placePiece(piece, coords.x, coords.y);
     }
 }
 
