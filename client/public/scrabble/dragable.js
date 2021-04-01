@@ -4,10 +4,10 @@
 // i also assume there's no way a user's viewport isn't at least 700px tall
 // bad assumption to make, but scroll pixels wouldn't scale
 
-document.querySelector('#game-container').addEventListener('mousemove', mouseMove);
-document.querySelector('#game-container').addEventListener('touchmove', mouseMove);
-document.querySelector('#game-container').addEventListener('mouseup',   mouseUp);
-document.querySelector('#game-container').addEventListener('touchend',  mouseUp);
+document.addEventListener('mousemove', mouseMove);
+document.addEventListener('touchmove', mouseMove);
+document.addEventListener('mouseup',   mouseUp);
+document.addEventListener('touchend',  mouseUp);
 
 document.querySelectorAll('piece').forEach(element => {
     element.addEventListener('mousedown', e => mouseDown(e, element));
@@ -21,20 +21,23 @@ function mouseDown(event, element)
 {
     event.preventDefault();
 
-    // move to the centre of the mouse to simulat pickup
-    // can also play a sound
+    // disalow picking up of played pieces
+    if (element.classList.contains('played-piece')) return;
 
-    element.style.top = event.clientY;
-    element.style.left = event.clientX;
-
+    piecePickedUp(element);
+    
     if (event.type === 'touchstart')
         event = event.changedTouches[0];
-
+    
     state.dx = Math.abs(element.offsetLeft - event.clientX);
     state.dy = Math.abs(element.offsetTop - event.clientY);
-
+    
     element.pointerEvents = 'none';
     selectedElement = element;
+    
+    // move to the centre of the mouse to simulat pickup
+    selectedElement.style.top = event.clientY;
+    selectedElement.style.left = event.clientX;
 }
 
 function mouseMove(event)
@@ -55,5 +58,12 @@ function mouseMove(event)
 function mouseUp(event)
 {
     event.preventDefault();
-    selectedElement.pointerEvents = 'initial';
+
+    if (selectedElement.pointerEvents != 'initial')
+    {
+        piecePlaced(selectedElement);
+
+        selectedElement.pointerEvents = 'initial';
+    }
+
 }

@@ -39,15 +39,18 @@ score {
     text-align: right;
     right: 5px;
 
-    font-size: 20px;
+    font-size: 50%;
 
     width: 100%;
     height: 100%;
 }
 
 .dragging-piece {
-
+    width: 40px;
+    height: 40px;
+    font-size: 25px
 }
+
 
 #game-container {
     border: 1px dotted black;
