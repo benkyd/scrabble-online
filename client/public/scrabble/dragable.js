@@ -5,10 +5,13 @@
 // bad assumption to make, but scroll pixels wouldn't scale
 
 document.querySelector('#game-container').addEventListener('mousemove', mouseMove);
+document.querySelector('#game-container').addEventListener('touchmove', mouseMove);
 document.querySelector('#game-container').addEventListener('mouseup',   mouseUp);
+document.querySelector('#game-container').addEventListener('touchend',  mouseUp);
 
 document.querySelectorAll('piece').forEach(element => {
     element.addEventListener('mousedown', e => mouseDown(e, element));
+    element.addEventListener('touchstart', e => mouseDown(e, element));
 });
 
 let state = {dx: 0, dy: 0};
@@ -18,13 +21,17 @@ function mouseDown(event, element)
 {
     event.preventDefault();
 
-    // TODO: allow drag api (on mobile)
-    state.dx = Math.abs(element.offsetLeft - event.clientX);
-    state.dy = Math.abs(element.offsetTop - event.clientY);
-
-    
     // move to the centre of the mouse to simulat pickup
     // can also play a sound
+
+    element.style.top = event.clientY;
+    element.style.left = event.clientX;
+
+    if (event.type === 'touchstart')
+        event = event.changedTouches[0];
+
+    state.dx = Math.abs(element.offsetLeft - event.clientX);
+    state.dy = Math.abs(element.offsetTop - event.clientY);
 
     element.pointerEvents = 'none';
     selectedElement = element;
@@ -36,6 +43,9 @@ function mouseMove(event)
 
     if (selectedElement.pointerEvents === 'none') {
    
+        if (event.type === 'touchmove')
+            event = event.changedTouches[0];
+
         // TODO: Scale for %
         selectedElement.style.left = `${event.clientX - state.dx}px`;
         selectedElement.style.top = `${event.clientY - state.dy}px`;

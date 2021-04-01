@@ -9,20 +9,30 @@ let BOARD_TL_Y = document.querySelector('#game-container').getBoundingClientRect
 const PIECE_WIDTH = 80;
 const PIECE_HEIGHT = 80;
 
+function piecePickedUp()
+{
 
-class Piece {
+}
+
+function piecePlaced()
+{
     
 }
 
 
+
 function setupPieces() 
 {
-    BOARD_TL_X = document.querySelector('#game-container').getBoundingClientRect().left + window.scrollX;
-    BOARD_TL_Y = document.querySelector('#game-container').getBoundingClientRect().top + window.scrollY;
     // if the window has enough vertical height to fit the peices,
     // have them at the bottom of the board, else, have them to the right
     if (window.innerHeight > 700)
     {
+        document.querySelector('#game-container').style.width = '600px';
+        document.querySelector('#game-container').style.height = '700px';
+        // needs to happen after resize
+        BOARD_TL_X = document.querySelector('#game-container').getBoundingClientRect().left + window.scrollX;
+        BOARD_TL_Y = document.querySelector('#game-container').getBoundingClientRect().top + window.scrollY;
+        
         let index = 0;
         for (const piece of document.querySelectorAll('piece, nopiece'))
         {            
@@ -37,6 +47,12 @@ function setupPieces()
         }
     } else
     {
+        document.querySelector('#game-container').style.width = '700px';
+        document.querySelector('#game-container').style.height = '600px';
+        
+        BOARD_TL_X = document.querySelector('#game-container').getBoundingClientRect().left + window.scrollX;
+        BOARD_TL_Y = document.querySelector('#game-container').getBoundingClientRect().top + window.scrollY;
+
         let index = 0;
         for (const piece of document.querySelectorAll('piece, nopiece'))
         {            
