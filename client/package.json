@@ -2,7 +2,7 @@
   "name": "scrabble_client",
   "version": "1.0.0",
   "description": "G600 L4 Application Programming Coursework 2020",
-  "main": "launchserver.js",
+  "main": "n/a",
   "scripts": {
     "start": "node launchserver.js",
     "setup": "npm i",

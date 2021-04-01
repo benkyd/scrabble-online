@@ -1,0 +1,22 @@
+{
+  "name": "scrabble",
+  "version": "1.0.0",
+  "description": "G600 L4 Application Programming Coursework 2020",
+  "main": "n/a",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Kyd <benjaminkyd@gmail.com> (https://benkyd.co.uk)",
+  "license": "UNLICENSED",
+  // "eslintConfig": {
+  //   "extends": "portsoc",
+  //   "root": true,
+  //   "env": {
+  //     "browser": true
+  //   }
+  // },
+  "dependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-portsoc": "^0.8.1"
+  }
+}

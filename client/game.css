@@ -1,13 +1,4 @@
 
-#game-container {
-    border: 1px dotted black;
-    padding-bottom: 20%;
-    position: absolute;
-
-    height: 80%;
-    overflow: hidden;
-}
-
 piece {
     display: flex;
 
@@ -20,8 +11,8 @@ piece {
 
     font-size: 5vw;
 
-    width: 10%;
-    height: 10%;
+    width: 10vw;
+    height: 10vw; /* for square have realtive to width */
 
     position: absolute;
 }
@@ -40,56 +31,54 @@ score {
     position: absolute;
 }
 
+#game-container {
+    border: 1px dotted black;
+    
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: auto;
+    
+    width: 600px;
+    height: 600px;
+
+}
+
 #game-board {
     display: table;
     table-layout: fixed;
 
     position: static;
     width: 100%;
-    height: 100%;
-
-    max-width: 70%;
-    max-height: 70%;
+    height: 200%;
 
     text-align: center;
     font-size: 3vw; /* roughly 15 / table width */
 }
 
-.game-board-header {
-    display: table-row-group;
+.game-board-header-row {
+    display: table-row;
+    height: 2vw;
 }
 
 .game-board-header-cell {
     display: table-cell;
-
-    width: 100%;
-    height: 0;
-    padding-bottom: 0%;
-}
-
-.game-board-col-header {
-    display: table-column-group;
 }
 
 .game-board-col-header-cell {
-    display: table-cell;
-
-    width: 100%;
-    height: 0;
-    padding-bottom: 0%;
+    isplay: table-cell;
 }
 
 .game-board-row {
     display: table-row;
+    height: 0;
 }
 
 .game-board-cell {
     display: table-cell;
 
-    /* width: 100%; */
-    height: 4vw;
-    /* width: 10vw; */
-    /* padding-bottom: 0%; */
+    width: inherit;
 
     font-size: 2vw; /* roughly 15 / table width */
     vertical-align: middle;
