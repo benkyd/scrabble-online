@@ -6,7 +6,7 @@ const BOARD_H = 600;
 let BOARD_X = document.querySelector('#game-container').getBoundingClientRect().left + window.scrollX;
 let BOARD_Y = document.querySelector('#game-container').getBoundingClientRect().top + window.scrollY;
 
-// only when in drawer
+// only when in drawer, otherwise 40
 const PIECE_WIDTH = 80;
 const PIECE_HEIGHT = 80;
 

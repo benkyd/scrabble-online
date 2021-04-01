@@ -14,7 +14,6 @@ document.querySelectorAll('piece').forEach(element => {
     element.addEventListener('touchstart', e => mouseDown(e, element));
 });
 
-let state = {dx: 0, dy: 0};
 let selectedElement = {};
 
 function mouseDown(event, element)
@@ -29,15 +28,13 @@ function mouseDown(event, element)
     if (event.type === 'touchstart')
         event = event.changedTouches[0];
     
-    state.dx = Math.abs(element.offsetLeft - event.clientX);
-    state.dy = Math.abs(element.offsetTop - event.clientY);
-    
     element.pointerEvents = 'none';
+
     selectedElement = element;
     
-    // move to the centre of the mouse to simulat pickup
-    // selectedElement.style.top = event.clientY;
-    // selectedElement.style.left = event.clientX;
+    // move to the centre of the mouse to simulate pickup
+    selectedElement.style.left = `${event.clientX - 20}px`;
+    selectedElement.style.top = `${event.clientY - 20}px`;
 }
 
 function mouseMove(event)
@@ -50,8 +47,8 @@ function mouseMove(event)
             event = event.changedTouches[0];
 
         // TODO: Scale for %
-        selectedElement.style.left = `${event.clientX - state.dx}px`;
-        selectedElement.style.top = `${event.clientY - state.dy}px`;
+        selectedElement.style.left = `${event.clientX - 20}px`;
+        selectedElement.style.top = `${event.clientY - 20}px`;
     }
 }
 
