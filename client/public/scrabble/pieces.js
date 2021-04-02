@@ -49,8 +49,8 @@ function boardCoordsFromScreenSpace(ssx, ssy)
     x /= (BOARD_W / 15);
     y /= (BOARD_H / 15);
 
-    x.clamp(1, 15);
-    y.clamp(1, 15);
+    x = x.clamp(0, 14);
+    y = y.clamp(0, 14);
 
     y = Math.floor(y);
     x = Math.floor(x);
@@ -59,7 +59,7 @@ function boardCoordsFromScreenSpace(ssx, ssy)
 }
 
 // places for board coordinate (0-14)
-function placePiece(piece, x, y)
+function placePieceOnBoard(piece, x, y)
 {
     x = (x * 40) + BOARD_X + 1;
     y = (y * 40) + BOARD_Y + 1;
@@ -72,6 +72,8 @@ function placePiece(piece, x, y)
 // events from drag & drop api
 function piecePickedUp(piece)
 {
+    if (!piece) return;
+
     BoardSounds[2].play();
 
     piece.classList.add('dragging-piece');
@@ -80,7 +82,8 @@ function piecePickedUp(piece)
 // events from drag & drop api
 function piecePlaced(piece)
 {    
-    
+    if (!piece) return;
+
     // snap to board if in box
     if (isCoordInBoard(piece.offsetLeft, piece.offsetTop, 40, 40))
     {
@@ -88,7 +91,7 @@ function piecePlaced(piece)
         updateBoardCoords();
 
         let coords = boardCoordsFromScreenSpace(piece.offsetLeft + 20, piece.offsetTop + 20);
-        placePiece(piece, coords.x, coords.y);
+        placePieceOnBoard(piece, coords.x, coords.y);
 
         piece.classList.remove('unplayed-piece');
         piece.classList.add('played-piece');
@@ -160,7 +163,7 @@ function setupPieces() // also resets pieces
     {
         // cheating lol
         coords = JSON.parse(piece.dataset.coords);
-        placePiece(piece, coords.x, coords.y);
+        placePieceOnBoard(piece, coords.x, coords.y);
     }
 }
 

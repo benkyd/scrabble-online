@@ -15,14 +15,14 @@ const DrawerSounds = [
     new Audio('../drawer3.mp3')
 ];
 
-// BoardSounds.forEach(sound => {
-//     sound.addEventListener('loadeddata', () => {
-//         sound.volume = 1;
-//     });
-// });
+BoardSounds.forEach(sound => {
+    sound.addEventListener('loadeddata', () => {
+        sound.volume = 1;
+    });
+});
 
-// DrawerSounds.forEach(sound => {
-//     sound.addEventListener('loadeddata', () => {
-//         sound.volume = 1;
-//     });
-// });
+DrawerSounds.forEach(sound => {
+    sound.addEventListener('loadeddata', () => {
+        sound.volume = 1;
+    });
+});
