@@ -74,7 +74,6 @@ function piecePickedUp(piece)
 {
     BoardSounds[2].play();
 
-
     piece.classList.add('dragging-piece');
 }
 
@@ -100,9 +99,9 @@ function piecePlaced(piece)
     {
         DrawerSounds[Math.floor(Math.random() * 3)].play();
         
-        piece.classList.add('unplayed-piece');
         piece.classList.remove('played-piece');
         piece.classList.remove('dragging-piece');
+        piece.classList.add('unplayed-piece');
         delete piece.dataset.coords;
 
         setupPieces();
