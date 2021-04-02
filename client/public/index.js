@@ -2,14 +2,13 @@ const UsernameForm = document.querySelector('#input-username');
 const UsernameInput = document.querySelector('#input-text-username');
 // TODO: ^ LOWECASE U
 
-const ClientID = document.querySelector('#client-id');
 const ConnectionState = document.querySelector('#connection-state');
 
 UsernameForm.addEventListener('submit', onUsernameSubmit);
 
 function playSingleplayer()
 {
-    document.location.href += 'scrabble';
+    document.location.href += '/scrabble';
 }
 
 // User submits their desired username
@@ -52,7 +51,6 @@ async function onUsernameSubmit(e)
     {
         sessionStorage.setItem('user', JSON.stringify(body.login.user));
         console.log(sessionStorage.user)
-        ClientID.innerHTML = `ClientID: ${JSON.parse(sessionStorage.user).uid}`;
         document.location.href += 'game';
     }
 }

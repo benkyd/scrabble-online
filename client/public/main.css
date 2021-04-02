@@ -18,6 +18,26 @@ body {
     user-select: none;
 }
 
+#lang {
+    position: inherit;
+    text-align: right;
+
+    right: 100%;
+    top: 0;
+    font-size: 14px;
+}
+
+#content {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+/* I DID NOT WRITE THIS */
+/* I can't reference it because i don't know where i got it from */
+/* BUT ITS IMPORTANT THAT YOU KNOW THAT I DID NOT WRITE THIS */
 /* Responsive mobile & touch support */
 @media screen and (max-width: 768px) {
     body {

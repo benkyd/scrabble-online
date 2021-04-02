@@ -6,21 +6,33 @@
 
         <link rel="stylesheet" href="./main.css">
         
-        <title>Scrabble online</title>
+        <title>Scrabble! online</title>
     </head>
     <body>
-        <form id="input-username">
-            <label for="input-text-username">Username: </label>
-            <input id="input-text-username" type="text">
-            <button type="submit">Submit</button>
-        </form>
+        <script src="locale.js"></script>
 
-        <div id="client-id">Awaiting ClientID</div>
-        <div id="connection-state"></div>
+        <div id="lang">
+            <a href="javascript:void(0);" onclick="switchLocale('en');">English (Britain)</a> |
+            <a href="javascript:void(0);" onclick="switchLocale('pt');" hreflang="pt" lang="pt">Português (Portugal)</a> |
+            <a href="javascript:void(0);" onclick="switchLocale('es');" hreflang="es" lang="es">Español (España)</a>
+        </div>
+      
 
-        <p><p>
+        <div id="content">
+            <h1>scrabble</h1>
 
-        <input type="button" value="play singleplayer" onclick="playSingleplayer()">
+            <form id="input-username">
+                <label for="input-text-username"><script>document.write(localeString('username'))</script>: </label>
+                <input id="input-text-username" type="text">
+                <button type="submit">Submit</button>
+            </form>
+    
+            <div id="connection-state"></div>
+    
+            <p><p>
+    
+            <input type="button" value="play singleplayer" onclick="playSingleplayer()">
+        </div>
 
         <script src="index.js"></script>
     </body>

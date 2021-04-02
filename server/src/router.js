@@ -1,6 +1,7 @@
 const Logger = require('./logger.js');
 const Server = require('./webserver.js');
 const Game = require('./game.js')
+const locale = require('./locale.js');
 const Error = require('./error.js')
 
 const Express = require('express');
@@ -16,6 +17,7 @@ async function init()
     Server.App.use(Express.static('../client/public'));
 
     Server.App.post('/login', HandleLogin);
+    Server.App.get('/locales', HandleGetLocales);
 
     Logger.info('ROTUER SETUP');
 }
@@ -49,7 +51,7 @@ function HandleLogin(req, res, next)
 
     if (!req.body.username)
     {
-        err.addError(400, 'Bad Request', 'Username not present');
+        err.addError(400, 'Bad Request', 'error-no-username');
         err.end(res);
         return;
     }
@@ -58,14 +60,14 @@ function HandleLogin(req, res, next)
 
     if (!Game.Registrar.ValidUsername(username))
     {
-        err.addError(403, 'Forbidden', 'Invalid username');
+        err.addError(403, 'Forbidden', 'error-invalid-username');
         err.end(res);
         return;
     }
     
     if (!Game.Registrar.CheckUsernameAvailability(username))
     {
-        err.addError(403, 'Forbidden', 'Username taken');
+        err.addError(403, 'Forbidden', 'error-taken-username');
         err.end(res);
         return;
     }
@@ -78,7 +80,7 @@ function HandleLogin(req, res, next)
     // remote network
     if (Game.Registrar.CountIPs(ip) > 10)
     {
-        err.addError(429, 'Too Many Requests', 'Too many clients');
+        err.addError(429, 'Too Many Requests', 'error-too-many-clients');
         err.end(res);
         return;
     }
@@ -87,7 +89,7 @@ function HandleLogin(req, res, next)
 
     if (!user)
     {
-        err.addError(500, 'Internal Server Error', 'User Connected');
+        err.addError(500, 'Internal Server Error', 'status-connected');
         err.end(res);
         return;
     }
@@ -103,4 +105,10 @@ function HandleLogin(req, res, next)
 
     // Continue to later middleware
     next();
+}
+
+async function HandleGetLocales(req, res, next)
+{
+    const err = new Error;
+    res.end(locale.GetLocaleListJSON());
 }

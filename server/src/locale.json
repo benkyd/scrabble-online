@@ -1,0 +1,60 @@
+{
+    "scrabble-name": {
+        "en": "Scrabble",
+        "es": "Scrabble",
+        "pt": "Scrabble"
+    },
+    "username": {
+        "en": "Username",
+        "es": "Nombre de usuario",
+        "pt": "Nome de usuàrio"
+    },
+    "button-singleplayer": {
+        "en": "Play singleplayer",
+        "es": "Jugar a un(a) jugador(a)",
+        "pt": "Jogar singleplayer"
+    },
+    "button-submit": {
+        "en": "Submit",
+        "es": "Enviar",
+        "pt": "Enviar"
+    },
+    "status-connected": {
+        "en": "Connected",
+        "es": "",
+        "pt": ""
+    },
+
+
+    "error-bold": {
+        "en": "ERROR",
+        "es": "ERRO",
+        "pt": "ERROR"
+    },
+    "error-no-username": {
+        "en": "Username not present",
+        "es": "",
+        "pt": ""
+    },
+    "error-invalid-username": {
+        "en": "Invalid username",
+        "es": "",
+        "pt": ""
+    },
+    "error-taken-username": {
+        "en": "Username taken",
+        "es": "",
+        "pt": ""
+    },
+    "error-too-many-clients": {
+        "en": "Too many clients",
+        "es": "",
+        "pt": ""
+    },
+
+
+
+    "en": "",
+    "es": "",
+    "pt": ""
+}
