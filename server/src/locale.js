@@ -4,7 +4,7 @@ let locales = {};
 
 function init()
 {
-    locales = JSON.parse(FS.readFileSync('src/locale.json'));
+    locales = JSON.parse(FS.readFileSync('./locale.json'));
 }
 
 function GetLocaleListJSON()

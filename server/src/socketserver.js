@@ -67,14 +67,14 @@ function ClientIdentify(socket, args)
 
     if (!intent)
     {
-        err.addError(400, 'Bad Request', 'Client has no intent');
+        err.addError(400, 'Bad Request', 'error-bad-intent');
         socket.emit('identify-error', err.toError);
         return;
     }
 
     if (!user)
     {
-        err.addError(400, 'Bad Request', 'Unknown uid');
+        err.addError(400, 'Bad Request', 'error-unknown-uid');
         socket.emit('identify-error', err.toError);
         return;
     }
@@ -88,14 +88,14 @@ function ClientIdentify(socket, args)
         socket.emit('identify-success', {connected: true, user: user});
         return;
     } 
-    else if (status === 'User Already Connected')
+    else if (status === 'error-taken-user-connection')
     {
-        err.addError(500, 'Internal Server Error', 'User already connected');
+        err.addError(500, 'Internal Server Error', 'error-taken-user-connection');
         socket.emit('identify-error', err.toError);
         return;
     } else
     {
-        err.addError(500, 'Internal Server Error', 'Illegal user');
+        err.addError(500, 'Internal Server Error', 'error-illegal-user');
         socket.emit('identify-error', err.toError);
         return;
     }
@@ -125,7 +125,7 @@ function LobbyCreate(socket, args)
     const user = Game.Registrar.GetUserbyConnection(socket.id);
     if (!user || user.uid != useruid)
     {
-        err.addError(403, 'Forbidden', 'Illegal user');
+        err.addError(403, 'Forbidden', 'error-illegal-user');
         socket.emit('lobby-create-error', err.toError);
         return;
     }
@@ -133,7 +133,7 @@ function LobbyCreate(socket, args)
     // Make sure user isn't already in a lobby or owns one
     if (!Game.Lobbies.CheckUserAvailability(useruid))
     {
-        err.addError(400, 'Bad Request', 'User already owns lobby');
+        err.addError(400, 'Bad Request', 'error-taken-lobby-ownership');
         socket.emit('lobby-create-error', err.toError);
         return;
     }
@@ -142,7 +142,7 @@ function LobbyCreate(socket, args)
 
     if (!lobby)
     {
-        err.addError(500, 'Internal Server Error', 'Illegal lobby');
+        err.addError(500, 'Internal Server Error', 'error-illegal-lobby');
         socket.emit('lobby-create-error', err.toError);
         return;
     }
@@ -153,14 +153,14 @@ function LobbyCreate(socket, args)
     const lobbyJoined = Game.Lobbies.UserJoinLobby(lobby.uid, useruid, LobbyUpdateCallback);
     if (!lobbyJoined)
     {
-        err.addError(403, 'Forbidden', 'Cannot join lobby');
+        err.addError(403, 'Forbidden', 'error-cannot-join-lobby');
         socket.emit('lobby-create-error', err.toError);
         return;
     }
 
     if (lobbyJoined.uid !== lobby.uid)
     {
-        err.addError(500, 'Internal Server Error', 'Illegal lobby');
+        err.addError(500, 'Internal Server Error', 'error-illegal-lobby');
         socket.emit('lobby-create-error', err.toError);
         return;
     }
@@ -177,14 +177,14 @@ function LobbyJoin(socket, args)
 
     if (!useruid)
     {
-        err.addError(400, 'Bad Request', 'Unknown uid');
+        err.addError(400, 'Bad Request', 'error-unknown-uid');
         socket.emit('lobby-join-error', err.toError);
         return;
     }
 
     if (!args.lobbyuid || args.joinAsSpectator === undefined)
     {
-        err.addError(400, 'Bad Request', 'Lobby malformed');
+        err.addError(400, 'Bad Request', 'error-malformed-lobby');
         socket.emit('lobby-join-error', err.toError);
         return;
     }
@@ -193,7 +193,7 @@ function LobbyJoin(socket, args)
     const user = Game.Registrar.GetUserbyConnection(socket.id);
     if (!user || user.uid != useruid)
     {
-        err.addError(403, 'Forbidden', 'Illegal user');
+        err.addError(403, 'Forbidden', 'error-illegal-user');
         socket.emit('lobby-join-error', err.toError);
         return;
     }
@@ -201,7 +201,7 @@ function LobbyJoin(socket, args)
     // Make sure user isn't already in a lobby
     if (!Game.Lobbies.CheckUserAvailability(useruid))
     {
-        err.addError(400, 'Bad Request', 'User already owns lobby');
+        err.addError(400, 'Bad Request', 'Uerror-taken-lobby-ownership');
         socket.emit('lobby-join-error', err.toError);
         return;
     }
@@ -209,7 +209,7 @@ function LobbyJoin(socket, args)
     const lobby = Game.Lobbies.GetLobbyByUID(args.lobbyuid);
     if (!lobby)
     {
-        err.addError(400, 'Bad Request', 'Lobby does not exist');
+        err.addError(400, 'Bad Request', 'error-lobby-not-exist');
         socket.emit('lobby-join-error', err.toError);
         return;
     }
@@ -223,7 +223,7 @@ function LobbyJoin(socket, args)
     
         if (!status)
         {
-            err.addError(403, 'Forbidden', 'Cannot join lobby');
+            err.addError(403, 'Forbidden', 'error-lobby-join');
             socket.emit('lobby-join-error', err.toError);
             return;
         }

@@ -1,0 +1,110 @@
+{
+    "scrabble-name": {
+        "en": "Scrabble",
+        "es": "Scrabble",
+        "pt": "Scrabble"
+    },
+    "username": {
+        "en": "Username",
+        "es": "Nombre de usuario",
+        "pt": "Nome de usuàrio"
+    },
+    "button-singleplayer": {
+        "en": "Play singleplayer",
+        "es": "Jugar a un(a) jugador(a)",
+        "pt": "Jogar singleplayer"
+    },
+    "button-submit": {
+        "en": "Submit",
+        "es": "Enviar",
+        "pt": "Enviar"
+    },
+    "status-connected": {
+        "en": "Connected",
+        "es": "Conectado(a)",
+        "pt": "Conectado(a)"
+    },
+
+    
+    "error-bold": {
+        "en": "ERROR",
+        "es": "ERRO",
+        "pt": "ERROR"
+    },
+    "error-no-username": {
+        "en": "Username not present",
+        "es": "Nombre de usuario no esta presente",
+        "pt": "Nome de usuário não esta presente"
+    },
+    "error-invalid-username": {
+        "en": "Invalid username",
+        "es": "Nombre de usuario no es válido",
+        "pt": "Nome de usuário Inválido"
+    },
+    "error-taken-username": {
+        "en": "Username taken",
+        "es": "Nombre de usuario no esta disponible",
+        "pt": "Nome de usuário já está em uso"
+    },
+    "error-too-many-clients": {
+        "en": "Too many connections",
+        "es": "Demasiadas conexiones",
+        "pt": "Demasiadas conexões"
+    },
+    "error-bad-intent": {
+        "en": "Client has no intent",
+        "es": "Cliente no tiene intención",
+        "pt": "Cliente não tem intenção"
+    },
+    "error-unknown-uid": {
+        "en": "Unknown user ID",
+        "es": "",
+        "pt": ""
+    },
+    "error-taken-user-connection": {
+        "en": "User already connected",
+        "es": "",
+        "pt": ""
+    },
+    "error-illegal-user": {
+        "en": "Illegal user",
+        "es": "",
+        "pt": ""
+    },
+    "error-malformed-lobby": {
+        "en": "Lobby malformed",
+        "es": "",
+        "pt": ""
+    },
+    "error-taken-lobby-ownership": {
+        "en": "User already owns lobby",
+        "es": "",
+        "pt": ""
+    },
+    "error-illegal-lobby": {
+        "en": "Illegal lobby",
+        "es": "",
+        "pt": ""
+    },
+    "error-cannot-join-lobby": {
+        "en": "Cannot join lobby",
+        "es": "",
+        "pt": ""
+    },
+    "error-lobby-not-exist": {
+        "en": "Lobby does not exist",
+        "es": "",
+        "pt": ""
+    },
+    "error-lobby-join": {
+        "en": "Cannot join lobby",
+        "es": "",
+        "pt": ""
+    },
+
+
+
+    "en": "",
+    "es": "",
+    "pt": ""
+}

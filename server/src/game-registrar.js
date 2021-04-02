@@ -56,7 +56,8 @@ function CountIPs(ip)
 
 function ValidUsername(username)
 {
-    if (username.match(/[^A-Za-z0-9_-]/)) 
+    // \p{L} includes international letters
+    if (username.match(/[^A-Za-z0-9_-]\p{L}/)) 
     {
         return false;
     }
@@ -147,7 +148,7 @@ function GetUserbyConnection(connectionid)
 // TODO: User intent
 function UserConnect(useruid, connectionid)
 {
-    if (OnlineUsers[useruid].state === 'CONNECTED') return 'User Already Connected';
+    if (OnlineUsers[useruid].state === 'CONNECTED') return 'error-taken-user-connection';
 
     OnlineUsers[useruid].connectionid = connectionid;
     OnlineUsers[useruid].state = 'CONNECTED';
