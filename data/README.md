@@ -8,4 +8,6 @@ Locales are defined by their locale code, the translations are seperated by a co
 
 Sometimes context clues may be neccesary for an accurate translation, everything after a semicolon won't be interpreted by the parser, therefore context clues can be given. These will be defined in the english (en) file
 
+```Code:Translation/Text;Context```
+
 Capitalisation is also important, if the english words are capitalised, the translations need to be capitalised in the same (if it makes sense) place
