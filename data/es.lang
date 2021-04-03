@@ -1,0 +1,59 @@
+language:es
+country:España
+----
+button-back:regresar
+button-create:crear
+button-join:participar
+button-leave-lobby:Salir del Lobby
+button-send:enviar
+button-singleplayer:Jugar a un(a) jugador(a)
+button-start-game:Empezar Juego
+button-submit:Enviar
+connection-waiting:Esperando la conexión
+error-bad-intent:Cliente no tiene intención
+error-bold:ERRO
+error-cannot-join-lobby:No se puede unir al lobby
+error-creating-lobby:Ocurrió un error al crear el lobby 
+error-illegal-lobby:Lobby ilegal
+error-illegal-user:Usuario ilegal
+error-invalid-username:Nombre de usuario no es válido
+error-lobby-id-required:Se requiere un lobby ID
+error-lobby-joining:Ocurrió un error al conectarse al lobby 
+error-lobby-name-required:Se requiere un nombre
+error-lobby-not-exist:Lobby no existe
+error-malformed-lobby:Lobby malformado
+error-no-username:Nombre de usuario no esta presente
+error-taken-lobby-ownership:Usuario ya tiene lobby
+error-taken-user-connection:Usuario ya está conectado/a
+error-taken-username:Nombre de usuario no esta disponible
+error-too-many-clients:Demasiadas conexiones
+error-unknown-uid:ID de usuario desconocido
+game-lobby:crea o conecta a un juego
+joined:conectado(a)
+left:salió
+left-lobby:salió del lobby
+lobby:Lobby
+lobby-allow-spectators:permitir espectadores
+lobby-code:código de lobby
+lobby-create:Crear Lobby
+lobby-created:lobby creado
+lobby-created-joining:Lobby creado, Conectando...
+lobby-deleted:lobby eliminado
+lobby-join:Conectarse al Lobby
+lobby-join-code:Código para Conectar
+lobby-join-spectator:conectar como espectador(a)
+lobby-joined:entró en el lobby
+lobby-joining:entrando al lobby
+lobby-private:lobby privado
+log-console:consola de log
+message:mensaje
+name:nombre
+players:Jugadores
+scrabble-name:Scrabble
+spectators:Espectadores
+status:Status
+status-connected:Conectado(a)
+status-connected-as:Conectado/a como 
+status-disconnected:Desconectado/a
+username:Nombre de usuario
+visibility:Visibilidad

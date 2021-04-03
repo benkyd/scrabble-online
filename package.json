@@ -8,13 +8,6 @@
   },
   "author": "Ben Kyd <benjaminkyd@gmail.com> (https://benkyd.co.uk)",
   "license": "UNLICENSED",
-  // "eslintConfig": {
-  //   "extends": "portsoc",
-  //   "root": true,
-  //   "env": {
-  //     "browser": true
-  //   }
-  // },
   "dependencies": {
     "eslint": "^7.23.0",
     "eslint-config-portsoc": "^0.8.1"

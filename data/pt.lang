@@ -1,0 +1,59 @@
+language:pt
+country:Portugal
+----
+button-back:voltar
+button-create:criar
+button-join:entrar
+button-leave-lobby:Sair do Lobby
+button-send:enviar
+button-singleplayer:Jogar singleplayer
+button-start-game:Começar Jogo
+button-submit:Enviar
+connection-waiting:Aguardando conexão
+error-bad-intent:Cliente não tem intenção
+error-bold:ERROR
+error-cannot-join-lobby:Não é possível entrar no lobby
+error-creating-lobby:Ocorreu um erro ao criar o lobby 
+error-illegal-lobby:Lobby ilegal
+error-illegal-user:Usuário ilegal
+error-invalid-username:Nome de usuário Inválido
+error-lobby-id-required:É necessário um lobby ID
+error-lobby-joining:Ocorreu um erro ao entrar no lobby 
+error-lobby-name-required:Um nome é obrigatório
+error-lobby-not-exist:Lobby não existe
+error-malformed-lobby:Lobby malformado
+error-no-username:Nome de usuário não esta presente
+error-taken-lobby-ownership:Usuário já tem um lobby
+error-taken-user-connection:Usuário já está conectado/a
+error-taken-username:Nome de usuário já está em uso
+error-too-many-clients:Demasiadas conexões
+error-unknown-uid:ID de usuário desconhecido
+game-lobby:crie ou entre em um jogo
+joined:juntou
+left:saiu
+left-lobby:saiu do lobby
+lobby:Lobby
+lobby-allow-spectators:permitir espectadores
+lobby-code:código do lobby
+lobby-create:Criar Lobby
+lobby-created:Lobby criado
+lobby-created-joining:Lobby criaso, Juntando-se...
+lobby-deleted:lobby apagado
+lobby-join:Conectar ao Lobby
+lobby-join-code:Código para Conectar
+lobby-join-spectator:junte-se como espectador
+lobby-joined:entrou no lobby
+lobby-joining:entrando no lobby
+lobby-private:lobby privado
+log-console:console de log
+message:mensagem
+name:nome
+players:Jogadores
+scrabble-name:Scrabble
+spectators:Espectadores
+status:Status
+status-connected:Conectado(a)
+status-connected-as:Conectado/a como 
+status-disconnected:Desconectado/a
+username:Nome de usuàrio
+visibility:Visibilidade

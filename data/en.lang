@@ -1,0 +1,59 @@
+language:en
+country:Britain
+----
+button-back:back; (Action) to go back (a page)
+button-create:create
+button-join:join; (Action) to join
+button-leave-lobby:Leave Lobby
+button-send:send; (Action) to send a message
+button-singleplayer:Play singleplayer
+button-start-game:Start Game
+button-submit:Submit; (Action) to submit (a) message
+connection-waiting:Waiting for connection
+error-bad-intent:Client has no intent
+error-bold:ERROR
+error-cannot-join-lobby:Cannot join lobby
+error-creating-lobby:An error occurred while creating the lobby 
+error-illegal-lobby:Illegal lobby
+error-illegal-user:Illegal user
+error-invalid-username:Invalid username
+error-lobby-id-required:A lobby ID is required
+error-lobby-joining:An error occurred while joining the lobby 
+error-lobby-name-required:A name is requred
+error-lobby-not-exist:Lobby does not exist
+error-malformed-lobby:Lobby malformed
+error-no-username:Username not present; there is no username
+error-taken-lobby-ownership:User already owns lobby
+error-taken-user-connection:User already connected
+error-taken-username:Username taken
+error-too-many-clients:Too many connections
+error-unknown-uid:Unknown user ID
+game-lobby:create or join a game
+joined:joined; (Action) of joining something (a game)
+left:left; (Action) of leaving
+left-lobby:left lobby; (Action) of leaving the (lobby)
+lobby:Lobby
+lobby-allow-spectators:allow spectators
+lobby-code:lobby code
+lobby-create:Create Lobby
+lobby-created:created lobby
+lobby-created-joining:Lobby created, Joining...
+lobby-deleted:deleted lobby
+lobby-join:Join Lobby
+lobby-join-code:Join Code
+lobby-join-spectator:join as spectator
+lobby-joined:joined lobby
+lobby-joining:joining lobby
+lobby-private:private lobby
+log-console:log console
+message:message; (noun) piece of text
+name:name
+players:Players
+scrabble-name:Scrabble
+spectators:Spectators
+status:Status; (noun) position
+status-connected:Connected
+status-connected-as:Connected as 
+status-disconnected:Disconnected
+username:Username
+visibility:Visibility
