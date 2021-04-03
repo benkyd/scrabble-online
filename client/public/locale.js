@@ -27,4 +27,7 @@ async function loadLoacale()
 
 loadLoacale();
 if (localStorage.getItem('locale') == null)
+{
     localStorage.setItem('locale', 'en');
+    location.reload();
+}
