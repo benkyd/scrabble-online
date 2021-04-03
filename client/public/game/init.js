@@ -1,10 +1,11 @@
 const ConnectionState = document.querySelector('#connection-state');
 
-
-ConnectionState.innerHTML = 'Waiting for connection'
+ConnectionState.innerHTML = localeString('connection-waiting');
 
 const socket = io(window.location.host);
 
+// do not to be locale-ised because they do not communicate information
+// to the user and are technical in nature
 socket.on('connect', (...args) => {
     console.log('Socket Connected');
     ConnectionState.innerHTML = 'Waiting for identify'
@@ -24,7 +25,7 @@ socket.on('identify', (...args) => {
     {
         socket.disconnect();
         ConnectionState.innerHTML = 'Identify cannot proceed, no user';
-        document.location.href = document.location.href + '../';
+        document.location.href += '../';
         return;
     }
 
@@ -38,7 +39,7 @@ socket.on('identify', (...args) => {
     {
         socket.disconnect();
         ConnectionState.innerHTML = 'Identify cannot proceed, corrupted user';
-        document.location.href = document.location.href + '../';
+        document.location.href += '../';
         return;
     }
 
@@ -46,7 +47,7 @@ socket.on('identify', (...args) => {
     {
         socket.disconnect();
         ConnectionState.innerHTML = 'Identify cannot proceed, corrupted user';
-        document.location.href = document.location.href + '../';
+        document.location.href += '../';
         return;
     }
 
@@ -57,7 +58,7 @@ socket.on('identify', (...args) => {
 
 socket.on('identify-success', (...args) => {
     console.log(args[0]);
-    ConnectionState.innerHTML = `${args[0].user.state} as ${args[0].user.username}`;
+    ConnectionState.innerHTML = localeString('status-connected-as') + args[0].user.username;
     onConnect();
 });
 

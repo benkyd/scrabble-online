@@ -12,8 +12,9 @@
         <title>Lobby</title>
     </head>
     <body>
-        
-        <h1>Game Lobby</h1>
+        <script src="../locale.js"></script>
+
+        <h1><script>document.write(localeString('game-lobby'))</script></h1>
 
         <!--TODO: Should have a disconnect button-->
 
@@ -22,9 +23,12 @@
             
 
         <div id="lobbies" style="display:none">
-            <input type="button" value="Create Lobby" onclick="showCreateLobby()">
-            <input type="button" value="Join Lobby" onclick="showJoinLobby()">
-    
+            <script>
+                document.write(`
+                <input type="button" value="${localeString('lobby-create')}" onclick="showCreateLobby()">
+                <input type="button" value="${localeString('lobby-join')}" onclick="showJoinLobby()">
+                `);
+            </script>
             <p><p>
 
             <!-- <table border="1">
@@ -48,26 +52,38 @@
 
 
         <div id="lobby-create" style="display:none">
-            <h3>Create a Lobby</h3>
-            <input type="text" id="lobby-input-name" placeholder="name">
+            <h3><script>document.write(localeString('lobby-create'))</script></h3>
+            <script>
+                document.write(`<input type="text" id="lobby-input-name" placeholder="${localeString('name')}">`);
+            </script>
             <p>
-            <input type="checkbox" id="lobby-input-private"> private lobby
+            <input type="checkbox" id="lobby-input-private"> <script>document.write(localeString('lobby-private'))</script>
             <p>
-            <input type="checkbox" id="lobby-input-spectators"> allow spectators
+            <input type="checkbox" id="lobby-input-spectators"> <script>document.write(localeString('lobby-allow-spectators'))</script>
             <p>
-            <input type="button" value="create" onclick="createLobby()">
-            <input type="button" value="back" onclick="showBack()">
+            <script>
+                document.write(`
+                <input type="button" value="${localeString('button-create')}" onclick="createLobby()">
+                <input type="button" value="${localeString('button-back')}" onclick="showBack()">
+                `);
+            </script>
         </div>
 
 
         <div id="lobby-join" style="display:none">
-            <h3>Join a Lobby</h3>
-            <input type="text" id="lobby-input-join-id" placeholder="lobby code">
+            <h3><script>document.write(localeString('lobby-join'))</script></h3>
+            <script>
+                document.write(`<input type="text" id="lobby-input-join-id" placeholder="${localeString('lobby-code')}">`);
+            </script>
             <p>
-            <input type="checkbox" id="lobby-input-join-spectator"> join as spectator
+            <input type="checkbox" id="lobby-input-join-spectator"> <script>document.write(localeString('lobby-join-spectator'))</script>
             <p>
-            <input type="button" value="join" onclick="joinLobby()">
-            <input type="button" value="back" onclick="showBack()">
+            <script>
+                document.write(`
+                <input type="button" value="${localeString('button-join')}" onclick="joinLobby()">
+                <input type="button" value="${localeString('button-back')}" onclick="showBack()">
+                `);
+            </script>
         </div>
 
         <div id="lobby-active" style="display:none">
@@ -76,8 +92,12 @@
 
 
         <div id="console">
-            <textarea id="log-console" rows="10" cols=auto placeholder="log console" disabled></textarea>
-            <input id="log-console-message" type="text" placeholder="message"> <input id="log-console-button" type="button" value="send" onclick="sendMessage()">
+            <script>
+                document.write(`
+                <textarea id="log-console" rows="10" cols=auto placeholder="${localeString('log-console')}" disabled></textarea>
+                <input id="log-console-message" type="text" placeholder="${localeString('message')}"> <input id="log-console-button" type="button" value="${localeString('button-send')}" onclick="sendMessage()">
+                `);
+            </script>
         </div>
 
         <script src="index.js"></script>

@@ -4,7 +4,7 @@
 function pageLog(message)
 {
     document.querySelector('#log-console').value += message + "\n"
-    document.querySelector('#log-console').scrollTop = document.querySelector('#log-console').scrollHeight 
+    document.querySelector('#log-console').scrollTop = document.querySelector('#log-console').scrollHeight;
 }
 
 function onConnect()
@@ -16,5 +16,5 @@ function onDisconnect()
 {
     destructLobbies();
     
-    document.location.href = document.location.href + '../';
+    document.location.href += '../';
 }

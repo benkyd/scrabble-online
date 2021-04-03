@@ -58,7 +58,15 @@ window.onload = e => {
         const boardLocation = document.querySelector(`#row-${y}`).querySelector(`#col-${x}`);
 
         boardLocation.classList.add(BoardLookup[BoardLocations[location]]);
-        boardLocation.innerHTML = BoardLocations[location];
+        let localeThing = BoardLocations[location];
+
+        // hacky but it works
+        if (localStorage.getItem('locale') === "es" || localStorage.getItem('locale') === "pt")
+        {
+            localeThing = localeThing.replace('W', 'P');
+        }
+
+        boardLocation.innerHTML = localeThing;
     }
 
     // flip it
@@ -73,6 +81,13 @@ window.onload = e => {
         const boardLocation = document.querySelector(`#row-${y}`).querySelector(`#col-${x}`);
 
         boardLocation.classList.add(BoardLookup[BoardLocations[location]]);
-        boardLocation.innerHTML = BoardLocations[location];
+        let localeThing = BoardLocations[location];
+
+        if (localStorage.getItem('locale') === "es" || localStorage.getItem('locale') === "pt")
+        {
+            localeThing = localeThing.replace('W', 'P');
+        }
+
+        boardLocation.innerHTML = localeThing;
     }
 };

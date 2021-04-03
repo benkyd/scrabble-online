@@ -24,14 +24,17 @@
             <form id="input-username">
                 <label for="input-text-username"><script>document.write(localeString('username'))</script>: </label>
                 <input id="input-text-username" type="text">
-                <button type="submit">Submit</button>
+                <button type="submit"><script>document.write(localeString('button-submit'))</script></button>
             </form>
     
             <div id="connection-state"></div>
     
             <p><p>
     
-            <input type="button" value="play singleplayer" onclick="playSingleplayer()">
+            <!--annoying hack kinda required tho-->
+            <script>
+                document.write(`<input type="button" value="${localeString('button-singleplayer')}" onclick="playSingleplayer()">`);
+            </script>
         </div>
 
         <script src="index.js"></script>

@@ -1,0 +1,288 @@
+{
+    "scrabble-name": {
+        "en": "Scrabble",
+        "es": "Scrabble",
+        "pt": "Scrabble"
+    },
+    "game-lobby": {
+        "en": "create or join a game",
+        "es": "Crea o conecta a un juego",
+        "pt": "Crie ou entre em um jogo"
+    },
+    "name": {
+        "en": "name",
+        "es": "nombre",
+        "pt": "nome"
+    },
+    "username": {
+        "en": "Username",
+        "es": "Nombre de usuario",
+        "pt": "Nome de usuàrio"
+    },
+    "players": {
+        "en": "Players",
+        "es": "Jugadores",
+        "pt": "Jogadores"
+    },
+    "button-singleplayer": {
+        "en": "Play singleplayer",
+        "es": "Jugar a un(a) jugador(a)",
+        "pt": "Jogar singleplayer"
+    },
+    "button-submit": {
+        "en": "Submit",
+        "es": "Enviar",
+        "pt": "Enviar"
+    },
+    "button-create": {
+        "en": "create",
+        "es": "crear",
+        "pt": "criar"
+    },
+    "button-join": {
+        "en": "join",
+        "es": "participar",
+        "pt": "entrar"
+    },
+    "button-back": {
+        "en": "back",
+        "es": "regresar",
+        "pt": "voltar"
+    },
+
+    "status-connected": {
+        "en": "Connected",
+        "es": "Conectado(a)",
+        "pt": "Conectado(a)"
+    },
+    "status-connected-as": {
+        "en": "Connected as ",
+        "es": "Conectado/a como ",
+        "pt": "Conectado/a como "
+    },
+    "status-disconnected": {
+        "en": "Disconnected",
+        "es": "Desconectado/a",
+        "pt": "Desconectado/a"    
+    },
+    "connection-waiting": {
+        "en": "Waiting for connection",
+        "es": "Esperando la conexión",
+        "pt": "Aguardando conexão"
+    },
+    
+    "message": {
+        "en": "message",
+        "es": "mensaje",
+        "pt": "mensagem"    
+    },
+    "log-console": {
+        "en": "log console",
+        "es": "consola de log",
+        "pt": "console de log"  
+    },
+    "button-send": {
+        "en": "send",
+        "es": "enviar",
+        "pt": "enviar" 
+    },
+    
+    "lobby": {
+        "en": "Lobby",
+        "es": "Lobby",
+        "pt": "Lobby"
+    },
+    "lobby-create": {
+        "en": "Create Lobby",
+        "es": "Crear Lobby",
+        "pt": "Criar Lobby"
+    },
+    "lobby-join": {
+        "en": "Join Lobby",
+        "es": "Conectarse al Lobby",
+        "pt": "Conectar ao Lobby"
+    },
+    "lobby-join-code": {
+        "en": "Join Code",
+        "es": "Código para Conectar",
+        "pt": "Código para Conectar"
+    },
+    "lobby-code": {
+        "en": "lobby code",
+        "es": "código de lobby",
+        "pt": "código do lobby"
+    },
+    "lobby-private": {
+        "en": "private lobby",
+        "es": "lobby privado",
+        "pt": "lobby privado"
+    },
+    "lobby-allow-spectators": {
+        "en": "allow spectators",
+        "es": "permitir espectadores",
+        "pt": "permitir espectadores"
+    },
+    "lobby-join-spectator": {
+        "en": "join as spectator",
+        "es": "conectar como espectador(a)",
+        "pt": "junte-se como espectador"
+    },
+    "lobby-created-joining": {
+        "en": "Lobby created, Joining...",
+        "es": "Lobby creado, Conectando...",
+        "pt": "Lobby criaso, Juntando-se..."
+    },
+    "lobby-created": {
+        "en": "created lobby",
+        "es": "lobby creado",
+        "pt": "Lobby criado"
+    },
+    "lobby-joining": {
+        "en": "joining lobby",
+        "es": "entrando al lobby",
+        "pt": "entrando no lobby"
+    },
+    "lobby-joined": {
+        "en": "joined lobby",
+        "es": "entró en el lobby",
+        "pt": "entrou no lobby"
+    },
+    "lobby-deleted": {
+        "en": "deleted lobby",
+        "es": "lobby eliminado",
+        "pt": "lobby apagado"
+    },
+    "joined": {
+        "en": "joined",
+        "es": "conectado(a)",
+        "pt": "juntou"
+    },
+    "left": {
+        "en": "left",
+        "es": "salió",
+        "pt": "saiu"
+    },
+    "left-lobby": {
+        "en": "left lobby",
+        "es": "salió del lobby",
+        "pt": "saiu do lobby"
+    },
+
+    "spectators": {
+        "en": "Spectators",
+        "es": "Espectadores",
+        "pt": "Espectadores"
+    },
+    "visibility": {
+        "en": "Visibility",
+        "es": "Visibilidad",
+        "pt": "Visibilidade"
+    },
+    "status": {
+        "en": "Status",
+        "es": "Status",
+        "pt": "Status"
+    },
+    "button-start-game": {
+        "en": "Start Game",
+        "es": "Empezar Juego",
+        "pt": "Começar Jogo"
+    },
+    "button-leave-lobby": {
+        "en": "Leave Lobby",
+        "es": "Salir del Lobby",
+        "pt": "Sair do Lobby"
+    },
+
+
+    "error-bold": {
+        "en": "ERROR",
+        "es": "ERRO",
+        "pt": "ERROR"
+    },
+    "error-no-username": {
+        "en": "Username not present",
+        "es": "Nombre de usuario no esta presente",
+        "pt": "Nome de usuário não esta presente"
+    },
+    "error-invalid-username": {
+        "en": "Invalid username",
+        "es": "Nombre de usuario no es válido",
+        "pt": "Nome de usuário Inválido"
+    },
+    "error-taken-username": {
+        "en": "Username taken",
+        "es": "Nombre de usuario no esta disponible",
+        "pt": "Nome de usuário já está em uso"
+    },
+    "error-too-many-clients": {
+        "en": "Too many connections",
+        "es": "Demasiadas conexiones",
+        "pt": "Demasiadas conexões"
+    },
+    "error-bad-intent": {
+        "en": "Client has no intent",
+        "es": "Cliente no tiene intención",
+        "pt": "Cliente não tem intenção"
+    },
+    "error-unknown-uid": {
+        "en": "Unknown user ID",
+        "es": "ID de usuario desconocido",
+        "pt": "ID de usuário desconhecido"
+    },
+    "error-taken-user-connection": {
+        "en": "User already connected",
+        "es": "Usuario ya está conectado/a",
+        "pt": "Usuário já está conectado/a"
+    },
+    "error-illegal-user": {
+        "en": "Illegal user",
+        "es": "Usuario ilegal",
+        "pt": "Usuário ilegal"
+    },
+    "error-malformed-lobby": {
+        "en": "Lobby malformed",
+        "es": "Lobby malformado",
+        "pt": "Lobby malformado"
+    },
+    "error-taken-lobby-ownership": {
+        "en": "User already owns lobby",
+        "es": "Usuario ya tiene lobby",
+        "pt": "Usuário já tem um lobby"
+    },
+    "error-illegal-lobby": {
+        "en": "Illegal lobby",
+        "es": "Lobby ilegal",
+        "pt": "Lobby ilegal"
+    },
+    "error-cannot-join-lobby": {
+        "en": "Cannot join lobby",
+        "es": "No se puede unir al lobby",
+        "pt": "Não é possível entrar no lobby"
+    },
+    "error-lobby-not-exist": {
+        "en": "Lobby does not exist",
+        "es": "Lobby no existe",
+        "pt": "Lobby não existe"
+    },
+    "error-lobby-name-required": {
+        "en": "A name is requred",
+        "es": "Se requiere un nombre",
+        "pt": "Um nome é obrigatório"
+    },
+    "error-creating-lobby": {
+        "en": "An error occurred while creating the lobby ",
+        "es": "Ocurrió un error al crear el lobby ",
+        "pt": "Ocorreu um erro ao criar o lobby "
+    },
+    "error-lobby-id-required": {
+        "en": "A lobby ID is required",
+        "es": "Se requiere un lobby ID",
+        "pt": "É necessário um lobby ID"
+    },
+    "error-lobby-joining": {
+        "en": "An error occurred while joining the lobby ",
+        "es": "Ocurrió un error al conectarse al lobby ",
+        "pt": "Ocorreu um erro ao entrar no lobby "
+    }
+}

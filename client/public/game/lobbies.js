@@ -50,7 +50,7 @@ function drawLobby(lobby)
     lobbyDiv.id = lobby.id;
 
     // TODO: Make drawlobby function
-    lobbyDiv.innerHTML += `<h2>Lobby ${lobby.name}</h2><p><h3>Join Code: <b>${lobby.uid}</b></h3><p>Players:`;
+    lobbyDiv.innerHTML += `<h2>${localeString('lobby')} ${lobby.name}</h2><p><h3>${localeString('lobby-join-code')}: <b>${lobby.uid}</b></h3><p>${localeString('players')}:`;
     
     for (const player of lobby.players)
         lobbyDiv.innerHTML += `<b>${player.name}</b>, `
@@ -59,16 +59,16 @@ function drawLobby(lobby)
 
     if (lobby.allowspectators)
     {
-        lobbyDiv.innerHTML += '<p>Spectators:';
+        lobbyDiv.innerHTML += `<p>${localeString('spectators')}:`;
         for (const player of lobby.spectators)
             lobbyDiv.innerHTML += `<b>${player.name}</b>, `
         lobbyDiv.innerHTML = lobbyDiv.innerHTML.slice(0, -2);
     }
 
-    lobbyDiv.innerHTML += `<p>Visibility: ${lobby.visibility}<p>State: ${lobby.state}`
+    lobbyDiv.innerHTML += `<p>${localeString('visibility')}: ${lobby.visibility}<p>${localeString('status')}: ${lobby.state}`
 
-    lobbyDiv.innerHTML += '<input type="button" value="Start Game" onclick="" disabled>'
-    lobbyDiv.innerHTML += '<input type="button" value="Leave Lobby" onclick="leaveLobby()">'
+    lobbyDiv.innerHTML += `<input type="button" value="${localeString('button-start-game')}" onclick="" disabled>`
+    lobbyDiv.innerHTML += `<input type="button" value="${localeString('button-leave-lobby')}" onclick="leaveLobby()">`
 
     ActiveLobbyBlock.appendChild(lobbyDiv);
 }
@@ -85,7 +85,7 @@ function createLobby()
     {
         const errorDiv = document.createElement('div');
         errorDiv.id = 'lobby-error';
-        errorDiv.innerHTML = 'ERROR: LobbyName is required';
+        errorDiv.innerHTML = localeString('error-bold') + localeString('error-lobby-name-required');
         errorDiv.classList.add('red');
         CreateLobbyBlock.appendChild(errorDiv);
         return;
@@ -122,9 +122,9 @@ socket.on('lobby-create-success', obj => {
 
     const successDiv = document.createElement('div');
     successDiv.id = 'lobby-success';
-    successDiv.innerHTML = 'SUCCESS: Lobby created, Joining...';
+    successDiv.innerHTML = localeString('lobby-created-joining');
     CreateLobbyBlock.appendChild(successDiv);
-    pageLog(`created lobby ${obj.lobby.uid} (${(obj.lobby.name)})`);
+    pageLog(`${localeString('lobby-created')} ${obj.lobby.uid} (${(obj.lobby.name)})`);
 });
 
 socket.on('lobby-create-error', obj => {
@@ -133,10 +133,10 @@ socket.on('lobby-create-error', obj => {
 
     const errorDiv = document.createElement('div');
     errorDiv.id = 'lobby-error';
-    errorDiv.innerHTML = 'ERROR: An error occured while creating the lobby' + JSON.stringify(args);
+    errorDiv.innerHTML = localeString('error-bold') + localeString('error-creating-lobby') + JSON.stringify(args);
     errorDiv.classList.add('red');
     CreateLobbyBlock.appendChild(errorDiv);
-    pageLog('ERROR: An error occured while creating the lobby ' + JSON.stringify(args));
+    pageLog(localeString('error-bold') + localeString('error-creating-lobby') + JSON.stringify(args));
 });
 
 
@@ -149,7 +149,7 @@ function joinLobby()
     {
         const errorDiv = document.createElement('div');
         errorDiv.id = 'lobby-error';
-        errorDiv.innerHTML = 'ERROR: A Lobby ID is required';
+        errorDiv.innerHTML = localeString('error-bold') + localeString('error-lobby-id-required');
         errorDiv.classList.add('red');
         JoinLobbyBlock.appendChild(errorDiv);
         return;
@@ -178,14 +178,14 @@ function joinLobby()
     if (document.querySelector('#lobby-error'))
         document.querySelector('#lobby-error').remove();
 
-    pageLog(`joining lobby ${lobbyuid}`);
+    pageLog(`${localeString('lobby-joining')} ${lobbyuid}`);
 
 }
 
 socket.on('lobby-join-success', lobby => {
     showActive();
     drawLobby(lobby);
-    pageLog(`joined lobby ${lobby.uid} (${(lobby.name)})`);
+    pageLog(`${localeString('lobby-joined')} ${lobby.uid} (${(lobby.name)})`);
 });
 
 socket.on('lobby-join-error', obj => {
@@ -194,10 +194,10 @@ socket.on('lobby-join-error', obj => {
         
     const errorDiv = document.createElement('div');
     errorDiv.id = 'lobby-error';
-    errorDiv.innerHTML = 'ERROR: An error occured while joining the lobby ' + JSON.stringify(obj);
+    errorDiv.innerHTML = localeString('error-bold') + localeString('error-lobby-joining') + JSON.stringify(obj);
     errorDiv.classList.add('red');
     JoinLobbyBlock.appendChild(errorDiv);
-    pageLog('ERROR: An error occured while joining the lobby ' + JSON.stringify(obj));
+    pageLog(localeString('error-bold') + localeString('error-lobby-joining') + JSON.stringify(obj));
 });
 
 socket.on('lobby-update', obj => {
@@ -209,14 +209,14 @@ socket.on('lobby-update', obj => {
     drawLobby(obj.lobby);
 
     if (obj.state === 'lobby-join')
-        pageLog(`${obj.updateuser.username} joined`);
+        pageLog(`${obj.updateuser.username} ${localeString('joined')}`);
 
     if (obj.state ==='lobby-leave')
-        pageLog(`${obj.updateuser.username} left`);
+        pageLog(`${obj.updateuser.username} ${localeString('left')}`);
 
     if (obj.state === 'lobby-deregister')
     {
-        pageLog(`${obj.updateuser.username} deleted lobby`);
+        pageLog(`${obj.updateuser.username} ${localeString('lobby-deleted')}`);
         leaveLobby();
     }
 });
@@ -225,7 +225,7 @@ function leaveLobby()
 {
     // TODO: error check
     socket.emit('lobby-leave');
-    pageLog('left lobby');
+    pageLog(localeString('left-lobby'));
     showBack();
 }
 

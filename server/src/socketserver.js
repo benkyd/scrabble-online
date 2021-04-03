@@ -101,6 +101,8 @@ function ClientIdentify(socket, args)
     }
 }
 
+// if i use a database in the future i need to consider that the lobby
+// name is not yet sanatised
 function LobbyCreate(socket, args)
 {
     const err = new Error;
@@ -201,7 +203,7 @@ function LobbyJoin(socket, args)
     // Make sure user isn't already in a lobby
     if (!Game.Lobbies.CheckUserAvailability(useruid))
     {
-        err.addError(400, 'Bad Request', 'Uerror-taken-lobby-ownership');
+        err.addError(400, 'Bad Request', 'error-taken-lobby-ownership');
         socket.emit('lobby-join-error', err.toError);
         return;
     }
@@ -223,7 +225,7 @@ function LobbyJoin(socket, args)
     
         if (!status)
         {
-            err.addError(403, 'Forbidden', 'error-lobby-join');
+            err.addError(403, 'Forbidden', 'error-cannot-join-lobby');
             socket.emit('lobby-join-error', err.toError);
             return;
         }

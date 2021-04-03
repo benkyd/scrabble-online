@@ -8,7 +8,7 @@ UsernameForm.addEventListener('submit', onUsernameSubmit);
 
 function playSingleplayer()
 {
-    document.location.href += '/scrabble';
+    window.location.pathname = "/scrabble";
 }
 
 // User submits their desired username
@@ -38,7 +38,7 @@ async function onUsernameSubmit(e)
     if (body.errors)
     {
         ConnectionState.classList.add('red');
-        ConnectionState.innerHTML = `ERROR: ${body.errors[body.errors.length - 1].desc}`;
+        ConnectionState.innerHTML = `${localeString('error-bold')}: ${localeString(body.errors[body.errors.length - 1].desc)}`;
         return;
     }
 
@@ -51,6 +51,6 @@ async function onUsernameSubmit(e)
     {
         sessionStorage.setItem('user', JSON.stringify(body.login.user));
         console.log(sessionStorage.user)
-        document.location.href += 'game';
+        window.location.pathname = "/game";
     }
 }

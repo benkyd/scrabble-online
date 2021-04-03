@@ -1,10 +1,13 @@
+const Logger = require('./logger.js');
+
 const FS = require('fs');
 
 let locales = {};
 
-function init()
+async function init()
 {
-    locales = JSON.parse(FS.readFileSync('./locale.json'));
+    locales = JSON.parse(FS.readFileSync('../data/locale.json'));
+    Logger.info('LOCALES LOADED');
 }
 
 function GetLocaleListJSON()
