@@ -37,14 +37,6 @@ body {
     border: 1px black;
 }
 
-.navleft {
-    display: flex;
-    padding-left: 2vw;
-    
-    flex-grow: 1;
-    order: 0;
-}
-
 #lang {
     position: inherit;
     text-align: right;

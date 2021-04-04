@@ -26,6 +26,7 @@ nopiece {
     display: flex;
     position: absolute;
 
+    cursor: pointer;
     background: none;
 
     width: 80px;
@@ -50,6 +51,7 @@ score {
     width: 40px;
     height: 40px;
     font-size: 25px;
+    cursor: pointer;
 }
 
 #container {
@@ -59,7 +61,18 @@ score {
     justify-content: center;
 }
 
-#game-info {
+#game-info-left {
+    border: 1px dotted black;
+    
+    display: flex;
+    flex-grow: 1;
+    order: -1;
+
+    height: 600px;
+    /* width: 200px; */
+}
+
+#game-info-right {
     border: 1px dotted black;
     
     display: flex;
