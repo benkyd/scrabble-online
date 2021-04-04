@@ -64,22 +64,22 @@ function mouseMove(event)
     }
 }
 
-function slidePiece(piece)
-{
-    const id = setInterval(() => 
-    {
-        if (magnitude(piece.velocity) <= 1)
-        {
-            piecePlaced(piece);
-            clearInterval(id);
-            return;
-        }
-        piece.style.left = `${piece.getBoundingClientRect().left + piece.velocity.x}px`;
-        piece.style.top = `${piece.getBoundingClientRect().top + piece.velocity.y}px`;
-        piece.velocity.y *= 0.95;
-        piece.velocity.x *= 0.95;
-    }, 16);
-}
+// function slidePiece(piece)
+// {
+//     const id = setInterval(() => 
+//     {
+//         if (magnitude(piece.velocity) <= 1)
+//         {
+//             piecePlaced(piece);
+//             clearInterval(id);
+//             return;
+//         }
+//         piece.style.left = `${piece.getBoundingClientRect().left + piece.velocity.x}px`;
+//         piece.style.top = `${piece.getBoundingClientRect().top + piece.velocity.y}px`;
+//         piece.velocity.y *= 0.95;
+//         piece.velocity.x *= 0.95;
+//     }, 16);
+// }
 
 function mouseUp(event)
 {
@@ -89,17 +89,17 @@ function mouseUp(event)
     
     if (selectedElement.pointerEvents != 'initial')
     {
-        if (magnitude(selectedElement.velocity) <= 2)
-        {
-            piecePlaced(selectedElement);
-    
-            selectedElement.pointerEvents = 'initial';
-        }
-        else
-        {
-            slidePiece(selectedElement);
-            selectedElement.pointerEvents = 'initial';
-        }
+        // if (magnitude(selectedElement.velocity) <= 2)
+        // {
+        piecePlaced(selectedElement);
+
+        selectedElement.pointerEvents = 'initial';
+        // }
+        // else
+        // {
+        //     slidePiece(selectedElement);
+        //     selectedElement.pointerEvents = 'initial';
+        // }
     }
 }
 
