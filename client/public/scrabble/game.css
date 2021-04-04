@@ -49,19 +49,32 @@ score {
 .dragging-piece {
     width: 40px;
     height: 40px;
-    font-size: 25px
+    font-size: 25px;
 }
 
+#container {
+    position:static;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#game-info {
+    border: 1px dotted black;
+    
+    display: flex;
+    flex-grow: 1;
+    order: 1;
+
+    height: 600px;
+    /* width: 200px; */
+}
 
 #game-container {
     border: 1px dotted black;
     
-    display: -webkit-flex;
     display: flex;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin: auto;
-    
+
     width: 700px;
     height: 700px;
 }
@@ -72,7 +85,6 @@ score {
     display: table;
     table-layout: fixed;
 
-    position: static;
     width: 600px;
     height: 600px;
 

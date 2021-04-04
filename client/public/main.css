@@ -18,6 +18,33 @@ body {
     user-select: none;
 }
 
+#navbar {
+    position: fixed;
+    background-color: blueviolet;
+    display: flex;
+    justify-content: flex-end;
+
+    width: 100%;
+    height: 40px;
+    top: 2px;
+    
+    border: black 1px;
+}
+
+#navitem {
+    display: flex;
+    padding-right: 2vw;
+    border: 1px black;
+}
+
+.navleft {
+    display: flex;
+    padding-left: 2vw;
+    
+    flex-grow: 1;
+    order: 0;
+}
+
 #lang {
     position: inherit;
     text-align: right;
