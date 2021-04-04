@@ -46,14 +46,13 @@ function mouseDown(event, element)
 
 function mouseMove(event)
 {
-    event.preventDefault();
-
     if (selectedElement.pointerEvents === 'none') {
+        event.preventDefault();
    
         if (event.type === 'touchmove')
             event = event.changedTouches[0];
 
-        // do some fun velocity stuff
+        // do some funky velocity stuff
         selectedElement.velocity.x = (window.scrollX + (event.clientX - 20)) - lastCoords.x;
         selectedElement.velocity.y = (window.scrollY + (event.clientY - 20)) - lastCoords.y;
 
@@ -79,19 +78,18 @@ function slidePiece(piece)
         piece.style.top = `${piece.getBoundingClientRect().top + piece.velocity.y}px`;
         piece.velocity.y *= 0.95;
         piece.velocity.x *= 0.95;
-    }, 16)
+    }, 16);
 }
 
 function mouseUp(event)
 {
-    if (event.toElement.localName !== 'score') return;
+    if (event.target.localName !== 'score') return;
 
     event.preventDefault();
     
     if (selectedElement.pointerEvents != 'initial')
     {
-        console.log(magnitude(selectedElement.velocity));
-        if (magnitude(selectedElement.velocity) <= 1)
+        if (magnitude(selectedElement.velocity) <= 2)
         {
             piecePlaced(selectedElement);
     
