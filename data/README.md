@@ -11,3 +11,8 @@ Sometimes context clues may be neccesary for an accurate translation, everything
 ```Code:Translation/Text;Context```
 
 Capitalisation is also important, if the english words are capitalised, the translations need to be capitalised in the same (if it makes sense) place
+
+
+#### development
+
+For development look for the scripts folder, there are scripts to translate the lang files to the locale file and vice verse

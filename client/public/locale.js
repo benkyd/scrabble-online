@@ -3,6 +3,7 @@ function localeString(code)
 {
     let strings = JSON.parse(localStorage.getItem('locale-strings'));
     let whatstring = strings[code];
+    if (!whatstring || whatstring == '') whatstring = strings['en'];
     let locale = whatstring[localStorage.getItem('locale')];
         
     return locale;
