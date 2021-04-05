@@ -118,6 +118,7 @@ score {
     
     justify-content: center;
     text-align: center;
+    flex-grow: 2;
 }
 
 #game-controls {
@@ -128,6 +129,7 @@ score {
     flex-direction: row;
 }
 
+
 #moves {
     border: 1px dotted black;
     padding-left: 1vw;
@@ -137,20 +139,42 @@ score {
 }
 
 .move {
-    
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 #game-container {
     border: 1px dotted black;
-    position:static;
+    position: static;
 
     display: flex;
     order: 0;
 
-    width: 700px;
-    height: 700px;
+    width: 600px;
+    height: 100%;
+}
+
+#game-info-compact {
+    border: 1px dotted black;
+    
+    top: 710px;
+    width: 600px;
+    position: fixed;
+    display: flex;
+
+    justify-content: space-between;
+
+    /*children*/
+    flex-direction: row;
+}
+
+#player-scores-compact {
+    border: 1px dotted black;
+
+    display: flex;
+
+    flex-direction: row;
+    flex-grow: 2;
 }
 
 #game-board {

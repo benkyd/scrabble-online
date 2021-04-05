@@ -120,8 +120,8 @@ function setupPieces() // also resets pieces
     // if the window has enough vertical height to fit the peices,
     // have them at the bottom of the board, else, have them to the right
 
-    document.querySelector('#game-container').style.width = '600px';
-    document.querySelector('#game-container').style.height = '700px';
+    // document.querySelector('#game-container').style.width = '600px';
+    // document.querySelector('#game-container').style.height = '700px';
     // needs to happen after resize
     updateBoardCoords();
     
