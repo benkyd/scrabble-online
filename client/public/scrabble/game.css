@@ -69,8 +69,25 @@ score {
     flex-basis: 25%;
     flex-grow: 1;
     order: -1;
+    
+    /*children*/
+    flex-direction: column;
 
     height: 600px;
+}
+
+#logo {
+    border: 1px dotted black;
+
+    width: 100%;
+}
+
+#game-chat {
+    border: 1px dotted black;
+    box-sizing: border-box;
+    resize: none; 
+    width: 100%;
+    flex-grow: 5;
 }
 
 #game-info-right {

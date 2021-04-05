@@ -114,50 +114,51 @@ function piecePlaced(piece)
 
 function setupPieces() // also resets pieces
 {
+    // TODO: this caused some weird html scaling bugs where the
+    // flexboxes wouldn't update, fix this
+
     // if the window has enough vertical height to fit the peices,
     // have them at the bottom of the board, else, have them to the right
-    if (window.innerHeight > 700)
+
+    document.querySelector('#game-container').style.width = '600px';
+    document.querySelector('#game-container').style.height = '700px';
+    // needs to happen after resize
+    updateBoardCoords();
+    
+    let index = 0;
+    for (const piece of document.querySelectorAll('piece, nopiece'))
     {
-        document.querySelector('#game-container').style.width = '600px';
-        document.querySelector('#game-container').style.height = '700px';
-        // needs to happen after resize
-        updateBoardCoords();
+        if (piece.classList.contains('played-piece')) continue;
+
+        // i feel dirty hardcoding this much
+        const dx = (BOARD_X) + (index * (PIECE_WIDTH + 5)) + 5;
+        const dy = (BOARD_Y + BOARD_H) + 10;
         
-        let index = 0;
-        for (const piece of document.querySelectorAll('piece, nopiece'))
-        {
-            if (piece.classList.contains('played-piece')) continue;
+        piece.style.left = `${dx}px`;
+        piece.style.top = `${dy}px`;
 
-            // i feel dirty hardcoding this much
-            const dx = (BOARD_X) + (index * (PIECE_WIDTH + 5)) + 5;
-            const dy = (BOARD_Y + BOARD_H) + 10;
-            
-            piece.style.left = `${dx}px`;
-            piece.style.top = `${dy}px`;
-
-            index++;
-        }
-    } else
-    {
-        document.querySelector('#game-container').style.width = '700px';
-        document.querySelector('#game-container').style.height = '600px';
-        
-        updateBoardCoords();
-
-        let index = 0;
-        for (const piece of document.querySelectorAll('piece, nopiece'))
-        {   
-            if (piece.classList.contains('played-piece')) continue;
-            
-            const dx = (BOARD_X + BOARD_W) + 10;
-            const dy = (BOARD_Y) + (index * (PIECE_WIDTH + 5)) + 5;
-            
-            piece.style.left = `${dx}px`;
-            piece.style.top = `${dy}px`;
-
-            index++;
-        }
+        index++;
     }
+
+    //     document.querySelector('#game-container').style.width = '700px';
+    //     document.querySelector('#game-container').style.height = '600px';
+        
+    //     updateBoardCoords();
+
+    //     let index = 0;
+    //     for (const piece of document.querySelectorAll('piece, nopiece'))
+    //     {   
+    //         if (piece.classList.contains('played-piece')) continue;
+            
+    //         const dx = (BOARD_X + BOARD_W) + 10;
+    //         const dy = (BOARD_Y) + (index * (PIECE_WIDTH + 5)) + 5;
+            
+    //         piece.style.left = `${dx}px`;
+    //         piece.style.top = `${dy}px`;
+
+    //         index++;
+    //     }
+    // }
 
     for (const piece of document.querySelectorAll('.played-piece'))
     {
