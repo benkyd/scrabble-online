@@ -62,31 +62,75 @@ score {
 }
 
 #game-info-left {
+    position: relative;
     border: 1px dotted black;
     
     display: flex;
+    flex-basis: 25%;
     flex-grow: 1;
     order: -1;
 
     height: 600px;
-    /* width: 200px; */
 }
 
 #game-info-right {
+    position: relative;
     border: 1px dotted black;
     
     display: flex;
+    flex-basis: 25%;
     flex-grow: 1;
     order: 1;
-
+    
+    /*children*/
+    flex-direction: column;
+    
     height: 600px;
-    /* width: 200px; */
+}
+
+#player-scores {
+    border: 1px dotted black;
+
+    display: flex;
+
+    flex-direction: row;
+}
+
+.player {
+    border: 1px dotted black;
+    
+    justify-content: center;
+    text-align: center;
+}
+
+#game-controls {
+    border: 1px dotted black;
+
+    display: flex;
+
+    flex-direction: row;
+}
+
+#moves {
+    border: 1px dotted black;
+    padding-left: 1vw;
+    padding-top: 1vh;
+    height: fit-content;
+    
+}
+
+.move {
+    
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #game-container {
     border: 1px dotted black;
-    
+    position:static;
+
     display: flex;
+    order: 0;
 
     width: 700px;
     height: 700px;
