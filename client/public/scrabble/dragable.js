@@ -4,16 +4,6 @@
 // i also assume there's no way a user's viewport isn't at least 700px tall
 // bad assumption to make, but scroll pixels wouldn't scale
 
-document.addEventListener('mousemove', mouseMove);
-document.addEventListener('touchmove', mouseMove);
-document.addEventListener('mouseup',   mouseUp);
-document.addEventListener('touchend',  mouseUp);
-
-document.querySelectorAll('piece').forEach(element => {
-    element.addEventListener('mousedown', e => mouseDown(e, element));
-    element.addEventListener('touchstart', e => mouseDown(e, element));
-});
-
 let selectedElement = {};
 let lastCoords = { x: 0, y: 0 };
 

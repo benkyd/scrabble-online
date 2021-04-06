@@ -115,13 +115,11 @@ function piecePlaced(piece)
 function setupPieces() // also resets pieces
 {
     // TODO: this caused some weird html scaling bugs where the
-    // flexboxes wouldn't update, fix this
-
+    // flexboxes wouldn't update, fix this vvv
     // if the window has enough vertical height to fit the peices,
     // have them at the bottom of the board, else, have them to the right
 
-    // document.querySelector('#game-container').style.width = '600px';
-    // document.querySelector('#game-container').style.height = '700px';
+
     // needs to happen after resize
     updateBoardCoords();
     
@@ -140,26 +138,6 @@ function setupPieces() // also resets pieces
         index++;
     }
 
-    //     document.querySelector('#game-container').style.width = '700px';
-    //     document.querySelector('#game-container').style.height = '600px';
-        
-    //     updateBoardCoords();
-
-    //     let index = 0;
-    //     for (const piece of document.querySelectorAll('piece, nopiece'))
-    //     {   
-    //         if (piece.classList.contains('played-piece')) continue;
-            
-    //         const dx = (BOARD_X + BOARD_W) + 10;
-    //         const dy = (BOARD_Y) + (index * (PIECE_WIDTH + 5)) + 5;
-            
-    //         piece.style.left = `${dx}px`;
-    //         piece.style.top = `${dy}px`;
-
-    //         index++;
-    //     }
-    // }
-
     for (const piece of document.querySelectorAll('.played-piece'))
     {
         // cheating lol
@@ -167,8 +145,6 @@ function setupPieces() // also resets pieces
         placePieceOnBoard(piece, coords.x, coords.y);
     }
 }
-
-window.onresize = setupPieces;
 
 setupPieces();
  
