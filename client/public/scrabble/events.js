@@ -6,7 +6,7 @@ const gameinfoCompact = document.querySelector('#game-info-compact');
 
 function windowResize()
 {
-    if (window.innerWidth < 1200)
+    if (window.innerWidth < 1100)
     {
         gameinfoRight.style.display = 'none';
         gameinfoLeft.style.display = 'none';

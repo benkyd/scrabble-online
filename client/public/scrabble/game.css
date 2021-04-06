@@ -165,7 +165,7 @@ score {
     justify-content: space-between;
 
     /*children*/
-    flex-direction: row;
+    /* flex-direction: row; */
 }
 
 #player-scores-compact {
@@ -173,8 +173,8 @@ score {
 
     display: flex;
 
-    flex-direction: row;
-    flex-grow: 1;
+    /* flex-direction: row;
+    flex-grow: 2; */
 }
 
 #game-board {
