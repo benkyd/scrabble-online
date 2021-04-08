@@ -10,6 +10,8 @@ let BOARD_Y = document.querySelector('#game-container').getBoundingClientRect().
 const PIECE_WIDTH = 80;
 const PIECE_HEIGHT = 80;
 
+let isHoldingPiece = false;
+
 //https://stackoverflow.com/questions/11409895/whats-the-most-elegant-way-to-cap-a-number-to-a-segment
 Number.prototype.clamp = function(min, max) {
     return Math.min(Math.max(this, min), max);
@@ -69,32 +71,76 @@ function placePieceOnBoard(piece, x, y)
     piece.style.top = `${y}px`;
 }
 
+function getPieceFromBoard(x, y)
+{
+    for (const piece of document.querySelectorAll('piece'))
+    {
+        if (!piece.dataset.coords) continue;
+        let coords = JSON.parse(piece.dataset.coords);
+        if (coords.x === x && coords.y === y)
+            return piece;
+    }
+    return false;
+}
+
+// staged pieces are played but the turn is not applied
+function getAllStagedPieces()
+{
+    let ret = [];
+    for (const piece of document.querySelectorAll('.staged-piece'))
+    {
+        ret.push(piece);
+    }
+    return ret;
+}
+
+function getAllPiecesOnBoard()
+{
+    let ret = [];
+    for (const piece of document.querySelectorAll('piece'))
+    {
+        if (piece.dataset.coords)
+        {
+            ret.push(piece);
+        }
+    }
+    return ret;
+}
+
 // events from drag & drop api
 function piecePickedUp(piece)
 {
     if (!piece) return;
+    if (isHoldingPiece) return;
+
+    delete piece.dataset.coords;
 
     BoardSounds[2].play();
 
     piece.classList.add('dragging-piece');
+    isHoldingPiece = true;
 }
 
 // events from drag & drop api
 function piecePlaced(piece)
 {    
     if (!piece) return;
+    if (!isHoldingPiece) return;
 
     // snap to board if in box
     if (isCoordInBoard(piece.offsetLeft, piece.offsetTop, 40, 40))
     {
-        BoardSounds[0].play();
         updateBoardCoords();
-
         let coords = boardCoordsFromScreenSpace(piece.offsetLeft + 20, piece.offsetTop + 20);
+
+        if (getPieceFromBoard(coords.x, coords.y)) return false;
+
+        BoardSounds[0].play();
+
         placePieceOnBoard(piece, coords.x, coords.y);
 
         piece.classList.remove('unplayed-piece');
-        piece.classList.add('played-piece');
+        piece.classList.add('staged-piece');
         piece.dataset.coords = JSON.stringify(coords);
 
         setupPieces();
@@ -102,13 +148,16 @@ function piecePlaced(piece)
     {
         DrawerSounds[Math.floor(Math.random() * 3)].play();
         
-        piece.classList.remove('played-piece');
+        piece.classList.remove('staged-piece');
         piece.classList.remove('dragging-piece');
         piece.classList.add('unplayed-piece');
         delete piece.dataset.coords;
 
         setupPieces();
     }
+
+    isHoldingPiece = false;
+    return true;
 }
 
 
@@ -126,7 +175,7 @@ function setupPieces() // also resets pieces
     let index = 0;
     for (const piece of document.querySelectorAll('piece, nopiece'))
     {
-        if (piece.classList.contains('played-piece')) continue;
+        if (piece.classList.contains('played-piece') || piece.classList.contains('staged-piece')) continue;
 
         // i feel dirty hardcoding this much
         const dx = (BOARD_X) + (index * (PIECE_WIDTH + 5)) + 5;
@@ -138,10 +187,11 @@ function setupPieces() // also resets pieces
         index++;
     }
 
-    for (const piece of document.querySelectorAll('.played-piece'))
+    for (const piece of document.querySelectorAll('.played-piece, .staged-piece'))
     {
         // cheating lol
-        coords = JSON.parse(piece.dataset.coords);
+        if (!piece.dataset.coords) continue;
+        let coords = JSON.parse(piece.dataset.coords);
         placePieceOnBoard(piece, coords.x, coords.y);
     }
 }

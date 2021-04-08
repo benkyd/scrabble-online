@@ -58,6 +58,7 @@ window.onload = e => {
         const boardLocation = document.querySelector(`#row-${y}`).querySelector(`#col-${x}`);
 
         boardLocation.classList.add(BoardLookup[BoardLocations[location]]);
+        boardLocation.classList.add('unselectable');
         let localeThing = BoardLocations[location];
 
         // hacky but it works
@@ -81,6 +82,7 @@ window.onload = e => {
         const boardLocation = document.querySelector(`#row-${y}`).querySelector(`#col-${x}`);
 
         boardLocation.classList.add(BoardLookup[BoardLocations[location]]);
+        boardLocation.classList.add('unselectable');
         let localeThing = BoardLocations[location];
 
         if (localStorage.getItem('locale') === "es" || localStorage.getItem('locale') === "pt")

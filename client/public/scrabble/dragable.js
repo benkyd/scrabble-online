@@ -81,9 +81,11 @@ function mouseUp(event)
     {
         // if (magnitude(selectedElement.velocity) <= 2)
         // {
-        piecePlaced(selectedElement);
+        if (piecePlaced(selectedElement))
+        {
+            selectedElement.pointerEvents = 'initial';
+        }
 
-        selectedElement.pointerEvents = 'initial';
         // }
         // else
         // {
