@@ -56,5 +56,7 @@ status:Status
 status-connected:Conectado(a)
 status-connected-as:Conectado/a como 
 status-disconnected:Desconectado/a
+user-is-ready:
+user-is-unready:
 username:Nombre de usuario
 visibility:Visibilidad

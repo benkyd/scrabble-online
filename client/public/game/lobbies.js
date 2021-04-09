@@ -250,6 +250,13 @@ socket.on('lobby-update', obj => {
         pageLog(`${obj.updateuser.username} ${localeString('lobby-deleted')}`);
         leaveLobby();
     }
+
+    if (obj.state === 'user-ready')
+        pageLog(`${obj.updateuser.username} ${localeString('user-is-ready')}`);
+
+    if (obj.state === 'user-unready')
+        pageLog(`${obj.updateuser.username} ${localeString('user-is-unready')}`);
+
 });
 
 function leaveLobby()

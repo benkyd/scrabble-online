@@ -56,5 +56,7 @@ status:Status; (noun) position
 status-connected:Connected
 status-connected-as:Connected as 
 status-disconnected:Disconnected
+user-is-ready:is ready ; (Action) to be ready, (name) is ready
+user-is-unready:is not ready ; (Action) to be not ready (to play), (name) is not ready
 username:Username
 visibility:Visibility
