@@ -239,6 +239,11 @@
         "es": "Jugadores",
         "pt": "Jogadores"
     },
+    "ready": {
+        "en": "ready ",
+        "es": "",
+        "pt": ""
+    },
     "scrabble-name": {
         "en": "Scrabble",
         "es": "Scrabble",

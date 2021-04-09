@@ -49,6 +49,7 @@ log-console:log console
 message:message; (noun) piece of text
 name:name
 players:Players
+ready:ready ; (Action) to be (ready) to play
 scrabble-name:Scrabble
 spectators:Spectators
 status:Status; (noun) position

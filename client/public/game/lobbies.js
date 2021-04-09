@@ -66,11 +66,17 @@ function drawLobby(lobby)
     }
 
     lobbyDiv.innerHTML += `<p>${localeString('visibility')}: ${lobby.visibility}<p>${localeString('status')}: ${lobby.state}`
-
-    lobbyDiv.innerHTML += `<input type="button" value="${localeString('button-start-game')}" onclick="" disabled>`
-    lobbyDiv.innerHTML += `<input type="button" value="${localeString('button-leave-lobby')}" onclick="leaveLobby()">`
-
+    lobbyDiv.innerHTML += `<p><input type="checkbox" id="lobby-input-ready"> ${localeString('ready')}`;
+    
+    lobbyDiv.innerHTML += `<input type="button" value="${localeString('button-start-game')}" onclick="startGame()" disabled>`
+    
     ActiveLobbyBlock.appendChild(lobbyDiv);
+    
+    const checkbox = document.querySelector('#lobby-input-ready');
+    checkbox.addEventListener('change', () => {
+        if (checkbox.checked) socket.emit('lobby-user-ready');
+        else socket.emit('lobby-user-unready');
+    });
 }
 
 
@@ -208,6 +214,8 @@ socket.on('lobby-update', obj => {
 
     drawLobby(obj.lobby);
 
+    console.log(obj);
+
     if (obj.state === 'lobby-join')
         pageLog(`${obj.updateuser.username} ${localeString('joined')}`);
 
@@ -236,3 +244,15 @@ function destructLobbies()
     JoinLobbyBlock.style.display = 'none';
     ActiveLobbyBlock.style.display = 'none';
 }
+
+
+
+
+socket.on('game-ready', () =>
+{
+
+});
+
+
+
+

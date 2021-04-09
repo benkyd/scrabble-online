@@ -51,7 +51,10 @@ async function Router(socket)
     socket.on('lobby-create', args => LobbyCreate(socket, args));
     socket.on('lobby-join', args => LobbyJoin(socket, args));
     socket.on('lobby-leave', args => LobbyLeave(socket, args));
-
+    
+    socket.on('lobby-user-ready', args => LobbyUserReady(socket, args));
+    socket.on('lobby-user-unready', args => LobbyUserUnReady(socket, args));
+    socket.on('lobby-game-begin', args => LobbyGameBegin(socket, args));
 
     socket.on('disconnect', args => HandleDisconnect(socket, ...args));
 
@@ -230,6 +233,8 @@ function LobbyJoin(socket, args)
             return;
         }
 
+        console.log(status);
+
         socket.join(lobby.uid);
         socket.emit('lobby-join-success', lobby);
     }
@@ -242,6 +247,33 @@ function LobbyLeave(socket, args)
     Logger.debug(`USER ${user.uid} (${Game.Registrar.GetUserByUID(user.uid).username}) ATTEMPTING TO LEAVE LOBBY`);
     socket.leave(lobby.uid);
     Game.Lobbies.UserLeaveLobby(user.uid, LobbyUpdateCallback);
+}
+
+function LobbyUserReady(socket, args)
+{
+    const user = Game.Registrar.GetUserbyConnection(socket.id);
+    
+    const ret = Game.Lobbies.UserReady(user.id, LobbyUpdateCallback);
+    if (!ret) return;
+    
+    Logger.debug(`USER ${user.uid} (${Game.Registrar.GetUserByUID(user.uid).username}) READY`);
+    Logger.debug(JSON.stringify(Game.Lobbies.GetLobbyByUserUID(useruid)))
+}
+
+function LobbyUserUnReady(socket, args)
+{
+    const user = Game.Registrar.GetUserbyConnection(socket.id);
+    
+    if (!Game.Lobbies.UserUnReady(user.id, LobbyUpdateCallback)) return;
+    
+    Logger.debug(`USER ${user.uid} (${Game.Registrar.GetUserByUID(user.uid).username}) UNREADY`);
+    Logger.debug(JSON.stringify(Game.Lobbies.GetLobbyByUserUID(useruid)))
+
+}
+
+function LobbyGameBegin(socket, args) 
+{
+    
 }
 
 
@@ -260,7 +292,15 @@ function HandleDisconnect(socket, args)
 }
 
 
-
+/**
+ * Possible states
+ * 
+ * lobby-deregister
+ * lobby-join
+ * user-ready
+ * user-unready
+ * lobby-leave 
+ */
 function LobbyUpdateCallback(user, lobby, state)
 {
     // Just send updated lobby object for now

@@ -58,7 +58,7 @@ socket.on('identify', (...args) => {
 
 socket.on('identify-success', (...args) => {
     console.log(args[0]);
-    ConnectionState.innerHTML = localeString('status-connected-as') + args[0].user.username;
+    ConnectionState.innerHTML = localeString('status-connected-as') + ' ' + args[0].user.username;
     onConnect();
 });
 

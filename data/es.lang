@@ -49,6 +49,7 @@ log-console:consola de log
 message:mensaje
 name:nombre
 players:Jugadores
+ready:
 scrabble-name:Scrabble
 spectators:Espectadores
 status:Status

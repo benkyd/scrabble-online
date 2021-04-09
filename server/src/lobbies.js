@@ -1,5 +1,6 @@
 const Logger = require('./logger.js');
 const Registrar = require('./game-registrar.js');
+const { GetUserByUID } = require('./game-registrar.js');
 
 /* 
 LOBBY OBJECT
@@ -7,7 +8,7 @@ LOBBY OBJECT
     uid: uid,
     name: string
     owneruid: useruid,
-    players: [{uid, name}],
+    players: [{uid, name, ready}],
     spectators: [{uid, name}],
     // PUBLIC, PRIVATE
     visibility: 'PUBLIC',
@@ -21,6 +22,7 @@ NOTES
     - When inactive will be deleted, unlike users
     - It's a waste of memory to store the name along with the useruid, however
         i believe it will save complexity in the domain logic
+    - All players must be ready in order for a game to start
 */
 let Lobbies = [];
 
@@ -42,6 +44,13 @@ function CheckUserAvailability(useruid)
     return true;
 }
 
+function DoesUserOwnLobby(useruid)
+{
+    for (const lobby in Lobbies)
+        if (Lobbies[lobby].owneruid === useruid) return true;
+    return false;
+}
+
 function IsUserInLobby(useruid)
 {
     // Doesn't matter if they own the lobby, if they do, they're
@@ -60,12 +69,17 @@ function IsUserInLobby(useruid)
     return false;
 }
 
-function DoesUserOwnLobby(useruid)
+function IsLobbyReady(lobbyuid)
 {
-    for (const lobby in Lobbies)
-        if (Lobbies[lobby].owneruid === useruid) return true;
-    return false;
+    if (!Lobbies[lobbyuid]) return false;
+    if (!Lobbies[lobbyuid].players.length <= 1) return false;
+
+    const arePlayersReady = Lobbies[lobbyuid].players.every(e => e.ready)
+
+
+
 }
+
 
 
 function GetLobbyByUID(lobbyuid)
@@ -89,7 +103,6 @@ function GetLobbyByUserUID(playeruid)
         for (const player of Lobbies[lobby].spectators)
             if (player.uid === playeruid) return Lobbies[lobby];
     }
-
 
     return false;
 }
@@ -141,13 +154,35 @@ function UserJoinLobby(lobbyuid, useruid, callback)
     // TODO: check users and change lobby status
 
     const user = Registrar.GetUserByUID(useruid);
-    Lobbies[lobbyuid].players.push({uid: useruid, name: user.username});
+    Lobbies[lobbyuid].players.push({uid: useruid, name: user.username, ready: false});
 
     Logger.game(`LOBBY ${lobbyuid} USER ${useruid} (${user.username}) JOINING`);
 
     callback(user, Lobbies[lobbyuid], 'lobby-join');
 
     return GetLobbyByUID(lobbyuid);
+}
+
+function UserReady(useruid, callback)
+{
+    if (!IsUserInLobby(useruid)) return false;
+
+    const lobbyuid = GetLobbyByUserUID(useruid).uid;
+    Lobbies[lobbyuid].players[useruid].ready = true;
+
+    callback(GetUserByUID(useruid), GetLobbyByUserUID(useruid), 'user-ready');
+    return true;
+}
+
+function UserUnReady(useruid, callback)
+{
+    if (!IsUserInLobby(useruid)) return false;
+
+    const lobbyuid = GetLobbyByUserUID(useruid).uid;
+    Lobbies[lobbyuid].players[useruid].ready = false;
+
+    callback(GetUserByUID(useruid), GetLobbyByUserUID(useruid), 'user-unready');
+    return true;
 }
 
 // works for spectators too
@@ -196,6 +231,7 @@ module.exports = {
     CheckUserAvailability: CheckUserAvailability,
     DoesUserOwnLobby: DoesUserOwnLobby,
     IsUserInLobby: IsUserInLobby,
+    IsLobbyReady: IsLobbyReady,
 
     // Get lobby exports
     GetLobbyByUID: GetLobbyByUID,
@@ -207,6 +243,8 @@ module.exports = {
     RegisterLobby: RegisterLobby,
     DeRegisterLobby: DeRegisterLobby,
     UserJoinLobby: UserJoinLobby,
+    UserReady: UserReady,
+    UserUnReady: UserUnReady,
     UserLeaveLobby: UserLeaveLobby,
     SpectatorJoinLobby: SpectatorJoinLobby
 }
