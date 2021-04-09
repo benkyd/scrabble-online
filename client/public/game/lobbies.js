@@ -47,36 +47,59 @@ function drawLobby(lobby)
 {
     const lobbyDiv = document.createElement('div');
     ActiveLobbyBlock.innerHTML = "";
-    lobbyDiv.id = lobby.id;
+    lobbyDiv.id = lobby.uid;
+    ActiveLobbyBlock.appendChild(lobbyDiv);
 
-    // TODO: Make drawlobby function
     lobbyDiv.innerHTML += `<h2>${localeString('lobby')} ${lobby.name}</h2><p><h3>${localeString('lobby-join-code')}: <b>${lobby.uid}</b></h3><p>${localeString('players')}:`;
-    
+
+    const lobbyPlayersDiv = document.createElement('div');
+    lobbyPlayersDiv.id = 'lobby-players';
     for (const player of lobby.players)
-        lobbyDiv.innerHTML += `<b>${player.name}</b>, `
+        lobbyPlayersDiv.innerHTML += `<b>${player.name}</b>, `;
     // remove trailing comma
-    lobbyDiv.innerHTML = lobbyDiv.innerHTML.slice(0, -2);
+    lobbyPlayersDiv.innerHTML = lobbyPlayersDiv.innerHTML.slice(0, -2);
+    lobbyDiv.appendChild(lobbyPlayersDiv);
 
     if (lobby.allowspectators)
     {
-        lobbyDiv.innerHTML += `<p>${localeString('spectators')}:`;
+        const lobbySpectatorsDiv = document.createElement('div');
+        lobbySpectatorsDiv.id = 'lobby-spectators';
+        lobbySpectatorsDiv.innerHTML += `<p>${localeString('spectators')}:`;
         for (const player of lobby.spectators)
-            lobbyDiv.innerHTML += `<b>${player.name}</b>, `
-        lobbyDiv.innerHTML = lobbyDiv.innerHTML.slice(0, -2);
+            lobbySpectatorsDiv.innerHTML += `<b>${player.name}</b>, `;
+        lobbySpectatorsDiv.innerHTML = lobbySpectatorsDiv.innerHTML.slice(0, -2);
+        lobbyDiv.appendChild(lobbySpectatorsDiv);
     }
 
-    lobbyDiv.innerHTML += `<p>${localeString('visibility')}: ${lobby.visibility}<p>${localeString('status')}: ${lobby.state}`
+    lobbyDiv.innerHTML += `<p>${localeString('visibility')}: ${lobby.visibility}<p>${localeString('status')}: ${lobby.state}`;
     lobbyDiv.innerHTML += `<p><input type="checkbox" id="lobby-input-ready"> ${localeString('ready')}`;
     
-    lobbyDiv.innerHTML += `<input type="button" value="${localeString('button-start-game')}" onclick="startGame()" disabled>`
-    
-    ActiveLobbyBlock.appendChild(lobbyDiv);
+    lobbyDiv.innerHTML += `<input type="button" value="${localeString('button-start-game')}" onclick="startGame()" disabled>`;
     
     const checkbox = document.querySelector('#lobby-input-ready');
     checkbox.addEventListener('change', () => {
         if (checkbox.checked) socket.emit('lobby-user-ready');
         else socket.emit('lobby-user-unready');
     });
+}
+
+// edits values instead of redrawing
+// so as not to mess up the event listeners
+function drawLobbyPartial(lobby)
+{
+    const lobbyPlayers = document.querySelector('#lobby-players');
+    const lobbySpectators = document.querySelector('#lobby-spectators');
+
+    lobbyPlayers.innerHTML = '';
+    for (const player of lobby.players)
+    lobbyPlayers.innerHTML += `<b>${player.name}</b>, `;
+    lobbyPlayers.innerHTML = lobbyPlayers.innerHTML.slice(0, -2);
+
+    if (!lobbySpectators) return;
+
+    for (const player of lobby.spectators)
+        lobbySpectators.innerHTML += `<b>${player.name}</b>, `;
+    lobbySpectators.innerHTML = lobbySpectators.innerHTML.slice(0, -2);
 }
 
 
@@ -212,7 +235,7 @@ socket.on('lobby-update', obj => {
     if (!obj.updateuser) return;
     if (!obj.lobby) return;
 
-    drawLobby(obj.lobby);
+    drawLobbyPartial(obj.lobby);
 
     console.log(obj);
 

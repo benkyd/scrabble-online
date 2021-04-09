@@ -168,7 +168,12 @@ function UserReady(useruid, callback)
     if (!IsUserInLobby(useruid)) return false;
 
     const lobbyuid = GetLobbyByUserUID(useruid).uid;
-    Lobbies[lobbyuid].players[useruid].ready = true;
+
+    // bit of a verbose search
+    // TODO: function-ise this
+    for (const player in Lobbies[lobbyuid].players)
+        if (Lobbies[lobbyuid].players[player].uid === useruid)
+            Lobbies[lobbyuid].players[player].ready = true;
 
     callback(GetUserByUID(useruid), GetLobbyByUserUID(useruid), 'user-ready');
     return true;
@@ -179,7 +184,11 @@ function UserUnReady(useruid, callback)
     if (!IsUserInLobby(useruid)) return false;
 
     const lobbyuid = GetLobbyByUserUID(useruid).uid;
-    Lobbies[lobbyuid].players[useruid].ready = false;
+
+    for (const player in Lobbies[lobbyuid].players)
+    if (Lobbies[lobbyuid].players[player].uid === useruid)
+        Lobbies[lobbyuid].players[player].ready = false;
+
 
     callback(GetUserByUID(useruid), GetLobbyByUserUID(useruid), 'user-unready');
     return true;

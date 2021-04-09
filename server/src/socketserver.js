@@ -233,8 +233,6 @@ function LobbyJoin(socket, args)
             return;
         }
 
-        console.log(status);
-
         socket.join(lobby.uid);
         socket.emit('lobby-join-success', lobby);
     }
@@ -252,23 +250,18 @@ function LobbyLeave(socket, args)
 function LobbyUserReady(socket, args)
 {
     const user = Game.Registrar.GetUserbyConnection(socket.id);
-    
-    const ret = Game.Lobbies.UserReady(user.id, LobbyUpdateCallback);
-    if (!ret) return;
+    if (!Game.Lobbies.UserReady(user.uid, LobbyUpdateCallback)) return;
     
     Logger.debug(`USER ${user.uid} (${Game.Registrar.GetUserByUID(user.uid).username}) READY`);
-    Logger.debug(JSON.stringify(Game.Lobbies.GetLobbyByUserUID(useruid)))
 }
 
 function LobbyUserUnReady(socket, args)
 {
     const user = Game.Registrar.GetUserbyConnection(socket.id);
     
-    if (!Game.Lobbies.UserUnReady(user.id, LobbyUpdateCallback)) return;
+    if (!Game.Lobbies.UserUnReady(user.uid, LobbyUpdateCallback)) return;
     
     Logger.debug(`USER ${user.uid} (${Game.Registrar.GetUserByUID(user.uid).username}) UNREADY`);
-    Logger.debug(JSON.stringify(Game.Lobbies.GetLobbyByUserUID(useruid)))
-
 }
 
 function LobbyGameBegin(socket, args) 
