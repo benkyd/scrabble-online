@@ -117,7 +117,7 @@ function piecePickedUp(piece)
 
     BoardSounds[2].play();
 
-    piece.classList.add('dragging-piece');
+    piece.classList.add('small-piece');
     isHoldingPiece = true;
 }
 
@@ -149,7 +149,7 @@ function piecePlaced(piece)
         DrawerSounds[Math.floor(Math.random() * 3)].play();
         
         piece.classList.remove('staged-piece');
-        piece.classList.remove('dragging-piece');
+        piece.classList.remove('small-piece');
         piece.classList.add('unplayed-piece');
         delete piece.dataset.coords;
 

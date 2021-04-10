@@ -1,7 +1,7 @@
 const Logger = require('./logger.js');
 const Server = require('./webserver.js');
 
-const Crypto = require("crypto");
+const Crypto = require('crypto');
 
 /* 
 USER OBJECT
@@ -27,6 +27,8 @@ let OnlineUsers = [];
 
 
 // TODO: This won't scale very well lol
+// FIXME: There is a potential bug where the username will be free
+// during gametransition intents
 function CheckUsernameAvailability(username) 
 {
     // un-reserve username if original owner has disconnected

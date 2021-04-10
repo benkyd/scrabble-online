@@ -1,3 +1,4 @@
+
 const LobbiesBlock = document.querySelector('#lobbies');
 const CreateLobbyBlock = document.querySelector('#lobby-create');
 const JoinLobbyBlock = document.querySelector('#lobby-join');
@@ -231,14 +232,22 @@ socket.on('lobby-join-error', obj => {
 
 function startGame()
 {
-
-    // transition user intent
-    // call start game
-    // transition all other clients intent
-    // redirect with timeout
-
+    socket.emit('identify-update-intent', {intent: 'GAMETRANSITION'});
+    socket.emit('lobby-game-begin');
 }
 
+socket.on('request-intent-change', obj => {
+    
+    if (!obj.intent) return;
+    if (!obj.lobby) return;
+    if (!obj.intent === 'GAMETRANSITION') return;
+
+    // window.location.search = `?uid=${obj.lobby.uid}`;
+    // window.location.pathname = '/scrabble';
+    window.location = `/scrabble?uid=${obj.lobby.uid}`;
+
+
+});
 
 socket.on('lobby-update', obj => {
     if (!obj) return;

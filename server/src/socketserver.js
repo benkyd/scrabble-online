@@ -24,6 +24,8 @@ let io = {};
  * sort of communication they will be recieving
  */
 
+// TODO: stop trusting the users UID, lookup with their connection ID
+
 function init()
 {
     io = require('socket.io')(WebServer.Server);
@@ -95,6 +97,7 @@ function ClientIdentify(socket, args)
     if (status === true)
     {
         socket.emit('identify-success', {connected: true, user: user});
+        Game.Registrar.ChangeUserIntent(user.uid, intent);
         return;
     } 
     else if (status === 'error-taken-user-connection')
@@ -110,9 +113,13 @@ function ClientIdentify(socket, args)
     }
 }
 
+// TODO: add checks to all these functions
 function UpdateIntent(socket, args)
 {
-    
+    const user = Game.Registrar.GetUserbyConnection(socket.id);
+
+    const intent = args.intent;
+    Game.Registrar.ChangeUserIntent(user.uid, intent);
 }
 
 
@@ -285,7 +292,23 @@ function LobbyUserUnReady(socket, args)
 
 function LobbyGameBegin(socket, args) 
 {
-    
+    const user = Game.Registrar.GetUserbyConnection(socket.id);
+    const lobby = Game.Lobbies.GetLobbyByUserUID(user.uid);
+    // TODO: Maybe only the owner of the lobby should be able to start the game
+
+    // Tells all other clients in the lobby to change intent to transition
+    // the clients don't need to request the server change their intent
+    // except the host that started the transition
+    for (const user of lobby.players)
+    {
+        Game.Registrar.ChangeUserIntent(user.uid, 'GAMETRANSITION');
+    }
+    for (const user of lobby.spectators)
+    {
+        Game.Registrar.ChangeUserIntent(user.uid, 'GAMETRANSITION');
+    }
+
+    io.to(lobby.uid).emit('request-intent-change', { intent: 'GAMETRANSITION', lobby: lobby });
 }
 
 

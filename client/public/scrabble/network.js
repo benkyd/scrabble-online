@@ -3,7 +3,7 @@
 const urlParser = new URLSearchParams(window.location.search);
 
 let isSingleplayer = false;
-if (urlParser.get('id') === null)
+if (urlParser.get('uid') === null)
 {
     isSingleplayer = true;
 }
