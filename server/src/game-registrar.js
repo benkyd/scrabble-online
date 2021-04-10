@@ -56,8 +56,9 @@ function CountIPs(ip)
 
 function ValidUsername(username)
 {
-    // \p{L} includes international letters
-    if (username.match(/[^A-Za-z0-9_-]\p{L}/)) 
+    // unicode stuffs includes international letters instead
+    // of A-Za-z0-9
+    if (username.match(/[^\u00BF-\u1FFF\u2C00-\uD7FF\w_-]/)) 
     {
         return false;
     }
@@ -91,6 +92,11 @@ function GetUserByUsername(username)
     return false;
 }
 
+function GetUserIntent(useruid)
+{
+    return OnlineUsers[useruid].intent;
+}
+
 
 function RegisterUser(username, ip)
 {
@@ -112,7 +118,7 @@ function RegisterUser(username, ip)
         ip: ip,
         // REGISTERED, CONNECTED, DISCONNECTED
         state: 'REGISTERED',
-        // LOBYING, GAME, UNDECIDED
+        // LOBYING, GAMETRANSITION, GAME, UNDECIDED
         intent: 'UNDECIDED',
         // Doesn't update if state changes
         connectionid: 'none',
@@ -123,18 +129,22 @@ function RegisterUser(username, ip)
     return OnlineUsers[uid];
 }
 
-function DeRegisterUser(userid)
+function DeRegisterUser(useruid)
 {
-    delete OnlineUsers[userid];
+    delete OnlineUsers[useruid];
+}
+
+function ChangeUserIntent(useruid, intent)
+{
+    OnlineUsers[useruid].intent = intent;
 }
 
 
-
-function UserConnectionExists(userid)
+function UserConnectionExists(useruid)
 {
-    if (OnlineUsers[userid].state === 'CONNECTED') return true;
-    if (OnlineUsers[userid].state === 'DISCONNECTED') return false;
-    if (OnlineUsers[userid].state === 'REGISTERED') return false;
+    if (OnlineUsers[useruid].state === 'CONNECTED') return true;
+    if (OnlineUsers[useruid].state === 'DISCONNECTED') return false;
+    if (OnlineUsers[useruid].state === 'REGISTERED') return false;
 }
 
 function GetUserbyConnection(connectionid)
@@ -181,11 +191,12 @@ module.exports = {
     GetUserByUID: GetUserByUID,
     GetSafeUserByUID: GetSafeUserByUID,
     GetUserByUsername: GetUserByUsername,
+    GetUserIntent: GetUserIntent,
     
     // Change user state exports
     RegisterUser: RegisterUser,
     DeRegisterUser: DeRegisterUser,
-
+    ChangeUserIntent: ChangeUserIntent,
 
     // User connection validation exports
     UserConnectionExists: UserConnectionExists,

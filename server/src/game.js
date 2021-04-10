@@ -1,5 +1,6 @@
 const Registrar = require('./game-registrar.js');
-const Lobbies = require('./lobbies');
+const Lobbies = require('./lobbies.js');
+const GameLogic = require('./game-logic.js')
 
 /**
  * This is just to manage the "game" module
@@ -9,5 +10,6 @@ const Lobbies = require('./lobbies');
 
 module.exports = {
     Registrar: Registrar,
-    Lobbies: Lobbies
+    Lobbies: Lobbies,
+    Game: GameLogic
 }

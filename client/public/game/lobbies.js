@@ -60,7 +60,7 @@ function drawLobby(lobby)
     lobbyPlayersDiv.innerHTML = lobbyPlayersDiv.innerHTML.slice(0, -2);
     lobbyDiv.appendChild(lobbyPlayersDiv);
 
-    if (lobby.allowspectators)
+    if (lobby.allowspectators && lobby.spectators.length !== 0)
     {
         const lobbySpectatorsDiv = document.createElement('div');
         lobbySpectatorsDiv.id = 'lobby-spectators';
@@ -74,6 +74,7 @@ function drawLobby(lobby)
     lobbyDiv.innerHTML += `<p>${localeString('visibility')}: ${lobby.visibility}<p>${localeString('status')}: ${lobby.state}`;
     lobbyDiv.innerHTML += `<p><input type="checkbox" id="lobby-input-ready"> ${localeString('ready')}`;
     
+    // TODO: only the owner of the lobby should be able to start the game
     lobbyDiv.innerHTML += `<input id="button-start-game" type="button" value="${localeString('button-start-game')}" onclick="startGame()" disabled>`;
     lobbyDiv.innerHTML += `<input type="button" value="${localeString('button-leave-lobby')}" onclick="leaveLobby()">`
 
@@ -98,6 +99,7 @@ function drawLobbyPartial(lobby)
 
     if (!lobbySpectators) return;
 
+    if (lobby.spectators.length === 0) return;
     for (const player of lobby.spectators)
         lobbySpectators.innerHTML += `<b>${player.name}</b>, `;
     lobbySpectators.innerHTML = lobbySpectators.innerHTML.slice(0, -2);
@@ -150,10 +152,6 @@ socket.on('lobby-create-success', obj => {
     if (document.querySelector('#lobby-success'))
         document.querySelector('#lobby-success').innerHTML = "";
 
-    const successDiv = document.createElement('div');
-    successDiv.id = 'lobby-success';
-    successDiv.innerHTML = localeString('lobby-created-joining');
-    CreateLobbyBlock.appendChild(successDiv);
     pageLog(`${localeString('lobby-created')} ${obj.lobby.uid} (${(obj.lobby.name)})`);
 });
 
@@ -230,6 +228,18 @@ socket.on('lobby-join-error', obj => {
     pageLog(localeString('error-bold') + localeString('error-lobby-joining') + ' ' + JSON.stringify(obj));
 });
 
+
+function startGame()
+{
+
+    // transition user intent
+    // call start game
+    // transition all other clients intent
+    // redirect with timeout
+
+}
+
+
 socket.on('lobby-update', obj => {
     if (!obj) return;
     if (!obj.state) return;
@@ -240,6 +250,7 @@ socket.on('lobby-update', obj => {
 
     console.log(obj);
 
+    // TODO: use a switch lol
     if (obj.state === 'lobby-join')
         pageLog(`${obj.updateuser.username} ${localeString('joined')}`);
 

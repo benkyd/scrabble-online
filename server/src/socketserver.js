@@ -37,6 +37,11 @@ function init()
 }
 
 
+module.exports = {
+    init: init
+}
+
+
 
 async function Router(socket)
 {
@@ -47,6 +52,7 @@ async function Router(socket)
 
 
     socket.on('identify', args => ClientIdentify(socket, args));
+    socket.on('identify-update-intent', args => UpdateIntent(socket, args));
 
     socket.on('lobby-create', args => LobbyCreate(socket, args));
     socket.on('lobby-join', args => LobbyJoin(socket, args));
@@ -103,6 +109,12 @@ function ClientIdentify(socket, args)
         return;
     }
 }
+
+function UpdateIntent(socket, args)
+{
+    
+}
+
 
 // if i use a database in the future i need to consider that the lobby
 // name is not yet sanatised
@@ -312,8 +324,4 @@ function LobbyUpdateCallback(user, lobby, state)
         lobby: lobby
     });
     Game.Lobbies.IsLobbyReady(lobby.uid)
-}
-
-module.exports = {
-    init: init
 }
