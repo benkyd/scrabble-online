@@ -74,8 +74,9 @@ function drawLobby(lobby)
     lobbyDiv.innerHTML += `<p>${localeString('visibility')}: ${lobby.visibility}<p>${localeString('status')}: ${lobby.state}`;
     lobbyDiv.innerHTML += `<p><input type="checkbox" id="lobby-input-ready"> ${localeString('ready')}`;
     
-    lobbyDiv.innerHTML += `<input type="button" value="${localeString('button-start-game')}" onclick="startGame()" disabled>`;
-    
+    lobbyDiv.innerHTML += `<input id="button-start-game" type="button" value="${localeString('button-start-game')}" onclick="startGame()" disabled>`;
+    lobbyDiv.innerHTML += `<input type="button" value="${localeString('button-leave-lobby')}" onclick="leaveLobby()">`
+
     const checkbox = document.querySelector('#lobby-input-ready');
     checkbox.addEventListener('change', () => {
         if (checkbox.checked) socket.emit('lobby-user-ready');
@@ -256,6 +257,14 @@ socket.on('lobby-update', obj => {
 
     if (obj.state === 'user-unready')
         pageLog(`${obj.updateuser.username} ${localeString('user-is-unready')}`);
+
+
+    if (obj.state === 'game-ready')
+        document.querySelector('#button-start-game').disabled = false;
+
+    if (obj.state === 'game-unready')
+        document.querySelector('#button-start-game').disabled = true;
+    
 
 });
 

@@ -71,13 +71,13 @@ function IsUserInLobby(useruid)
 
 function IsLobbyReady(lobbyuid)
 {
-    if (!Lobbies[lobbyuid]) return false;
-    if (!Lobbies[lobbyuid].players.length <= 1) return false;
+    if (!Lobbies[lobbyuid]) return false;    
+    // only support 2-4 players
+    // https://en.wikipedia.org/wiki/Scrabble
+    if (Lobbies[lobbyuid].players.length <= 1) return false;
+    if (Lobbies[lobbyuid].players.length > 4) return false;
 
-    const arePlayersReady = Lobbies[lobbyuid].players.every(e => e.ready)
-
-
-
+    return Lobbies[lobbyuid].players.every(e => e.ready);
 }
 
 
@@ -189,7 +189,6 @@ function UserUnReady(useruid, callback)
     if (Lobbies[lobbyuid].players[player].uid === useruid)
         Lobbies[lobbyuid].players[player].ready = false;
 
-
     callback(GetUserByUID(useruid), GetLobbyByUserUID(useruid), 'user-unready');
     return true;
 }
@@ -225,6 +224,10 @@ function UserLeaveLobby(useruid, callback)
     Lobbies[lobby.uid].spectators = Lobbies[lobby.uid].spectators.filter(x => x);
 
     callback(Registrar.GetUserByUID(useruid), lobby, 'lobby-leave');
+
+    // if the user leaving the lobby caused the game to be unready, emit
+    if (!IsLobbyReady(lobby.uid))
+        callback(Registrar.GetUserByUID(useruid), lobby, 'game-unready');
 
     return true;
 }

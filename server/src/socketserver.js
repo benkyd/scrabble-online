@@ -250,18 +250,25 @@ function LobbyLeave(socket, args)
 function LobbyUserReady(socket, args)
 {
     const user = Game.Registrar.GetUserbyConnection(socket.id);
+    const lobby = Game.Lobbies.GetLobbyByUserUID(user.uid);
+
     if (!Game.Lobbies.UserReady(user.uid, LobbyUpdateCallback)) return;
     
     Logger.debug(`USER ${user.uid} (${Game.Registrar.GetUserByUID(user.uid).username}) READY`);
+
+    if (Game.Lobbies.IsLobbyReady(lobby.uid)) LobbyUpdateCallback(user, lobby, 'game-ready');
 }
 
 function LobbyUserUnReady(socket, args)
 {
     const user = Game.Registrar.GetUserbyConnection(socket.id);
-    
+    const lobby = Game.Lobbies.GetLobbyByUserUID(user.uid);
+
     if (!Game.Lobbies.UserUnReady(user.uid, LobbyUpdateCallback)) return;
     
     Logger.debug(`USER ${user.uid} (${Game.Registrar.GetUserByUID(user.uid).username}) UNREADY`);
+
+    if (!Game.Lobbies.IsLobbyReady(lobby.uid)) LobbyUpdateCallback(user, lobby, 'game-unready');
 }
 
 function LobbyGameBegin(socket, args) 
@@ -290,9 +297,11 @@ function HandleDisconnect(socket, args)
  * 
  * lobby-deregister
  * lobby-join
+ * lobby-leave 
  * user-ready
  * user-unready
- * lobby-leave 
+ * game-ready
+ * game-unready
  */
 function LobbyUpdateCallback(user, lobby, state)
 {
@@ -302,6 +311,7 @@ function LobbyUpdateCallback(user, lobby, state)
         updateuser: Game.Registrar.GetSafeUserByUID(user.uid), 
         lobby: lobby
     });
+    Game.Lobbies.IsLobbyReady(lobby.uid)
 }
 
 module.exports = {
