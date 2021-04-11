@@ -1,25 +1,18 @@
-[ ] SERVER 
-    [x] Socket user identifying
-        [x] User login checks if there's an active socket
-            [x] If there's no active socket, delete the user and allow new user to connect
-        [x] Fix user timeouts / deletion
-            [x] User sockets, or "users" are made innactive after timeout on socket
-             -  Prevents softlock of users and stops socket spamming
-    [x] Game lobying system
-        [ ] Sanatise lobby names
-        [ ] Make lobby names uppercase
-        [x] Delete lobby once user disconnects - no reconnection
-        [ ] Matchmaking system
-    [ ] 1v1 game framework that allows spectators
-        [ ] 
-    [ ] Game logic implementation
-[ ] CLIENT
-    [-] Lobby page
-        [x] Basic connection stuff
-        [x] Create lobby
-        [x] Join lobby
-        [ ] Public lobby list
-        [ ] Matchmaking with ELO system (?)
-    [ ] Save username and re-request automatically if uid changed
-    [ ] Display and save last error on main screen 
-    [ ] Error reporting for the user
+# Long term
+[ ] Add support for sharding / load balancing with Nginx
+[ ] Use a database lol
+
+# Short term, coursework scope
+[ ] Translate
+    ✔ Portuagese @done(21-04-11 01:03)
+    ✔ Spanish @done(21-04-11 01:03)
+    → French
+    → Czech
+
+[ ] Sort out how intents work in game transitioning
+
+[ ] Game logic
+    ✘ Singleplayer game logic - OUT OF SCOPE @cancelled(21-04-11 01:04)
+
+
+    
