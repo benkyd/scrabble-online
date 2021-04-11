@@ -3,7 +3,6 @@ const gameinfoLeft = document.querySelector('#game-info-left');
 const gameinfoCompact = document.querySelector('#game-info-compact');
 
 
-
 function windowResize()
 {
     if (window.innerWidth < 1100)

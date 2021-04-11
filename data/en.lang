@@ -1,6 +1,7 @@
 language:en
 country:Britain
 ----
+
 button-back:back; (Action) to go back (a page)
 button-create:create
 button-join:join; (Action) to join
@@ -14,6 +15,7 @@ error-bad-intent:Client has no intent
 error-bold:ERROR
 error-cannot-join-lobby:Cannot join lobby
 error-creating-lobby:An error occurred while creating the lobby 
+error-illegal-intent:Illegal intent
 error-illegal-lobby:Illegal lobby
 error-illegal-user:Illegal user
 error-invalid-username:Invalid username
@@ -48,6 +50,7 @@ lobby-private:private lobby
 log-console:log console
 message:message; (noun) piece of text
 name:name
+no-connection-singleplayer:No connection, playing singleplayer; there is no (connection) as the user is playing (on their own)
 players:Players
 ready:ready ; (Action) to be (ready) to play
 scrabble-name:Scrabble

@@ -8,7 +8,7 @@ LOBBY OBJECT
     uid: uid,
     name: string
     owneruid: useruid,
-    players: [{uid, name, ready}],
+    players: [{uid, name, ready, ingame}],
     spectators: [{uid, name}],
     // PUBLIC, PRIVATE
     visibility: 'PUBLIC',
@@ -74,13 +74,18 @@ function IsLobbyReady(lobbyuid)
     if (!Lobbies[lobbyuid]) return false;    
     // only support 2-4 players
     // https://en.wikipedia.org/wiki/Scrabble
-    // TODO: ADD THIS BACK - REMOVED FOR TESTING
+    // TODO: URGENT ADD THIS BACK AFTER TESTING
     // if (Lobbies[lobbyuid].players.length <= 1) return false;
     if (Lobbies[lobbyuid].players.length > 4) return false;
 
     return Lobbies[lobbyuid].players.every(e => e.ready);
 }
 
+function IsLobbyReadyForGame(lobbyuid)
+{
+    if (!Lobbies[lobbyuid]) return false;    
+    return Lobbies[lobbyuid].players.every(e => e.ingame);
+}
 
 
 function GetLobbyByUID(lobbyuid)
@@ -95,14 +100,14 @@ function GetLobbyByOwnerUID(owneruid)
     return false;
 }
 
-function GetLobbyByUserUID(playeruid)
+function GetLobbyByUserUID(useruid)
 {
     for (const lobby in Lobbies)
     {
         for (const player of Lobbies[lobby].players)
-            if (player.uid === playeruid) return Lobbies[lobby];
+            if (player.uid === useruid) return Lobbies[lobby];
         for (const player of Lobbies[lobby].spectators)
-            if (player.uid === playeruid) return Lobbies[lobby];
+            if (player.uid === useruid) return Lobbies[lobby];
     }
 
     return false;
@@ -155,7 +160,12 @@ function UserJoinLobby(lobbyuid, useruid, callback)
     // TODO: check users and change lobby status
 
     const user = Registrar.GetUserByUID(useruid);
-    Lobbies[lobbyuid].players.push({uid: useruid, name: user.username, ready: false});
+    Lobbies[lobbyuid].players.push({
+        uid: useruid, 
+        name: user.username, 
+        ready: false, 
+        ingame: false
+    });
 
     Logger.game(`LOBBY ${lobbyuid} USER ${useruid} (${user.username}) JOINING`);
 
@@ -238,6 +248,24 @@ function SpectatorJoinLobby(lobbyuid, useruid, callback)
 
 }
 
+function UserConnectGame(useruid)
+{
+    if (!IsUserInLobby(useruid)) return false;
+
+    const lobby = GetLobbyByUserUID(useruid);
+
+    for (const player in Lobbies[lobby.uid].players)
+        if (Lobbies[lobby.uid].players[player].uid === useruid)
+            Lobbies[lobby.uid].players[player].ingame = true;
+
+
+    for (const spectator in Lobbies[lobby.uid].spectators)
+        if (Lobbies[lobby.uid].spectators[player].uid === useruid)
+            Lobbies[lobby.uid].spectators[spectator].ingame = true;
+    
+    return true;
+}
+
 
 module.exports = {
     // Lobby validation exports
@@ -245,6 +273,7 @@ module.exports = {
     DoesUserOwnLobby: DoesUserOwnLobby,
     IsUserInLobby: IsUserInLobby,
     IsLobbyReady: IsLobbyReady,
+    IsLobbyReadyForGame: IsLobbyReadyForGame,
 
     // Get lobby exports
     GetLobbyByUID: GetLobbyByUID,
@@ -259,5 +288,6 @@ module.exports = {
     UserReady: UserReady,
     UserUnReady: UserUnReady,
     UserLeaveLobby: UserLeaveLobby,
-    SpectatorJoinLobby: SpectatorJoinLobby
+    SpectatorJoinLobby: SpectatorJoinLobby,
+    UserConnectGame: UserConnectGame
 }

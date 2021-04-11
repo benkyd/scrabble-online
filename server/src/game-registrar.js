@@ -158,14 +158,15 @@ function GetUserbyConnection(connectionid)
 }
 
 // TODO: User intent
-function UserConnect(useruid, connectionid)
+function UserConnect(useruid, connectionid, intent)
 {
     if (OnlineUsers[useruid].state === 'CONNECTED') return 'error-taken-user-connection';
 
     OnlineUsers[useruid].connectionid = connectionid;
     OnlineUsers[useruid].state = 'CONNECTED';
+    OnlineUsers[useruid].intent = intent;
 
-    Logger.game(`SOCKET ${connectionid} IDENTIFIED AS ${useruid} (${OnlineUsers[useruid].username})`);
+    Logger.game(`SOCKET ${connectionid} IDENTIFIED AS ${useruid} (${OnlineUsers[useruid].username}) INTENDS TO ${intent}`);
 
     return true;
 }

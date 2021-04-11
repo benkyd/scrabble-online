@@ -240,13 +240,11 @@ socket.on('request-intent-change', obj => {
     
     if (!obj.intent) return;
     if (!obj.lobby) return;
-    if (!obj.intent === 'GAMETRANSITION') return;
+    if (obj.intent !== 'GAMETRANSITION') return;
 
     // window.location.search = `?uid=${obj.lobby.uid}`;
     // window.location.pathname = '/scrabble';
     window.location = `/scrabble?uid=${obj.lobby.uid}`;
-
-
 });
 
 socket.on('lobby-update', obj => {

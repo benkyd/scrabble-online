@@ -14,6 +14,7 @@ error-bad-intent:Cliente no tiene intención
 error-bold:ERRO
 error-cannot-join-lobby:No se puede unir al lobby
 error-creating-lobby:Ocurrió un error al crear el lobby 
+error-illegal-intent:
 error-illegal-lobby:Lobby ilegal
 error-illegal-user:Usuario ilegal
 error-invalid-username:Nombre de usuario no es válido
@@ -48,6 +49,7 @@ lobby-private:lobby privado
 log-console:consola de log
 message:mensaje
 name:nombre
+no-connection-singleplayer:
 players:Jugadores
 ready:
 scrabble-name:Scrabble

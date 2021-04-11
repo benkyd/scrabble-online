@@ -2,17 +2,22 @@
 [ ] Add support for sharding / load balancing with Nginx
 [ ] Use a database lol
 
+[ ] Lobby discovery system to find and join "public" lobbies
+    [ ] Matchmaking
+
+
 # Short term, coursework scope
 [ ] Translate
-    ✔ Portuagese @done(21-04-11 01:03)
-    ✔ Spanish @done(21-04-11 01:03)
-    → French
-    → Czech
+    ✔ Portuagese (Ines) @done(21-04-11 01:03)
+    ✔ Spanish (Ines) @done(21-04-11 01:03)
+    → French (Alexendro)
+    → Czech (Mikdore)
+
 
 [ ] Sort out how intents work in game transitioning
 
 [ ] Game logic
     ✘ Singleplayer game logic - OUT OF SCOPE @cancelled(21-04-11 01:04)
-
+    ✘ AI CPU player @cancelled(21-04-11 01:07)
 
     

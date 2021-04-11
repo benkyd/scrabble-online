@@ -64,6 +64,11 @@
         "es": "Ocurrió un error al crear el lobby",
         "pt": "Ocorreu um erro ao criar o lobby"
     },
+    "error-illegal-intent": {
+        "en": "Illegal intent",
+        "es": "",
+        "pt": ""
+    },
     "error-illegal-lobby": {
         "en": "Illegal lobby",
         "es": "Lobby ilegal",
@@ -233,6 +238,11 @@
         "en": "name",
         "es": "nombre",
         "pt": "nome"
+    },
+    "no-connection-singleplayer": {
+        "en": "No connection, playing singleplayer",
+        "es": "",
+        "pt": ""
     },
     "players": {
         "en": "Players",

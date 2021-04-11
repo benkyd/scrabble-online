@@ -5,6 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+
         <link rel="stylesheet" href="./game.css">
         <link rel="stylesheet" href="../main.css">
 
@@ -21,6 +23,7 @@
                     <text x="0" y="15">SCRABBLE</text>
                 </svg>
             </div>
+            <div id="connection-state"><script>document.write(localeString('status'))</script>:</div>
             <div id="chat">
                 <textarea id="game-chat" rows="10" cols=auto placeholder="chat" disabled></textarea>
                 <div id="chat-input">
@@ -309,6 +312,7 @@
                     Score:<div id="p2-score" class="player-score">102</div>
                 </div>
             </div>
+            <div id="connection-state"><script>document.write(localeString('status'))</script>:</div>
             <div id="game-controls">
                 <input type="button" value="Exchange tiles">
                 <input type="button" value="Skip turn">

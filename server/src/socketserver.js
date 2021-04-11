@@ -76,13 +76,6 @@ function ClientIdentify(socket, args)
     const user = Game.Registrar.GetUserByUID(args.userid);
     const intent = args.intent;
 
-    if (!intent)
-    {
-        err.addError(400, 'Bad Request', 'error-bad-intent');
-        socket.emit('identify-error', err.toError);
-        return;
-    }
-
     if (!user)
     {
         err.addError(400, 'Bad Request', 'error-unknown-uid');
@@ -90,14 +83,47 @@ function ClientIdentify(socket, args)
         return;
     }
 
-    // TODO: Sort out client intent 
-        
-    const status = Game.Registrar.UserConnect(user.uid, socket.id);
+    if (!intent)
+    {
+        err.addError(400, 'Bad Request', 'error-bad-intent');
+        socket.emit('identify-error', err.toError);
+        return;
+    }
+
+    const oldIntent = user.intent;
+    
+    Game.Registrar.ChangeUserIntent(user.uid, intent);
+    const status = Game.Registrar.UserConnect(user.uid, socket.id, intent);
+
+    // If the user enters a game without transitioning, no bueno
+    if (intent === 'GAME' && oldIntent !== 'GAMETRANSITION')
+    {
+        err.addError(500, 'Internal Server Error', 'error-illegal-intent');
+        socket.emit('identify-error', err.toError);
+        return;
+    }
+
+    // User intends to enter a game
+    if (intent === 'GAME' && oldIntent === 'GAMETRANSITION')
+    {
+        const lobbyUID = args.lobbyuid;
+
+        // Make sure the user is actually in this game
+        const lobby = Game.Lobbies.GetLobbyByUserUID(user.uid);
+        if (lobby.uid !== lobbyUID)
+        {
+            err.addError(500, 'Internal Server Error', 'error-illegal-intent');
+            socket.emit('identify-error', err.toError);
+            return;
+        }
+
+        Game.Lobbies.UserConnectGame(user.uid);
+    }
+
 
     if (status === true)
     {
         socket.emit('identify-success', {connected: true, user: user});
-        Game.Registrar.ChangeUserIntent(user.uid, intent);
         return;
     } 
     else if (status === 'error-taken-user-connection')
@@ -319,7 +345,11 @@ function HandleDisconnect(socket, args)
     
     // if user is in a lobby, leave and if user own's a lobby, destruct
     // leave lobby before user is disconnected
-    LobbyLeave(socket);
+
+    if (user.intent !== 'GAMETRANSITION')
+    {
+        LobbyLeave(socket);
+    }
 
     Game.Registrar.UserDisconnect(user.uid);
     
