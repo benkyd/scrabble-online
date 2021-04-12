@@ -37,29 +37,36 @@ function LoadTextDictionaries()
     }
 }
 
-function GenerateDictionaryTrees()
+function Optimise()
 {
 
 }
 
 function FindWord(lang, word)
 {
-    let ret = "";
+    word = word.toUpperCase();
+
+    let ret = false;
     for (const language of Dictionaries)
     {
-        
         if (language.lang !== lang) continue;
         
 
+        if (language.optimised)
+        {
 
-
-
+        } else 
+        {
+            if (language.data.includes(word)) ret = true;
+        }
     }
+
+    return ret;
 }
 
 
 module.exports = {
     LoadTextDictionaries: LoadTextDictionaries,
-    GenerateDictionaryTrees: GenerateDictionaryTrees,
+    Optimise: Optimise,
     FindWord: FindWord
 };
