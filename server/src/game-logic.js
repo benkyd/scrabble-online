@@ -1,10 +1,19 @@
+const Logger = require('./logger.js');
+const Registrar = require('./game-registrar.js');
+const Lobbies = require('./lobbies.js');
 
 /*
 GAME OBJECT
 {
-
-    locale
-
+    // reference UID
+    lobbyuid: uid,
+    locale: en,
+    players: [{uid, activetiles, score}],
+    // index of players
+    turn: int,
+    // TODO: vvv
+    turnstate: 
+    tilebag: []
 }
 NOTES
     - The locale is the language of the *owner of the lobby*, the dictionary
@@ -12,12 +21,11 @@ NOTES
 */
 let ActiveGames = [];
 
-function StartGame()
+
+function StartGame(lobby)
 {
 
 }
-
-
 
 
 module.exports = {

@@ -1,6 +1,5 @@
 const Logger = require('./logger.js');
 const Registrar = require('./game-registrar.js');
-const { GetUserByUID } = require('./game-registrar.js');
 
 /* 
 LOBBY OBJECT
@@ -186,7 +185,7 @@ function UserReady(useruid, callback)
         if (Lobbies[lobbyuid].players[player].uid === useruid)
             Lobbies[lobbyuid].players[player].ready = true;
 
-    callback(GetUserByUID(useruid), GetLobbyByUserUID(useruid), 'user-ready');
+    callback(Registrar.GetUserByUID(useruid), GetLobbyByUserUID(useruid), 'user-ready');
     return true;
 }
 
