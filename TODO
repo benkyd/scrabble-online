@@ -3,21 +3,25 @@
 [ ] Use a database lol
 
 [ ] Lobby discovery system to find and join "public" lobbies
-    [ ] Matchmaking
+    → Matchmaking
 
 
 # Short term, coursework scope
 [ ] Translate
     ✔ Portuagese (Ines) @done(21-04-11 01:03)
+        → Update with new locales   
     ✔ Spanish (Ines) @done(21-04-11 01:03)
+        → Update with new locales   
     → French (Alexendro)
     → Czech (Mikdore)
 
 
-[ ] Sort out how intents work in game transitioning
+✔ Sort out how intents work in game transitioning @done(21-04-12 21:09)
+
+[ ] Lobbying logic
+    ✔ Create, join, delete and leave lobbies @done(21-04-12 20:51)
+    → Make lobbies publically discoverable on a list
 
 [ ] Game logic
     ✘ Singleplayer game logic - OUT OF SCOPE @cancelled(21-04-11 01:04)
     ✘ AI CPU player @cancelled(21-04-11 01:07)
-
-    

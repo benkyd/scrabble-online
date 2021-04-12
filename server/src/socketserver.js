@@ -62,7 +62,15 @@ async function Router(socket)
     
     socket.on('lobby-user-ready', args => LobbyUserReady(socket, args));
     socket.on('lobby-user-unready', args => LobbyUserUnReady(socket, args));
+    
+    
+    // game functions
+    // socket will emit game begin with play order and starting tiles
+    // once all clients have connected with identify
     socket.on('lobby-game-begin', args => LobbyGameBegin(socket, args));
+
+
+
 
     socket.on('disconnect', args => HandleDisconnect(socket, ...args));
 
@@ -118,6 +126,15 @@ function ClientIdentify(socket, args)
         }
 
         Game.Lobbies.UserConnectGame(user.uid);
+
+        // If this user was the last player in the lobby to connect
+        // start the game
+
+        if (Game.Lobbies.IsLobbyReadyForGame(lobby.uid))
+        {
+            
+        }
+
     }
 
 
@@ -266,7 +283,7 @@ function LobbyJoin(socket, args)
 
     if (args.joinAsSpectator)
     {
-        // TODO
+        // TODO: this lol
     } else 
     {
         const status = Game.Lobbies.UserJoinLobby(lobby.uid, useruid, LobbyUpdateCallback);

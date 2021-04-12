@@ -103,6 +103,7 @@ if (urlParser.get('uid') === null)
 if (isSingleplayer)
 {
     ConnectionState.innerHTML = localeString('no-connection-singleplayer');
+    alert('Singleplayer is not implemented yet! a practice board will be set up to demonstrate tech and tile stuff');
 } else
 {
     initMultiplayer();
