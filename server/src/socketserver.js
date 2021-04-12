@@ -133,6 +133,9 @@ function ClientIdentify(socket, args)
         if (Game.Lobbies.IsLobbyReadyForGame(lobby.uid))
         {
             
+            
+
+
         }
 
     }

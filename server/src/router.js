@@ -57,6 +57,7 @@ function HandleLogin(req, res, next)
     }
 
     const username = req.body.username;
+    const locale = req.body.locale;
 
     if (!Game.Registrar.ValidUsername(username))
     {
@@ -85,7 +86,7 @@ function HandleLogin(req, res, next)
         return;
     }
 
-    const user = Game.Registrar.RegisterUser(username, ip);
+    const user = Game.Registrar.RegisterUser(username, ip, locale);
 
     if (!user)
     {

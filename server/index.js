@@ -26,6 +26,7 @@ async function main()
 function benchmarkDictionary()
 {
     let hrTime = process.hrtime();
+    // convert to ns
     let startTime = hrTime[0] * 1000000 + hrTime[1] / 1000;
 
     // Time 10 thousand reads
@@ -37,7 +38,7 @@ function benchmarkDictionary()
     hrTime = process.hrtime();
     let endTime = hrTime[0] * 1000000 + hrTime[1] / 1000;
 
-    Logger.debug(`10 000 Reads (unoptimised): ${endTime - startTime}μs`)
+    Logger.debug(`10 000 Reads (unoptimised): ${endTime - startTime}μs`);
 
 
     Dict.Optimise();
@@ -55,7 +56,7 @@ function benchmarkDictionary()
     hrTime = process.hrtime();
     endTime = hrTime[0] * 1000000 + hrTime[1] / 1000;
 
-    Logger.debug(`10 000 Reads (optimised): ${endTime - startTime}μs`)
+    Logger.debug(`10 000 Reads (optimised): ${endTime - startTime}μs`);
 }
 
 

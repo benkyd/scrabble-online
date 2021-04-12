@@ -37,7 +37,33 @@ function LoadTextDictionaries()
     }
 }
 
+
+// TODO: optimisation code for dict
+class Node
+{
+    value;
+    children = [];
+
+    #root;
+
+    constructor(root, value, children)
+    {
+
+    }
+}
+
+class Tree
+{
+    #root;
+
+}
+
 function Optimise()
+{
+
+}
+
+function findInTree()
 {
 
 }

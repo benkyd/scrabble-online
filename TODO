@@ -22,6 +22,14 @@
     ✔ Create, join, delete and leave lobbies @done(21-04-12 20:51)
     → Make lobbies publically discoverable on a list
 
+[ ] Dictionary
+    → Find appropriate scrabble dictionary for
+        → Portuagese
+        → Spanish
+        → French
+        → Czech
+    → Optimise! nary tree
+
 [ ] Game logic
     ✘ Singleplayer game logic - OUT OF SCOPE @cancelled(21-04-11 01:04)
     ✘ AI CPU player @cancelled(21-04-11 01:07)

@@ -9,6 +9,7 @@ USER OBJECT
     username: username,
     uid: uid,
     ip: ip,
+    locale: en,
     // REGISTERED, CONNECTED, DISCONNECTED
     state: 'CONNECTED',
     // LOBYING, GAMETRANSITION, GAME, UNDECIDED
@@ -19,6 +20,7 @@ USER OBJECT
 NOTES
     - Socket relations are handled by the socket server in order
       to seperate domain logic from game and networking logic
+    - locale is language, supported languages in /data/
 */
 // TODO: Maybe stringify this for easy session persistence
 // poor substitute for a proper database but it's better
@@ -100,7 +102,7 @@ function GetUserIntent(useruid)
 }
 
 
-function RegisterUser(username, ip)
+function RegisterUser(username, ip, locale)
 {
     // TODO: Don't assume this is unique, even with Crypto, UUIDv4?
     const uid = Crypto.randomBytes(8).toString("hex");
@@ -118,6 +120,7 @@ function RegisterUser(username, ip)
         username: username,
         uid: uid,
         ip: ip,
+        locale: locale || 'en',
         // REGISTERED, CONNECTED, DISCONNECTED
         state: 'REGISTERED',
         // LOBYING, GAMETRANSITION, GAME, UNDECIDED

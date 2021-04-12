@@ -20,7 +20,8 @@ async function onUsernameSubmit(e)
     const chosenUsername = UsernameInput.value;
 
     const req = {
-        username: chosenUsername
+        username: chosenUsername,
+        locale: localStorage.getItem('locale')
     };
 
     const res = await fetch('/login', {
