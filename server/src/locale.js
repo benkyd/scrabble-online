@@ -6,8 +6,9 @@ let locales = {};
 
 async function init()
 {
+    Logger.info('LOADING LOCALES');
     locales = JSON.parse(FS.readFileSync('../data/locale.json'));
-    Logger.info('LOCALES LOADED');
+    Logger.info(`LOADING locale.json ...`);
 }
 
 function GetLocaleListJSON()

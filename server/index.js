@@ -3,8 +3,9 @@ const Server = require('./src/webserver.js');
 const Router = require('./src/router.js');
 const Socket = require('./src/socketserver.js');
 const Locale = require('./src/locale.js');
+const Dict = require('./src/dictionary.js');
 
-require('dotenv').config()
+require('dotenv').config();
 
 async function main()
 {
@@ -12,11 +13,11 @@ async function main()
     Logger.init();
 
     await Locale.init();
+    await Dict.LoadTextDictionaries();
     await Server.init();
     await Socket.init();
     await Router.init();
 
-    // await Server.
 
     Logger.ready();
 }
