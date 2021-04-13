@@ -239,6 +239,28 @@ Distributions['cs'] = {
 };
 
 
+function GenerateStartStateDistribution(locale)
+{
+    const loc = Distributions[locale];
+
+    let ret = [];
+
+    // loops over every point object and adds j amount of i letter
+    // to ret for the game board
+    for (let p of loc.dist)
+        for (let i = 0; i < p.letters.length; i++)
+            for (let j = 0; j < p.amounts[i]; j++)
+                ret.push(p.letters[i]);
+
+    for (let i = 0; i < loc.blanktiles; i++)
+        ret.push('_');
+
+    return ret;
+}
+
+
 module.exports = {
-    Distributions: Distributions
+    Distributions: Distributions,
+
+    GenerateStartStateDistribution: GenerateStartStateDistribution
 };

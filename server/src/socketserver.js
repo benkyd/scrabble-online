@@ -70,8 +70,6 @@ async function Router(socket)
     socket.on('lobby-game-begin', args => LobbyGameBegin(socket, args));
 
 
-
-
     socket.on('disconnect', args => HandleDisconnect(socket, ...args));
 
 }

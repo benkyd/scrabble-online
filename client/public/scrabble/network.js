@@ -1,7 +1,7 @@
 const urlParser = new URLSearchParams(window.location.search);
 
 const ConnectionState = document.querySelector('#connection-state');
-
+const PieceDrawer = document.querySelector('#piece-drawer');
 
 function initMultiplayer()
 {
@@ -83,7 +83,7 @@ function initMultiplayer()
 
 function onConnect()
 {
-
+    PieceDrawer.innerHTML = '';
 }
 
 function onDisconnect()

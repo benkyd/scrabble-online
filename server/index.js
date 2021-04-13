@@ -4,6 +4,9 @@ const Router = require('./src/router.js');
 const Socket = require('./src/socketserver.js');
 const Locale = require('./src/locale.js');
 const Dict = require('./src/dictionary.js');
+const Dist = require('./src/letter-distributions.js');
+
+const Helpers = require('./src/helpers.js');
 
 require('dotenv').config();
 
@@ -31,9 +34,7 @@ function benchmarkDictionary()
 
     // Time 10 thousand reads
     for (let i = 0; i < 10000; i++)
-    {
         Dict.FindWord('en', 'ZZZS');
-    }
 
     hrTime = process.hrtime();
     let endTime = hrTime[0] * 1000000 + hrTime[1] / 1000;
@@ -49,9 +50,7 @@ function benchmarkDictionary()
 
     // Time 10 thousand reads
     for (let i = 0; i < 10000; i++)
-    {
         Dict.FindWord('en', 'ZZZS');
-    }
 
     hrTime = process.hrtime();
     endTime = hrTime[0] * 1000000 + hrTime[1] / 1000;
@@ -60,6 +59,4 @@ function benchmarkDictionary()
 }
 
 
-
 main();
-

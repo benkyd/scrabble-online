@@ -31,5 +31,6 @@
     → Optimise! nary tree
 
 [ ] Game logic
+    → Game creation
     ✘ Singleplayer game logic - OUT OF SCOPE @cancelled(21-04-11 01:04)
     ✘ AI CPU player @cancelled(21-04-11 01:07)
