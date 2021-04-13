@@ -1,6 +1,7 @@
 
 const Logger = require('./logger.js');
 
+//https://en.wikipedia.org/wiki/Scrabble_letter_distributions
 
 /*
 DISTRIBUTIONS OBJECT

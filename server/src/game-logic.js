@@ -10,7 +10,12 @@ GAME OBJECT
     // reference UID
     lobbyuid: uid,
     locale: en,
-    players: [{uid, name, activetiles, score}],
+    players: [{
+        uid: uid,
+        name: username,
+        activetiles: [],
+        score: int
+    }],
     // index of players
     turn: int,
     tilebag: []
@@ -50,7 +55,6 @@ function StartGame(lobby)
         turn: 0,
         tilebag: tilebag
     };
-
 
     return ActiveGames[lobby.uid];
 }

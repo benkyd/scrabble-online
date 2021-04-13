@@ -23,7 +23,7 @@ function initMultiplayer()
     socket.on('identify', (...args) => {
         ConnectionState.innerHTML = 'Identify recived'
     
-        if (!sessionStorage.user)
+        if (!sessionStorage.user) 
         {
             socket.disconnect();
             ConnectionState.innerHTML = 'Identify cannot proceed, no user';
