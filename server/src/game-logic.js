@@ -24,6 +24,18 @@ let ActiveGames = [];
 
 function StartGame(lobby)
 {
+    // game uses the owners language
+    const gameowner = Registrar.GetUserByUID(lobby.owneruid);
+
+    
+
+    ActiveGames[lobby.uid] = {
+        lobbyuid: lobby.uid,
+        locale: gameowner.locale,
+
+        turn: 0,
+        
+    };
 
 }
 

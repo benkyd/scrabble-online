@@ -133,8 +133,8 @@ function ClientIdentify(socket, args)
         if (Game.Lobbies.IsLobbyReadyForGame(lobby.uid))
         {
             
+            const game = Game.Logic.StartGame(lobby);
             
-
 
         }
 

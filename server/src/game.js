@@ -11,5 +11,5 @@ const GameLogic = require('./game-logic.js')
 module.exports = {
     Registrar: Registrar,
     Lobbies: Lobbies,
-    Game: GameLogic
+    Logic: GameLogic
 }
