@@ -143,8 +143,7 @@ function ClientIdentify(socket, args)
     {
         socket.emit('identify-success', {connected: true, user: user});
         return;
-    } 
-    else if (status === 'error-taken-user-connection')
+    } else if (status === 'error-taken-user-connection')
     {
         err.addError(500, 'Internal Server Error', 'error-taken-user-connection');
         socket.emit('identify-error', err.toError);

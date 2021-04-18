@@ -48,6 +48,7 @@ function StartGame(lobby)
 
     // populate users tile drawer
 
+
     ActiveGames[lobby.uid] = {
         lobbyuid: lobby.uid,
         locale: gameowner.locale,
@@ -61,6 +62,12 @@ function StartGame(lobby)
 
 // returns tuple ([newtileset], [newusertiles])
 function ExchangeTiles(tileset, tilesToExchange)
+{
+
+}
+
+// does not alter tileset
+function SelectTilesFromBag(tileset, num)
 {
 
 }
