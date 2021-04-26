@@ -1,13 +1,13 @@
 # Long term
-[ ] Add support for sharding / load balancing with Nginx
-[ ] Use a database lol
+☐ Add support for sharding / load balancing with Nginx
+☐ Use a database lol
 
-[ ] Lobby discovery system to find and join "public" lobbies
+☐ Lobby discovery system to find and join "public" lobbies
     → Matchmaking
 
 
 # Short term, coursework scope
-[ ] Translate
+☐ Translate
     ✔ Portuagese (Ines) @done(21-04-11 01:03)
         → Update with new locales   
     ✔ Spanish (Ines) @done(21-04-11 01:03)
@@ -18,11 +18,11 @@
 
 ✔ Sort out how intents work in game transitioning @done(21-04-12 21:09)
 
-[ ] Lobbying logic
+☐ Lobbying logic
     ✔ Create, join, delete and leave lobbies @done(21-04-12 20:51)
     → Make lobbies publically discoverable on a list
 
-[ ] Dictionary
+☐ Dictionary
     → Find appropriate scrabble dictionary for
         ✔ Portuagese @done(21-04-19 02:10)
         ✔ Spanish @done(21-04-19 02:10)
@@ -30,11 +30,11 @@
         → Czech
     → Optimise! n-ary tree
 
-[ ] Game logic
-    → Game creation
+☐ Game logic
+    ✔ Game creation @done(21-04-26 17:38)
     ✘ Singleplayer game logic - OUT OF SCOPE @cancelled(21-04-11 01:04)
     ✘ AI CPU player @cancelled(21-04-11 01:07)
 
-[ ] Code
+☐ Code
     → Refactor to code portsoc eslint
     → Refactor game client

@@ -8,7 +8,7 @@ const Helpers = require('./helpers.js');
 GAME OBJECT
 {
     // reference UID
-    lobbyuid: uid,
+    uid: uid,
     locale: en,
     players: [{
         uid: uid,
@@ -19,7 +19,7 @@ GAME OBJECT
         }],
         score: int
     }],
-    // index of players
+    // index of players whos turn it is
     turn: int,
     tilebag: [],
     tileset: []
@@ -35,7 +35,7 @@ NOTES
 let ActiveGames = [];
 
 
-function StartGame(lobby)
+function BeginGame(lobby)
 {
     // game uses the owners language
     const gameowner = Registrar.GetUserByUID(lobby.owneruid);
@@ -66,14 +66,12 @@ function StartGame(lobby)
     }
 
     ActiveGames[lobby.uid] = {
-        lobbyuid: lobby.uid,
+        uid: lobby.uid,
         locale: gameowner.locale,
         players: players,
         turn: 0,
         tilebag: tilebag
     };
-
-    console.log(ActiveGames[lobby.uid]);
 
     return ActiveGames[lobby.uid];
 }
@@ -92,5 +90,5 @@ function SelectTilesFromBag(tileset, num)
 
 
 module.exports = {
-    StartGame: StartGame,
+    BeginGame: BeginGame,
 }

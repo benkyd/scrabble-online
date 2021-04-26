@@ -52,10 +52,11 @@ async function Router(socket)
     // based
     socket.emit('identify');
 
-
+    // identify functions
     socket.on('identify', args => ClientIdentify(socket, args));
     socket.on('identify-update-intent', args => UpdateIntent(socket, args));
 
+    // lobby functions
     socket.on('lobby-create', args => LobbyCreate(socket, args));
     socket.on('lobby-join', args => LobbyJoin(socket, args));
     socket.on('lobby-leave', args => LobbyLeave(socket, args));
@@ -112,11 +113,9 @@ function ClientIdentify(socket, args)
     // User intends to enter a game
     if (intent === 'GAME' && oldIntent === 'GAMETRANSITION')
     {
-        const lobbyUID = args.lobbyuid;
-
         // Make sure the user is actually in this game
         const lobby = Game.Lobbies.GetLobbyByUserUID(user.uid);
-        if (lobby.uid !== lobbyUID)
+        if (lobby.uid !== args.lobbyuid)
         {
             err.addError(500, 'Internal Server Error', 'error-illegal-intent');
             socket.emit('identify-error', err.toError);
@@ -125,34 +124,42 @@ function ClientIdentify(socket, args)
 
         Game.Lobbies.UserConnectGame(user.uid);
 
-        // If this user was the last player in the lobby to connect
-        // start the game
+        // Users at this point don't go through lobbying code
+        // so make sure that they are joined into a lobby for
+        // the networking
+        socket.join(lobby.uid);
 
+        // If this user was the last player in the lobby to connect
+        // start the game and tell every connected user
         if (Game.Lobbies.IsLobbyReadyForGame(lobby.uid))
         {
-            
-            const game = Game.Logic.StartGame(lobby);
-            
+            Logger.debug(`ALL PLAYERS IN LOBBY ${lobby.uid} ARE CONNECTED TO GAME`);
+            // Make sure the last user to start the game is in the correct 
+            // state to recieve the game-begin packet
+            socket.emit('identify-success', {connected: true, user: user});
 
+            const game = Game.Logic.BeginGame(lobby);
+            
+            Logger.game(`GAME ${lobby.uid} IS BEGINNING`);
+
+            EmitGameBegin(game);
+
+            return;
         }
 
     }
 
-
     if (status === true)
     {
         socket.emit('identify-success', {connected: true, user: user});
-        return;
     } else if (status === 'error-taken-user-connection')
     {
         err.addError(500, 'Internal Server Error', 'error-taken-user-connection');
         socket.emit('identify-error', err.toError);
-        return;
     } else
     {
         err.addError(500, 'Internal Server Error', 'error-illegal-user');
         socket.emit('identify-error', err.toError);
-        return;
     }
 }
 
@@ -337,7 +344,7 @@ function LobbyGameBegin(socket, args)
 {
     const user = Game.Registrar.GetUserbyConnection(socket.id);
     const lobby = Game.Lobbies.GetLobbyByUserUID(user.uid);
-    // TODO: Maybe only the owner of the lobby should be able to start the game
+    // TODO: Maybe only the owner of the lobby should be able to begin the game
 
     // Tells all other clients in the lobby to change intent to transition
     // the clients don't need to request the server change their intent
@@ -394,4 +401,24 @@ function LobbyUpdateCallback(user, lobby, state)
         lobby: lobby
     });
     Game.Lobbies.IsLobbyReady(lobby.uid)
+}
+
+
+
+// send the client their user as well as the rest of the game
+function EmitGameBegin(game)
+{
+    // TODO: consider not sending all users the entire game state
+    // due to cheating
+    io.to(game.uid).emit('game-begin', {
+        game: game
+    });
+
+    console.log(game);
+
+    // for (const user of game.players)
+    // {
+    //     const gameuser = game.players.filter(i => i.uid === user.uid)[0];
+
+    // }
 }

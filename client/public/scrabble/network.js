@@ -23,7 +23,7 @@ function initMultiplayer()
     socket.on('identify-success', args => onIdentifySuccess(socket, args));
     socket.on('identify-error', args => onIdentifyError(socket, args));
     
-
+    socket.on('game-start', args => console.log(args));
     
 }    
 
