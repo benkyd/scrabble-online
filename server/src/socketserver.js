@@ -69,6 +69,7 @@ async function Router(socket)
     // socket will emit game begin with play order and starting tiles
     // once all clients have connected with identify
     socket.on('lobby-game-begin', args => LobbyGameBegin(socket, args));
+    socket.on('game-play-turn', args => GamePlayTurn(socket, args))
 
 
     socket.on('disconnect', args => HandleDisconnect(socket, ...args));
@@ -128,6 +129,7 @@ function ClientIdentify(socket, args)
         // so make sure that they are joined into a lobby for
         // the networking
         socket.join(lobby.uid);
+        console.log(io.sockets.adapter.rooms);
 
         // If this user was the last player in the lobby to connect
         // start the game and tell every connected user
@@ -340,6 +342,7 @@ function LobbyUserUnReady(socket, args)
     if (!Game.Lobbies.IsLobbyReady(lobby.uid)) LobbyUpdateCallback(user, lobby, 'game-unready');
 }
 
+
 function LobbyGameBegin(socket, args) 
 {
     const user = Game.Registrar.GetUserbyConnection(socket.id);
@@ -359,6 +362,11 @@ function LobbyGameBegin(socket, args)
     }
 
     io.to(lobby.uid).emit('request-intent-change', { intent: 'GAMETRANSITION', lobby: lobby });
+}
+
+function GamePlayTurn(socket, args)
+{
+    
 }
 
 
@@ -414,11 +422,8 @@ function EmitGameBegin(game)
         game: game
     });
 
-    console.log(game);
-
     // for (const user of game.players)
     // {
     //     const gameuser = game.players.filter(i => i.uid === user.uid)[0];
-
     // }
 }

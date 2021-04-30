@@ -7,8 +7,7 @@ function computeTurn()
 }
 
 
-function initGame()
+function initGame(boardstate, players, tiles)
 {
 
 }
-initGame();

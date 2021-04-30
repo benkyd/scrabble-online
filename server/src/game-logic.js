@@ -70,10 +70,27 @@ function BeginGame(lobby)
         locale: gameowner.locale,
         players: players,
         turn: 0,
-        tilebag: tilebag
+        tilebag: tilebag,
+        tileset: Dist.GetTileSet(gameowner.locale)
     };
 
     return ActiveGames[lobby.uid];
+}
+
+/*
+TURN OBJECT
+{
+
+}
+NOTES
+    - Turns are handled a little weird, client sends turn on turn end and
+        this function validates it and changes the state of the game before
+        returning an error or a validation object including the next players
+        turn
+*/
+function PlayTurn(game, turn)
+{
+
 }
 
 // returns tuple ([newtileset], [newusertiles])
@@ -90,5 +107,11 @@ function SelectTilesFromBag(tileset, num)
 
 
 module.exports = {
+    // Game validation exports
+
+    // Get game exports
+
+    // Change game state exports
     BeginGame: BeginGame,
+    PlayTurn: PlayTurn
 }

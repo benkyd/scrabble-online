@@ -64,6 +64,11 @@
         "es": "Ocurrió un error al crear el lobby",
         "pt": "Ocorreu um erro ao criar o lobby"
     },
+    "error-game-begin": {
+        "en": "There was an error starting the game",
+        "es": "",
+        "pt": ""
+    },
     "error-illegal-intent": {
         "en": "Illegal intent",
         "es": "",

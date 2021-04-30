@@ -239,6 +239,15 @@ Distributions['cs'] = {
     ]
 };
 
+function GetDist(locale)
+{
+    return Distributions[locale];
+}
+
+function GetTileSet(locale)
+{
+    return Distributions[locale].tileset;
+}
 
 function GenerateStartStateDistribution(locale)
 {
@@ -263,5 +272,7 @@ function GenerateStartStateDistribution(locale)
 module.exports = {
     Distributions: Distributions,
 
+    GetDist: GetDist,
+    GetTileSet: GetTileSet,
     GenerateStartStateDistribution: GenerateStartStateDistribution
 };

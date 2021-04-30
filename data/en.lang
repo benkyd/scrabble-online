@@ -15,6 +15,7 @@ error-bad-intent:Client has no intent
 error-bold:ERROR
 error-cannot-join-lobby:Cannot join lobby
 error-creating-lobby:An error occurred while creating the lobby 
+error-game-begin:There was an error starting the game
 error-illegal-intent:Illegal intent
 error-illegal-lobby:Illegal lobby
 error-illegal-user:Illegal user

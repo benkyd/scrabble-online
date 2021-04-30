@@ -23,7 +23,7 @@ function initMultiplayer()
     socket.on('identify-success', args => onIdentifySuccess(socket, args));
     socket.on('identify-error', args => onIdentifyError(socket, args));
     
-    socket.on('game-start', args => console.log(args));
+    socket.on('game-begin', args => onGameBegin(socket, args));
     
 }    
 
@@ -101,6 +101,24 @@ function onDisconnect()
 
 }
 
+function onGameBegin(socket, args)
+{
+    
+    if (!args)
+    {
+        ConnectionState.innerHTML = localeString('error-game-begin');
+        return;
+    }
+
+    if (!args.game.uid)
+    {
+        ConnectionState.innerHTML = localeString('error-game-begin');
+        return;
+    }
+
+
+    
+}
 
 
 // is game singleplayer?

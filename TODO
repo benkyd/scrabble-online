@@ -15,11 +15,9 @@
     → French (Alexendro)
     → Czech (Mikdore)
 
-
-✔ Sort out how intents work in game transitioning @done(21-04-12 21:09)
-
 ☐ Lobbying logic
     ✔ Create, join, delete and leave lobbies @done(21-04-12 20:51)
+    ✔ Sort out how intents work in game transitioning @done(21-04-12 21:09)
     → Make lobbies publically discoverable on a list
 
 ☐ Dictionary
@@ -38,3 +36,6 @@
 ☐ Code
     → Refactor to code portsoc eslint
     → Refactor game client
+
+☐ Bugfixes
+    → If a user disconnects during a game, the game is irrevokably corrupted
