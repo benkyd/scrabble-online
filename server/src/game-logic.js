@@ -7,22 +7,57 @@ const Helpers = require('./helpers.js');
 /*
 GAME OBJECT
 {
-    // reference UID
+    // Reference UID (of lobby)
     uid: uid,
     locale: en,
     players: [{
         uid: uid,
         name: username,
         activetiles: [tile: {
-            tile: tile, 
+            letter: letter,
             score: int
         }],
         score: int
     }],
-    // index of players whos turn it is
+    // Index of players whos turn it is
     turn: int,
+    // Array of GAMESTATEs, latest at head of array
+    gamestates: [],
     tilebag: [],
     tileset: []
+}
+GAMESTATE OBJECT
+{
+    // UID of the player that played the turn
+    playeruid: uid,
+    turn: int,
+    // Generated after turn is processed
+    outcome: {
+        valid: bool,
+        points: pointsgained,
+        words: [{ 
+            word: word,
+            points: points,
+            tiles: [{
+                pos: {x: x, y: y},
+                modifier: modifier,
+                letter: letter,
+                score: int
+            }]
+        }],
+    }
+    oldboardtiles: [{
+        pos: {x: x, y: y},
+        modifier: modifier,
+        letter: letter,
+        score: int
+    }]
+    boardtiles: [{
+        pos: {x: x, y: y},
+        modifier: modifier,
+        letter: letter,
+        score: int
+    }]
 }
 NOTES
     - The locale is the language of the *owner of the lobby*, the dictionary
@@ -31,6 +66,7 @@ NOTES
         score thing in letter-distributions.js TILEBAG is not to be confused
         with tileset as those are active game tiles and are modified as turns
         are played
+    - A GAMESTATE refers to a turn
 */
 let ActiveGames = [];
 
@@ -88,7 +124,7 @@ NOTES
         returning an error or a validation object including the next players
         turn
 */
-function PlayTurn(game, turn)
+function PlayTurn(gameuid, playeruid, newstate)
 {
 
 }

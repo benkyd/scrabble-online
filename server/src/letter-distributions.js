@@ -15,9 +15,10 @@ DISTRIBUTIONS OBJECT
         ...
     ]
 }
+NOTES
+    - TODO: JSON-ise it
 */
 let Distributions = [];
-
 
 Distributions['en'] = {
     tileset: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
