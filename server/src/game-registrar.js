@@ -160,6 +160,14 @@ function GetUserbyConnection(connectionid)
     return false;
 }
 
+function GetConnectionByUser(useruid)
+{
+    for (const user in OnlineUsers)
+    if (OnlineUsers[user].uid === useruid && OnlineUsers[user].state === 'CONNECTED')
+        return OnlineUsers[user].connectionid;
+    return false;
+}
+
 // TODO: User intent
 function UserConnect(useruid, connectionid, intent)
 {
@@ -209,6 +217,7 @@ module.exports = {
     
     // Get user connection exports
     GetUserbyConnection: GetUserbyConnection,
+    GetConnectionByUser: GetConnectionByUser,
 
     // Change user connection state exports
     UserConnect: UserConnect,

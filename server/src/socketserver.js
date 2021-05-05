@@ -416,14 +416,18 @@ function LobbyUpdateCallback(user, lobby, state)
 // send the client their user as well as the rest of the game
 function EmitGameBegin(game)
 {
-    // TODO: consider not sending all users the entire game state
-    // due to cheating
-    io.to(game.uid).emit('game-begin', {
-        game: game
-    });
+    // Instead of using io.to(room), i'm sending an individual packet to everyone
+    // in the game so that i can customise the game object that they recieve
+    for (const user of game.players)
+    {
+        const gameuser = game.players.filter(i => i.uid === user.uid)[0];
+        const gameuserconnection = Game.Registrar.GetConnectionByUser(gameuser.uid);
 
-    // for (const user of game.players)
-    // {
-    //     const gameuser = game.players.filter(i => i.uid === user.uid)[0];
-    // }
+        // TODO: consider not sending all users the entire game state
+        // due to cheating
+        io.to(gameuserconnection).emit('game-begin', {
+            game: game,
+            gameuser: gameuser
+        })
+    }
 }

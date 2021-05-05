@@ -73,7 +73,7 @@ let ActiveGames = [];
 
 function BeginGame(lobby)
 {
-    // game uses the owners language
+    // game uses the owners language - assumes it's valid
     const gameowner = Registrar.GetUserByUID(lobby.owneruid);
 
     let tilebag = Dist.GenerateStartStateDistribution(gameowner.locale);
@@ -101,11 +101,22 @@ function BeginGame(lobby)
         }
     }
 
+    const gamestate = {
+        playeruid: -1,
+        turn: 0,
+        outcome: {
+            valid: false
+        },
+        oldboardtiles: [],
+        boardtiles: []
+    };
+
     ActiveGames[lobby.uid] = {
         uid: lobby.uid,
         locale: gameowner.locale,
         players: players,
         turn: 0,
+        gamestates: [gamestate],
         tilebag: tilebag,
         tileset: Dist.GetTileSet(gameowner.locale)
     };
@@ -114,9 +125,38 @@ function BeginGame(lobby)
 }
 
 /*
-TURN OBJECT
+TURN OBJECT - Un-filled in GAMESTATE object
 {
-
+    // UID of the player that played the turn
+    playeruid: uid,
+    turn: int,
+    // Generated after turn is processed
+    outcome: {
+        valid: bool,
+        points: pointsgained,
+        words: [{ 
+            word: word,
+            points: points,
+            tiles: [{
+                pos: {x: x, y: y},
+                modifier: modifier,
+                letter: letter,
+                score: int
+            }]
+        }],
+    }
+    oldboardtiles: [{
+        pos: {x: x, y: y},
+        modifier: modifier,
+        letter: letter,
+        score: int
+    }]
+    boardtiles: [{
+        pos: {x: x, y: y},
+        modifier: modifier,
+        letter: letter,
+        score: int
+    }]
 }
 NOTES
     - Turns are handled a little weird, client sends turn on turn end and
@@ -131,12 +171,6 @@ function PlayTurn(gameuid, playeruid, newstate)
 
 // returns tuple ([newtileset], [newusertiles])
 function ExchangeTiles(tileset, tilesToExchange)
-{
-
-}
-
-// does not alter tileset
-function SelectTilesFromBag(tileset, num)
 {
 
 }

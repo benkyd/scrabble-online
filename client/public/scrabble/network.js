@@ -116,7 +116,7 @@ function onGameBegin(socket, args)
         return;
     }
 
-    
+    console.log(args);
 
 }
 
