@@ -71,6 +71,15 @@ NOTES
 let ActiveGames = [];
 
 
+function GetGameByUserUID(useruid)
+{
+    for (const game in ActiveGames)
+        for (const player of ActiveGames[game].players)
+            if (player.uid === useruid) return ActiveGames[game];
+
+    return false;
+}
+
 function GetTurnUser(gameuid)
 {
     if (!ActiveGames[gameuid]) return false;
@@ -187,6 +196,7 @@ module.exports = {
     // Game validation exports
 
     // Get game exports
+    GetGameByUserUID: GetGameByUserUID,
     GetTurnUser: GetTurnUser,
 
     // Change game state exports

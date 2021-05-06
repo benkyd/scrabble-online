@@ -103,6 +103,25 @@ function ClientIdentify(socket, args)
     Game.Registrar.ChangeUserIntent(user.uid, intent);
     const status = Game.Registrar.UserConnect(user.uid, socket.id, intent);
 
+
+    // User reconnecting to game after disconnect (Not sure what this entails, mainly for debugging)
+    if (intent === 'GAME' && oldIntent === 'GAME')
+    {
+        socket.emit('identify-success', {connected: true, user: user});
+        
+        const game = Game.Logic.GetGameByUserUID(user.uid);
+
+        if (!game)
+        {
+            err.addError(500, 'Internal Server Error', 'error-illegal-intent');
+            socket.emit('identify-error', err.toError);
+            return;
+        }
+
+        EmitGameBegin(game);
+        return;
+    }
+
     // If the user enters a game without transitioning, no bueno
     if (intent === 'GAME' && oldIntent !== 'GAMETRANSITION')
     {
@@ -148,7 +167,6 @@ function ClientIdentify(socket, args)
 
             return;
         }
-
     }
 
     if (status === true)
@@ -414,6 +432,9 @@ function LobbyUpdateCallback(user, lobby, state)
 
 
 // send the client their user as well as the rest of the game
+// works at any point during the game as the client will always
+// setup a game not assuming begining - also fresh games have a
+// populated gamestates array
 function EmitGameBegin(game)
 {
     // Instead of using io.to(room), i'm sending an individual packet to everyone
