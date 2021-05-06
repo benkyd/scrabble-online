@@ -24,7 +24,9 @@ function initMultiplayer()
     socket.on('identify-error', args => onIdentifyError(socket, args));
     
     socket.on('game-begin', args => onGameBegin(socket, args));
+    socket.on('game-your-turn', args => onStartTurn(socket, args));
     
+    console.log('multiplayer ready')
 }    
 
 
@@ -61,7 +63,7 @@ function onIdentify(socket, args)
         return;
     }
 
-    const lobbyUID = urlParser.get('uid')
+    const lobbyUID = urlParser.get('uid');
 
     if (!lobbyUID)
     {
@@ -103,7 +105,6 @@ function onDisconnect()
 
 function onGameBegin(socket, args)
 {
-    
     if (!args)
     {
         ConnectionState.innerHTML = localeString('error-game-begin');
@@ -118,6 +119,13 @@ function onGameBegin(socket, args)
 
     console.log(args);
 
+    
+    
+}
+
+function onStartTurn(socket, args)
+{
+    console.log('my turn')
 }
 
 

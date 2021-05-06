@@ -33,4 +33,3 @@ document.querySelectorAll('piece').forEach(element => {
     element.addEventListener('mousedown', e => mouseDown(e, element));
     element.addEventListener('touchstart', e => mouseDown(e, element));
 });
-

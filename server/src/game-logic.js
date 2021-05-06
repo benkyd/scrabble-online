@@ -71,6 +71,13 @@ NOTES
 let ActiveGames = [];
 
 
+function GetTurnUser(gameuid)
+{
+    if (!ActiveGames[gameuid]) return false;
+    return ActiveGames[gameuid].players[ActiveGames[gameuid].turn];
+}
+
+
 function BeginGame(lobby)
 {
     // game uses the owners language - assumes it's valid
@@ -180,6 +187,7 @@ module.exports = {
     // Game validation exports
 
     // Get game exports
+    GetTurnUser: GetTurnUser,
 
     // Change game state exports
     BeginGame: BeginGame,

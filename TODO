@@ -30,6 +30,9 @@
 
 ☐ Game logic
     ✔ Game creation @done(21-04-26 17:38)
+    ☐ Multiplayer game logic
+        ☐ Process turns
+        ☐ Display turns on client
     ✘ Singleplayer game logic - OUT OF SCOPE @cancelled(21-04-11 01:04)
     ✘ AI CPU player @cancelled(21-04-11 01:07)
 

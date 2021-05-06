@@ -424,10 +424,17 @@ function EmitGameBegin(game)
         const gameuserconnection = Game.Registrar.GetConnectionByUser(gameuser.uid);
 
         // TODO: consider not sending all users the entire game state
-        // due to cheating
+        // due to cheating - a few more considerations and maybe a 
+        // getsafegame function is needed
         io.to(gameuserconnection).emit('game-begin', {
             game: game,
             gameuser: gameuser
-        })
+        });
     }
+
+    // Let starting player know it's their turn
+    const userturnstart = Game.Logic.GetTurnUser(game.uid).uid;
+    const userturnstartconnection = Game.Registrar.GetConnectionByUser(userturnstart);
+
+    io.to(userturnstartconnection).emit('game-your-turn');
 }
