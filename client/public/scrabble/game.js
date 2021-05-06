@@ -9,5 +9,6 @@ function computeTurn()
 
 function initGame(boardstate, myplayer, players)
 {
-    
+    addPiecesToDrawer();
+    return true;
 }

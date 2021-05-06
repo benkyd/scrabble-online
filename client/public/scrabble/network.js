@@ -173,7 +173,8 @@ function onGameBegin(socket, args)
         return;
     }
 
-    const boardstate = args.game.gamestates[args.game.gamestates.length];
+    console.log(args);
+    const boardstate = args.game.gamestates[args.game.gamestates.length-1];
     const myplayer = args.gameuser;
     const players = args.game.players;
 
