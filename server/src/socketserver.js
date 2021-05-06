@@ -109,6 +109,8 @@ function ClientIdentify(socket, args)
     {
         socket.emit('identify-success', {connected: true, user: user});
         
+        // TODO: lobby is left when user disconnects, do this properly you lazy shit
+        const lobby = Game.Lobbies.GetLobbyByUserUID(user.uid);
         const game = Game.Logic.GetGameByUserUID(user.uid);
 
         if (!game)
@@ -118,7 +120,11 @@ function ClientIdentify(socket, args)
             return;
         }
 
-        EmitGameBegin(game);
+        socket.join(lobby.uid);
+        
+        Logger.game(`USER ${user.uid} (${user.username}) IS RECONNECTING TO GAME ${game.uid}`);
+
+        EmitGameReconnect(user, game);
         return;
     }
 
@@ -393,9 +399,14 @@ function HandleDisconnect(socket, args)
     const user = Game.Registrar.GetUserbyConnection(socket.id);
     if (!user) return;
     
+    // if user is in a game, notify the game logic
+    // if the user is the last user in a game - delete it
+    // if the user is leaving, change their status so reconnect is allowed
+
+    // TODO: THAT^^^
+
     // if user is in a lobby, leave and if user own's a lobby, destruct
     // leave lobby before user is disconnected
-
     if (user.intent !== 'GAMETRANSITION')
     {
         LobbyLeave(socket);
@@ -459,3 +470,27 @@ function EmitGameBegin(game)
 
     io.to(userturnstartconnection).emit('game-your-turn');
 }
+
+function EmitGameReconnect(user, game)
+{
+    const gameuser = game.players.filter(i => i.uid === user.uid)[0];
+    const gameuserconnection = Game.Registrar.GetConnectionByUser(gameuser.uid);
+
+    io.to(gameuserconnection).emit('game-begin', {
+        game: game,
+        gameuser: gameuser
+    });
+
+    // If it's their turn, pass it to them
+    // NOTE it shouldn't ever be their turn on a reconnect
+    // as the game logic should pass control to next player
+    // as the game order is changed
+    const userturnstart = Game.Logic.GetTurnUser(game.uid).uid;
+    if (userturnstart === user.uid)
+    {
+        const userturnstartconnection = Game.Registrar.GetConnectionByUser(userturnstart);
+    
+        io.to(userturnstartconnection).emit('game-your-turn');
+    }
+}
+

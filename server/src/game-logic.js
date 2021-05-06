@@ -191,6 +191,17 @@ function ExchangeTiles(tileset, tilesToExchange)
 
 }
 
+function UserLeaveGame(useruid)
+{
+    
+}
+
+// same as how the 
+function EndGame()
+{
+
+}
+
 
 module.exports = {
     // Game validation exports
@@ -201,5 +212,6 @@ module.exports = {
 
     // Change game state exports
     BeginGame: BeginGame,
-    PlayTurn: PlayTurn
+    PlayTurn: PlayTurn,
+    EndGame: EndGame
 }
