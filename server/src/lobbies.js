@@ -199,7 +199,7 @@ function UserUnReady(useruid, callback)
     if (Lobbies[lobbyuid].players[player].uid === useruid)
         Lobbies[lobbyuid].players[player].ready = false;
 
-    callback(GetUserByUID(useruid), GetLobbyByUserUID(useruid), 'user-unready');
+    callback(Registrar.GetUserByUID(useruid), GetLobbyByUserUID(useruid), 'user-unready');
     return true;
 }
 
