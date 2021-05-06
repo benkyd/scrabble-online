@@ -2,6 +2,7 @@ const Logger = require('./logger.js');
 const WebServer = require('./webserver.js');
 const Game = require('./game.js');
 const Error = require('./error.js');
+const Dist = require('./letter-distributions.js');
 
 let io = {};
 
@@ -460,6 +461,7 @@ function EmitGameBegin(game)
         // getsafegame function is needed
         io.to(gameuserconnection).emit('game-begin', {
             game: game,
+            tileset: Dist.GetDist(game.locale).dist,
             gameuser: gameuser
         });
     }
@@ -478,6 +480,7 @@ function EmitGameReconnect(user, game)
 
     io.to(gameuserconnection).emit('game-begin', {
         game: game,
+        tileset: Dist.GetDist(game.locale).dist,
         gameuser: gameuser
     });
 

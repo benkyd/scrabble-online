@@ -29,7 +29,11 @@ document.addEventListener('touchmove', mouseMove);
 document.addEventListener('mouseup',   mouseUp);
 document.addEventListener('touchend',  mouseUp);
 
-document.querySelectorAll('piece').forEach(element => {
-    element.addEventListener('mousedown', e => mouseDown(e, element));
-    element.addEventListener('touchstart', e => mouseDown(e, element));
-});
+function updatePieceEventListeners()
+{
+    document.querySelectorAll('piece').forEach(element => {
+        element.addEventListener('mousedown', e => mouseDown(e, element));
+        element.addEventListener('touchstart', e => mouseDown(e, element));
+    });
+}
+updatePieceEventListeners();

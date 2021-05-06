@@ -175,16 +175,17 @@ function onGameBegin(socket, args)
 
     console.log(args);
     const boardstate = args.game.gamestates[args.game.gamestates.length-1];
+    const tileset = args.game.tileset;
     const myplayer = args.gameuser;
     const players = args.game.players;
 
-    if (!boardstate || !myplayer || !players)
+    if (!boardstate || !myplayer || !players || !tileset)
     {
         ConnectionState.innerHTML = localeString('error-game-begin');
         return;
     }
 
-    const status = initGame(boardstate, myplayer, players);
+    const status = initGame(boardstate, tileset, myplayer, players);
 
     if (!status)
     {

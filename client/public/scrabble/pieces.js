@@ -41,6 +41,7 @@ function addPiecesToDrawer(pieces)
     Drawer.appendChild(piece);
 
     setupPieces();
+    updatePieceEventListeners();
 }
 
 // Removes regardless of vadility
