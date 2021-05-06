@@ -103,6 +103,62 @@ function onDisconnect()
 
 }
 
+/*
+GAME OBJECT
+{
+    // Reference UID (of lobby)
+    uid: uid,
+    locale: en,
+    players: [{
+        uid: uid,
+        name: username,
+        activetiles: [tile: {
+            letter: letter,
+            score: int
+        }],
+        score: int
+    }],
+    // Index of players whos turn it is
+    turn: int,
+    // Array of GAMESTATEs, latest at head of array
+    gamestates: [],
+    tilebag: [],
+    tileset: []
+}
+GAMESTATE OBJECT
+{
+    // UID of the player that played the turn
+    playeruid: uid,
+    turn: int,
+    // Generated after turn is processed
+    outcome: {
+        valid: bool,
+        points: pointsgained,
+        words: [{ 
+            word: word,
+            points: points,
+            tiles: [{
+                pos: {x: x, y: y},
+                modifier: modifier,
+                letter: letter,
+                score: int
+            }]
+        }],
+    }
+    oldboardtiles: [{
+        pos: {x: x, y: y},
+        modifier: modifier,
+        letter: letter,
+        score: int
+    }]
+    boardtiles: [{
+        pos: {x: x, y: y},
+        modifier: modifier,
+        letter: letter,
+        score: int
+    }]
+}
+*/
 function onGameBegin(socket, args)
 {
     if (!args)
@@ -117,10 +173,23 @@ function onGameBegin(socket, args)
         return;
     }
 
-    console.log(args);
+    const boardstate = args.game.gamestates[args.game.gamestates.length];
+    const myplayer = args.gameuser;
+    const players = args.game.players;
 
-    
-    
+    if (!boardstate || !myplayer || !players)
+    {
+        ConnectionState.innerHTML = localeString('error-game-begin');
+        return;
+    }
+
+    const status = initGame(boardstate, myplayer, players);
+
+    if (!status)
+    {
+        ConnectionState.innerHTML = localeString('error-game-begin');
+        return;
+    }
 }
 
 function onStartTurn(socket, args)

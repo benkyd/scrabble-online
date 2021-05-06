@@ -17,6 +17,28 @@ Number.prototype.clamp = function(min, max) {
     return Math.min(Math.max(this, min), max);
 };
 
+
+/*
+TILE OBJECT
+{
+
+}
+*/
+let PiecesDrawer = [];
+
+// Returns array of tile IDs that were added
+function addPiecesToDrawer(pieces)
+{
+
+}
+
+// Removes regardless of vadility
+function removePiecesFromDrawer(pieces)
+{
+
+}
+
+
 function updateBoardCoords()
 {
     BOARD_X = document.querySelector('#game-container').getBoundingClientRect().left + window.scrollX;
