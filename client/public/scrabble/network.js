@@ -39,7 +39,8 @@ function onIdentify(socket, args)
     {
         socket.disconnect();
         ConnectionState.innerHTML = 'Identify cannot proceed, no user';
-        document.location.href += '../';
+        document.qu
+        window.location = `/`;
         return;
     }
 
@@ -51,7 +52,7 @@ function onIdentify(socket, args)
     {
         socket.disconnect();
         ConnectionState.innerHTML = 'Identify cannot proceed, corrupted user';
-        document.location.href += '../';
+        window.location = `/`;
         return;
     }
 
@@ -59,7 +60,7 @@ function onIdentify(socket, args)
     {
         socket.disconnect();
         ConnectionState.innerHTML = 'Identify cannot proceed, corrupted user';
-        document.location.href += '../';
+        window.location = `/`;
         return;
     }
 
@@ -69,7 +70,7 @@ function onIdentify(socket, args)
     {
         socket.disconnect();
         ConnectionState.innerHTML = 'Identify cannot proceed, corrupted lobby';
-        document.location.href += '../';
+        window.location = `/`;
         return;
     }
 

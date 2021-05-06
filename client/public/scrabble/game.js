@@ -15,10 +15,22 @@ function initGame(boardstate, tileset, myplayer, players)
     let drawerStructure = [];
     for (const tile of myplayer.activetiles)
     {
+
+        let points = 0;
+        // for (const pointband of tileset)
+        // {
+        //     console.log(pointband)
+        // }
+
+        const piece = {
+            letter: tile,
+            score: points
+        }
+        drawerStructure.push(piece);
         console.log(tile);
     }
 
 
-    addPiecesToDrawer();
+    addPiecesToDrawer(drawerStructure);
     return true;
 }

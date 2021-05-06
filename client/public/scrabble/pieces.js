@@ -28,18 +28,21 @@ TILE OBJECT
 */
 let PiecesDrawer = [];
 
+// Expects structure [{letter: '', score: int}]
 // Returns array of tile IDs that were added
 function addPiecesToDrawer(pieces)
 {
-    const piece = document.createElement('piece');
-    piece.innerText = 'A';
-    piece.classList.add('unselectable');
-    piece.classList.add('unplayed-piece');
-    const score = document.createElement('score');
-    score.innerText = '2';
-    piece.appendChild(score);
-    Drawer.appendChild(piece);
-
+    for (const piece of pieces)
+    {
+        const domPiece = document.createElement('piece');
+        domPiece.innerText = piece.letter;
+        domPiece.classList.add('unselectable');
+        domPiece.classList.add('unplayed-piece');
+        const score = document.createElement('score');
+        score.innerText = piece.score;
+        domPiece.appendChild(score);
+        Drawer.appendChild(domPiece);
+    }
     setupPieces();
     updatePieceEventListeners();
 }
