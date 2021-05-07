@@ -1,9 +1,6 @@
 // I decided not to use the drag and drop API
 // purely because its very ugly
 
-// i also assume there's no way a user's viewport isn't at least 700px tall
-// bad assumption to make, but scroll pixels wouldn't scale
-
 let selectedElement = {};
 let lastCoords = { x: 0, y: 0 };
 
@@ -54,22 +51,22 @@ function mouseMove(event)
     }
 }
 
-// function slidePiece(piece)
-// {
-//     const id = setInterval(() => 
-//     {
-//         if (magnitude(piece.velocity) <= 1)
-//         {
-//             piecePlaced(piece);
-//             clearInterval(id);
-//             return;
-//         }
-//         piece.style.left = `${piece.getBoundingClientRect().left + piece.velocity.x}px`;
-//         piece.style.top = `${piece.getBoundingClientRect().top + piece.velocity.y}px`;
-//         piece.velocity.y *= 0.95;
-//         piece.velocity.x *= 0.95;
-//     }, 16);
-// }
+function slidePiece(piece)
+{
+    const id = setInterval(() => 
+    {
+        if (magnitude(piece.velocity) <= 1)
+        {
+            piecePlaced(piece);
+            clearInterval(id);
+            return;
+        }
+        piece.style.left = `${piece.getBoundingClientRect().left + piece.velocity.x}px`;
+        piece.style.top = `${piece.getBoundingClientRect().top + piece.velocity.y}px`;
+        piece.velocity.y *= 0.95;
+        piece.velocity.x *= 0.95;
+    }, 16);
+}
 
 function mouseUp(event)
 {
@@ -79,19 +76,17 @@ function mouseUp(event)
     
     if (selectedElement.pointerEvents != 'initial')
     {
-        // if (magnitude(selectedElement.velocity) <= 2)
-        // {
-        if (piecePlaced(selectedElement))
+        if (magnitude(selectedElement.velocity) <= 1)
         {
+            if (piecePlaced(selectedElement))
+            {
+                selectedElement.pointerEvents = 'initial';
+            }
+        }
+        else
+        {
+            slidePiece(selectedElement);
             selectedElement.pointerEvents = 'initial';
         }
-
-        // }
-        // else
-        // {
-        //     slidePiece(selectedElement);
-        //     selectedElement.pointerEvents = 'initial';
-        // }
     }
 }
-
