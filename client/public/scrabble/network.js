@@ -1,6 +1,6 @@
 const urlParser = new URLSearchParams(window.location.search);
 
-const ConnectionState = document.querySelector('#connection-state');
+const ConnectionState = document.querySelectorAll('.connection-state');
 const PieceDrawer = document.querySelector('#piece-drawer');
 
 function initMultiplayer()
@@ -10,12 +10,16 @@ function initMultiplayer()
     
     socket.on('connect', args => {
         console.log('Socket Connected');
-        ConnectionState.innerHTML = `${localeString('status')}: Waiting for identify`;
+        ConnectionState.forEach(e => {
+            e.innerHTML = `${localeString('status')}: Waiting for identify`;
+        });
     });
     
     socket.on('disconnect', args => {
         console.log('Socket Disconnected');
-        ConnectionState.innerHTML = `${localeString('status')}: ${localeString('status-disconnected')}`;
+        ConnectionState.forEach(e => {
+            e.innerHTML = `${localeString('status')}: ${localeString('status-disconnected')}`;
+        });
         onDisconnect();
     });
 
@@ -33,13 +37,16 @@ function initMultiplayer()
 
 function onIdentify(socket, args)
 {
-    ConnectionState.innerHTML = 'Identify recived'
-    
+    ConnectionState.forEach(e => {
+        e.innerHTML = 'Identify recived'
+    });
+
     if (!sessionStorage.user) 
     {
         socket.disconnect();
-        ConnectionState.innerHTML = 'Identify cannot proceed, no user';
-        document.qu
+        ConnectionState.forEach(e => {
+            e.innerHTML = 'Identify cannot proceed, no user';
+        });        
         window.location = `/`;
         return;
     }
@@ -51,7 +58,9 @@ function onIdentify(socket, args)
     } catch (e)
     {
         socket.disconnect();
-        ConnectionState.innerHTML = 'Identify cannot proceed, corrupted user';
+        ConnectionState.forEach(e => {
+            e.innerHTML = 'Identify cannot proceed, corrupted user';
+        });
         window.location = `/`;
         return;
     }
@@ -59,7 +68,9 @@ function onIdentify(socket, args)
     if (!user.uid)
     {
         socket.disconnect();
-        ConnectionState.innerHTML = 'Identify cannot proceed, corrupted user';
+        ConnectionState.forEach(e => {
+            e.innerHTML = 'Identify cannot proceed, corrupted user';
+        });
         window.location = `/`;
         return;
     }
@@ -69,26 +80,34 @@ function onIdentify(socket, args)
     if (!lobbyUID)
     {
         socket.disconnect();
-        ConnectionState.innerHTML = 'Identify cannot proceed, corrupted lobby';
+        ConnectionState.forEach(e => {
+            e.innerHTML = 'Identify cannot proceed, corrupted lobby';
+        });
         window.location = `/`;
         return;
     }
 
     socket.emit('identify', { userid: user.uid, lobbyuid: lobbyUID, intent: 'GAME' });
-    ConnectionState.innerHTML = 'Identify response';
+    ConnectionState.forEach(e => {
+        e.innerHTML = 'Identify response';
+    });
 }
 
 function onIdentifySuccess(socket, args)
 {
     console.log(args);
-    ConnectionState.innerHTML = localeString('status-connected-as') + ' ' + args.user.username;
+    ConnectionState.forEach(e => {
+        e.innerHTML = localeString('status-connected-as') + ' ' + args.user.username;
+    });
     onConnect();
 }
 
 function onIdentifyError(socket, args)
 {
     console.log(args);
-    ConnectionState.innerHTML = JSON.stringify(args);
+    ConnectionState.forEach(e => {
+        e.innerHTML = JSON.stringify(args);
+    });
     onDisconnect();
 }
 
@@ -164,33 +183,40 @@ function onGameBegin(socket, args)
 {
     if (!args)
     {
-        ConnectionState.innerHTML = localeString('error-game-begin');
+        ConnectionState.forEach(e => {
+            e.innerHTML = localeString('error-game-begin');
+        });
         return;
     }
 
     if (!args.game.uid)
     {
-        ConnectionState.innerHTML = localeString('error-game-begin');
+        ConnectionState.forEach(e => {
+            e.innerHTML = localeString('error-game-begin');
+        });
         return;
     }
 
     console.log(args);
     const boardstate = args.game.gamestates[args.game.gamestates.length-1];
-    const tileset = args.game.tileset;
+    const tileset = args.tileset;
     const myplayer = args.gameuser;
     const players = args.game.players;
 
     if (!boardstate || !myplayer || !players || !tileset)
     {
-        ConnectionState.innerHTML = localeString('error-game-begin');
-        return;
+        ConnectionState.forEach(e => {
+            e.innerHTML = localeString('error-game-begin');
+        });        return;
     }
 
     const status = initGame(boardstate, tileset, myplayer, players);
 
     if (!status)
     {
-        ConnectionState.innerHTML = localeString('error-game-begin');
+        ConnectionState.forEach(e => {
+            e.innerHTML = localeString('error-game-begin');
+        });
         return;
     }
 }
@@ -210,7 +236,9 @@ if (urlParser.get('uid') === null)
 
 if (isSingleplayer)
 {
-    ConnectionState.innerHTML = localeString('no-connection-singleplayer');
+    ConnectionState.forEach(e => {
+        e.innerHTML = localeString('no-connection-singleplayer');
+    });
     alert('Singleplayer is not implemented yet! a practice board will be set up to demonstrate tech and tile stuff');
 } else
 {

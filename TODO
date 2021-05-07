@@ -14,11 +14,12 @@
         → Update with new locales   
     → French (Alexendro)
     → Czech (Mikdore)
+    → Go through code again once finished and pick out locales
 
 ☐ Lobbying logic
     ✔ Create, join, delete and leave lobbies @done(21-04-12 20:51)
     ✔ Sort out how intents work in game transitioning @done(21-04-12 21:09)
-    → Make lobbies publically discoverable on a list
+    ✘ Make lobbies publically discoverable on a list @cancelled(21-05-07 20:11)
 
 ☐ Dictionary
     → Find appropriate scrabble dictionary for
@@ -29,17 +30,22 @@
     → Optimise! n-ary tree
 
 ☐ Game networking
-    ☐ Figure out game reconnection procedure
-        ☐ Perhaps players skip a turn if they disconnect on their turn
-        ☐ Game should go on until 1 person remains
+    → Figure out game reconnection procedure
+        → Perhaps players skip a turn if they disconnect on their turn
+        → Game should go on until 1 person remains
+    → Game chat
 
 ☐ Game logic
     ✔ Game creation @done(21-04-26 17:38)
-    ☐ Multiplayer game logic
-        ☐ Process turns
-        ☐ Display turns on client
+    → Multiplayer game logic
+        → Process turns
+        → Display turns on client
     ✘ Singleplayer game logic - OUT OF SCOPE @cancelled(21-04-11 01:04)
     ✘ AI CPU player @cancelled(21-04-11 01:07)
+
+☐ Client
+    → Display multiplayer game info
+        → Update dynamically
 
 ☐ Code
     → Refactor to code portsoc eslint

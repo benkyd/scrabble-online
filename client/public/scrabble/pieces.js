@@ -29,7 +29,6 @@ TILE OBJECT
 let PiecesDrawer = [];
 
 // Expects structure [{letter: '', score: int}]
-// Returns array of tile IDs that were added
 function addPiecesToDrawer(pieces)
 {
     for (const piece of pieces)

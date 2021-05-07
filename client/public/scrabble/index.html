@@ -23,7 +23,7 @@
                     <text x="0" y="15">SCRABBLE</text>
                 </svg>
             </div>
-            <div id="connection-state"><script>document.write(localeString('status'))</script>:</div>
+            <div class="connection-state"><script>document.write(localeString('status'))</script>:</div>
             <div id="chat">
                 <textarea id="game-chat" rows="10" cols=auto placeholder="chat" disabled></textarea>
                 <div id="chat-input">
@@ -304,17 +304,13 @@
         </div>
 
         <div id="game-info-compact" style="display: none;">
-            <div id="player-scores-compact">
+            <div class="player-scores" id="player-scores-compact">
                 <div id="p1" class="player">
                     <div id="p1-name" class="player-name">Jerry</div>
                     Score:<div id="p1-score" class="player-score">12</div>
                 </div>
-                <div id="p2" class="player">
-                    <div id="p2-name" class="player-name">Computer</div>
-                    Score:<div id="p2-score" class="player-score">102</div>
-                </div>
             </div>
-            <div id="connection-state"><script>document.write(localeString('status'))</script>:</div>
+            <div class="connection-state"><script>document.write(localeString('status'))</script>:</div>
             <div id="game-controls">
                 <input type="button" value="Exchange tiles">
                 <input type="button" value="Skip turn">
@@ -325,14 +321,10 @@
         </div>
 
         <div id="game-info-right">
-            <div id="player-scores">
-                <div id="p1" class="player">
-                    <div id="p1-name" class="player-name">Jerry</div>
-                    Score:<div id="p1-score" class="player-score">12</div>
-                </div>
-                <div id="p2" class="player">
-                    <div id="p2-name" class="player-name">Computer</div>
-                    Score:<div id="p2-score" class="player-score">102</div>
+            <div class="player-scores" id="player-scores">
+                <div class="p1 player">
+                    <div class="p1-name player-name">Jerry</div>
+                    Score:<div class="p1-score player-score">12</div>
                 </div>
             </div>
             <div id="game-controls">
@@ -354,6 +346,7 @@
         <script src="board.js"></script>
         <script src="pieces.js"></script>
         <script src="game.js"></script>
+        <script src="ui.js"></script>
         <script src="events.js"></script>
     </body>
 </html>
