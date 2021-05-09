@@ -95,7 +95,7 @@ function onExchangeTiles()
 
 function onSkipTurn()
 {
-
+    
 }
 
 function onPlayTurn()

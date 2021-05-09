@@ -76,17 +76,26 @@ function mouseUp(event)
     
     if (selectedElement.pointerEvents != 'initial')
     {
-        if (magnitude(selectedElement.velocity) <= 1)
+        if (!selectedElement.velocity)
         {
             if (piecePlaced(selectedElement))
             {
                 selectedElement.pointerEvents = 'initial';
             }
-        }
-        else
+        } else 
         {
-            slidePiece(selectedElement);
-            selectedElement.pointerEvents = 'initial';
+            if (magnitude(selectedElement.velocity) <= 1)
+            {
+                if (piecePlaced(selectedElement))
+                {
+                    selectedElement.pointerEvents = 'initial';
+                }
+            }
+            else
+            {
+                slidePiece(selectedElement);
+                selectedElement.pointerEvents = 'initial';
+            }
         }
     }
 }

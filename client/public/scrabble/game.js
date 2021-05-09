@@ -21,6 +21,8 @@ let Users = [];
 // just shorthand, so long as i remember to keep it updated lmao
 let MyTurn = false;
 
+let pastTurns = [];
+
 function initGame(boardstate, tileset, myplayer, players)
 {
     // construct piece array
@@ -89,6 +91,20 @@ function startOthersTurn(useruid)
 function playMyTurn(stagedpieces)
 {
     if (!MyTurn) return false;
+
+    
+
+    const turn = {  
+        playeruid: Users.filter(e => e.me)[0].uid,
+        // servers job
+        turn: -1,
+        turntype: 'PLACE',
+        // servers job
+        outcome: {},
+    }
+
+    console.log(stagedpieces);
+    console.log(turn);
 
     return true;
 }

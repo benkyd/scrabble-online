@@ -37,7 +37,7 @@ function addPiecesToDrawer(pieces)
         domPiece.appendChild(score);
         Drawer.appendChild(domPiece);
     
-        ret.push (domPiece);
+        ret.push(domPiece);
     }
 
     setupPieces();
@@ -97,6 +97,34 @@ function boardCoordsFromScreenSpace(ssx, ssy)
     x = Math.floor(x);
 
     return {x: x, y: y};
+}
+
+function renderBoardState(pieces)
+{
+    // adds all lol
+    for (const piece of pieces)
+    {
+        if (!getPieceFromBoard(piece.pos.x, piece.pos.y))
+        {
+            const domPiece = document.createElement('piece');
+            domPiece.innerText = piece.letter;
+            domPiece.classList.add('unselectable');
+            domPiece.classList.add('small-piece');
+            domPiece.classList.add('played-piece');
+        
+            const score = document.createElement('score');
+            score.innerText = piece.score;
+        
+            domPiece.dataset.coords = JSON.stringify(piece.pos);
+
+            domPiece.appendChild(score);
+            Drawer.appendChild(domPiece);
+        
+            placePieceOnBoard(domPiece, piece.pos.x, piece.pos.y)
+        }
+    }
+
+    setupPieces();
 }
 
 // places for board coordinate (0-14)
