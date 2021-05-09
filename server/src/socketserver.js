@@ -392,9 +392,24 @@ function LobbyGameBegin(socket, args)
 
 function GamePlayTurn(socket, args)
 {
+    const user = Game.Registrar.GetUserbyConnection(socket.id);
+    const game = Game.Logic.GetGameByUserUID(user.uid);
+
+    if (!user || !game)
+    {
+        // do something bad
+    }
+
     if (args.skip === true)
     {
+        const [outcome, turninfo] = Game.Logic.SkipTurn(game.uid, user.uid);
+        
+        io.to(game.uid).emit()
 
+    } else
+    {
+        // TODO: validate args
+        outcome = Game.Logic.PlayTurn(game.uid, user.uid, args)
     }
 }
 

@@ -95,7 +95,10 @@ function onExchangeTiles()
 
 function onSkipTurn()
 {
-    
+    if(confirm('Are you sure you want to skip your turn?'))
+    {
+        skipMyTurn();
+    }
 }
 
 function onPlayTurn()

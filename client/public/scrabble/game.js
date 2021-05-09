@@ -131,9 +131,15 @@ function playMyTurn(stagedpieces)
         boardtiles: boardtiles
     }
 
-    console.log(turn, pastTurns);
-
+    netPlayTurn(turn);
+    
     return true;
+}
+
+function skipMyTurn()
+{
+    if (!MyTurn) return false;
+    netSkipTurn();
 }
 
 function processOthersTurn()

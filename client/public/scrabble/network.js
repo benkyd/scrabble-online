@@ -3,10 +3,25 @@ const urlParser = new URLSearchParams(window.location.search);
 const ConnectionState = document.querySelectorAll('.connection-state');
 const PieceDrawer = document.querySelector('#piece-drawer');
 
+// like a singleton in c++ or what have you
+// but not
+let socketinit = false;
+let socket = {}; 
+function getSocket()
+{
+    if (!socketinit)
+    {
+        socket = io(window.location.host);
+        socketinit = true;
+    }
+
+    return socket;
+}
+
 function initMultiplayer()
 {
     // init socket
-    const socket = io(window.location.host);
+    const socket = getSocket();
     
     socket.on('connect', args => {
         console.log('Socket Connected');
@@ -28,8 +43,12 @@ function initMultiplayer()
     socket.on('identify-error', args => onIdentifyError(socket, args));
     
     socket.on('game-begin', args => onGameBegin(socket, args));
+
     socket.on('game-your-turn', args => onStartTurn(socket, args)); // my turn
+    socket.on('game-turn-error', args => onTurnError(socket, args)); // my turn had an error, game does not continue
+    socket.on('game-turn-processed', args => onturnProcessed(socket, args)); // server returns turn (to all users)
     socket.on('game-turn-start', args => onTurnStart(socket, args)); // others turn
+    
     socket.on('game-new-pieces', args => onTurnStart(socket, args));
     
     console.log('multiplayer ready');
@@ -230,6 +249,34 @@ function onStartTurn(socket, args)
 {
     console.log('my turn');
     startMyTurn();
+}
+
+function netPlayTurn(turn)
+{
+    if (!isSingleplayer)
+    {
+        const socket = getSocket();
+        socket.emit('game-play-turn', turn);
+    }
+}
+
+function netSkipTurn()
+{
+    if (!isSingleplayer)
+    {
+        const socket = getSocket();
+        socket.emit('game-skip-turn');
+    }
+}
+
+function onTurnError(socket, args)
+{
+
+}
+
+function onturnProcessed(socket, args)
+{
+    
 }
 
 function onTurnStart(socket, args)

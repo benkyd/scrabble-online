@@ -138,6 +138,7 @@ const BoardLocations = {
     "14,14": "TW"
 };
 
+
 function GetGameByUserUID(useruid)
 {
     for (const game in ActiveGames)
@@ -177,8 +178,11 @@ function BeginGame(lobby)
         // start all players with 7 random tiles
         for (let i = 0; i < 7; i++)
         {
-            let r = Math.floor(Math.random() * tilebag.length + 1);
-            let t = tilebag[r];
+            let t, r;
+            do {
+                r = Math.floor(Math.random() * tilebag.length + 1);
+                t = tilebag[r];
+            } while (t === null)
             tilebag.splice(r, 1);
             players[player].activetiles.push(t);
         }
@@ -251,10 +255,26 @@ NOTES
         turn
 */
 // Does not trust client's oldboardtiles
-function PlayTurn(gameuid, playeruid, newstate)
+function PlayTurn(gameuid, playeruid, turn)
 {
     const game = ActiveGames[gameuid];
 
+    ActiveGames[gameuid].gamestate.push(turn);
+
+    console.log(turn);
+
+    const turninfo = gameNextTurn(gameuid);
+
+    return [turn, turninfo];
+}
+
+function SkipTurn(gameuid, playeruid)
+{
+    console.log('skip');
+}
+
+function gameNextTurn(gameuid)
+{
 
 }
 
@@ -286,5 +306,6 @@ module.exports = {
     // Change game state exports
     BeginGame: BeginGame,
     PlayTurn: PlayTurn,
+    SkipTurn: SkipTurn,
     EndGame: EndGame
 }
