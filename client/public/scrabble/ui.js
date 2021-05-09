@@ -37,9 +37,19 @@ function setupUsersUI(users, turn)
         e.innerHTML += elements.join('');
     });
 
-    document.querySelectorAll(`.p${turn}`).forEach(e => {
-        e.classList.toggle('theirturn');
-    });
+    console.log(users[turn].uid, JSON.parse(sessionStorage.getItem('user')).uid)
+
+    if (MyTurn)
+    {
+        document.querySelectorAll(`.p${turn}`).forEach(e => {
+            e.classList.toggle('myturn');
+        });
+    } else 
+    {
+        document.querySelectorAll(`.p${turn}`).forEach(e => {
+            e.classList.toggle('theirturn');
+        });
+    }
 }
 
 function updateUsersUI(users, turn)
@@ -47,13 +57,33 @@ function updateUsersUI(users, turn)
 
 }
 
+function changeTurn()
+{
+    if (MyTurn) {
+        
+    }
+}
 
 function onExchangeTiles()
 {
     let tiles = prompt('Enter the tiles you would like to exchange seperated by commas (this will use your turn)')
-    tiles = tiles.split(',');
-    console.log(tiles);
     
+    // no error, user escaped do not change state
+    if (tiles === null)
+        return;
+    
+    try {
+        tiles = tiles.split(',');
+        // remove null entries
+        tiles = tiles.filter(x => x);
+    } catch (e) {
+        alert('Incorrect usage, remember tiles need to be split with a comma (,)');
+        onExchangeTiles();
+        return;
+    }
+
+
+    console.log(tiles);
 }
 
 function onSkipTurn()
@@ -63,7 +93,9 @@ function onSkipTurn()
 
 function onPlayTurn()
 {
-
+    // get all staged pieces
+    const stagedPieces = getAllStagedPieces();
+    playMyTurn(stagedPieces);
 }
 
 function onMessageSend()

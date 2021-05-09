@@ -2,10 +2,22 @@
 function computeTurn()
 {
     if (!isSingleplayer) return;
-
-    
 }
 
+
+/*
+GAMEUSERS OBJECT
+{
+    uid: uid,
+    username: name,
+    turn: bool,
+    
+}
+NOTES
+    - In play order
+*/
+let Users = {};
+let MyTurn = false;
 
 function initGame(boardstate, tileset, myplayer, players)
 {
@@ -45,4 +57,21 @@ function initGame(boardstate, tileset, myplayer, players)
     setupUsersUI(players, 0);
 
     return true;
+}
+
+function startMyTurn()
+{
+
+}
+
+function 
+
+function playMyTurn(stagedpieces)
+{
+    if (!MyTurn) return;
+}
+
+function processOthersTurn()
+{
+
 }

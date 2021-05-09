@@ -121,8 +121,16 @@ score {
     flex-grow: 2;
 }
 
-.theirturn {
+.myturn {
     background-color: aquamarine;
+}
+
+.myturnprocessing {
+    background-color: lightcoral;
+}
+
+.theirturn {
+    background-color: lightblue;
 }
 
 

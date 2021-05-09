@@ -28,9 +28,10 @@ function initMultiplayer()
     socket.on('identify-error', args => onIdentifyError(socket, args));
     
     socket.on('game-begin', args => onGameBegin(socket, args));
-    socket.on('game-your-turn', args => onStartTurn(socket, args));
+    socket.on('game-your-turn', args => onStartTurn(socket, args)); // my turn
+    socket.on('game-turn-start', args => onTurnStart(socket, args)); // others turn
     
-    console.log('multiplayer ready')
+    console.log('multiplayer ready');
 }    
 
 
@@ -150,6 +151,8 @@ GAMESTATE OBJECT
     // UID of the player that played the turn
     playeruid: uid,
     turn: int,
+    // SKIP, PLACE, EXCHANGE
+    turntype: 'SKIP',
     // Generated after turn is processed
     outcome: {
         valid: bool,
@@ -223,9 +226,14 @@ function onGameBegin(socket, args)
 
 function onStartTurn(socket, args)
 {
-    console.log('my turn')
+    console.log('my turn');
+    startMyTurn();
 }
 
+function onTurnStart(socket, args)
+{
+
+}
 
 // is game singleplayer?
 let isSingleplayer = false;

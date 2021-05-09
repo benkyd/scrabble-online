@@ -31,6 +31,8 @@ GAMESTATE OBJECT
     // UID of the player that played the turn
     playeruid: uid,
     turn: int,
+    // SKIP, PLACE, EXCHANGE
+    turntype: 'SKIP',
     // Generated after turn is processed
     outcome: {
         valid: bool,
@@ -120,6 +122,7 @@ function BeginGame(lobby)
     const gamestate = {
         playeruid: -1,
         turn: 0,
+        turntype: '',
         outcome: {
             valid: false
         },
@@ -146,6 +149,8 @@ TURN OBJECT - Un-filled in GAMESTATE object
     // UID of the player that played the turn
     playeruid: uid,
     turn: int,
+    // SKIP, PLACE, EXCHANGE
+    turntype: 'SKIP',
     // Generated after turn is processed
     outcome: {
         valid: bool,
@@ -180,9 +185,11 @@ NOTES
         returning an error or a validation object including the next players
         turn
 */
+// Does not trust client's oldboardtiles
 function PlayTurn(gameuid, playeruid, newstate)
 {
     const game = ActiveGames[gameuid];
+
 
 }
 
