@@ -34,6 +34,9 @@ function addPiecesToDrawer(pieces)
         const score = document.createElement('score');
         score.innerText = piece.score;
     
+        domPiece.dataset.letter = piece.letter;
+        domPiece.dataset.score = piece.score;
+
         domPiece.appendChild(score);
         Drawer.appendChild(domPiece);
     
@@ -116,6 +119,8 @@ function renderBoardState(pieces)
             score.innerText = piece.score;
         
             domPiece.dataset.coords = JSON.stringify(piece.pos);
+            domPiece.dataset.letter = piece.letter;
+            domPiece.dataset.score = piece.score;
 
             domPiece.appendChild(score);
             Drawer.appendChild(domPiece);

@@ -73,7 +73,7 @@ function updateUsersUI(users)
 
 function onExchangeTiles()
 {
-    let tiles = prompt('Enter the tiles you would like to exchange seperated by commas (this will use your turn)')
+    let tiles = prompt('Enter the tiles you would like to exchange seperated by commas or type all for all of them (this will use your turn)')
     
     // no error, user escaped do not change state
     if (tiles === null)

@@ -30,6 +30,7 @@ function initMultiplayer()
     socket.on('game-begin', args => onGameBegin(socket, args));
     socket.on('game-your-turn', args => onStartTurn(socket, args)); // my turn
     socket.on('game-turn-start', args => onTurnStart(socket, args)); // others turn
+    socket.on('game-new-pieces', args => onTurnStart(socket, args));
     
     console.log('multiplayer ready');
 }    
@@ -201,20 +202,21 @@ function onGameBegin(socket, args)
     }
 
     console.log(args);
+    const oldboardstates = args.game;
     const boardstate = args.game.gamestates[args.game.gamestates.length-1];
     const tileset = args.tileset;
     const myplayer = args.gameuser;
     const players = args.game.players;
 
-    if (!boardstate || !myplayer || !players || !tileset)
+    if (!oldboardstates || !boardstate || !myplayer || !players || !tileset)
     {
         ConnectionState.forEach(e => {
             e.innerHTML = localeString('error-game-begin');
-        });        
+        });
         return;
     }
 
-    const status = initGame(boardstate, tileset, myplayer, players);
+    const status = initGame(oldboardstates, boardstate, tileset, myplayer, players);
 
     if (!status)
     {
