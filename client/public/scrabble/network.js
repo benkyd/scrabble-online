@@ -210,7 +210,8 @@ function onGameBegin(socket, args)
     {
         ConnectionState.forEach(e => {
             e.innerHTML = localeString('error-game-begin');
-        });        return;
+        });        
+        return;
     }
 
     const status = initGame(boardstate, tileset, myplayer, players);

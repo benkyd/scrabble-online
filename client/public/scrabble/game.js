@@ -9,14 +9,16 @@ function computeTurn()
 GAMEUSERS OBJECT
 {
     uid: uid,
-    username: name,
-    turn: bool,
-    
+    name: name,
+    score: int,
+    me: bool,
+    turn: bool
 }
 NOTES
     - In play order
 */
-let Users = {};
+let Users = [];
+// just shorthand, so long as i remember to keep it updated lmao
 let MyTurn = false;
 
 function initGame(boardstate, tileset, myplayer, players)
@@ -49,12 +51,27 @@ function initGame(boardstate, tileset, myplayer, players)
     }
     addPiecesToDrawer(drawerStructure);
 
+    // populate Users
+    for (player of players)
+    {
+        Users.push({
+            uid: player.uid,
+            name: player.name,
+            score: player.score,
+            me: myplayer.uid === player.uid,
+            turn: false
+        });
+    }
+    Users[0].turn = true;
+    if (Users[0].me)
+        MyTurn = true;
+
+    console.log(Users, MyTurn);
+
     // construct UI
     initUI();
-    
-    console.log(players);
+    setupUsersUI(Users, 0);
 
-    setupUsersUI(players, 0);
 
     return true;
 }
@@ -64,11 +81,16 @@ function startMyTurn()
 
 }
 
-function 
+function startOthersTurn(useruid)
+{
+
+}
 
 function playMyTurn(stagedpieces)
 {
-    if (!MyTurn) return;
+    if (!MyTurn) return false;
+
+    return true;
 }
 
 function processOthersTurn()
