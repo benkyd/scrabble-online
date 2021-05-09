@@ -79,22 +79,30 @@ function initGame(boardstates, tileset, myplayer, players)
 
 function startMyTurn()
 {
+    MyTurn = true;
     for (const user in Users)
     {
+        Users[user].turn = false;
         if (Users[user].me) Users[user].turn = true;
         else Users[user].turn = false;
     }
     updateUsersUI(Users);
+    startMyTurnUI();
+    console.log('my turn', Users);
 }
 
 function startOthersTurn(useruid)
 {
+    MyTurn = false;
     for (const user in Users)
     {
+        Users[user].turn = false;
         if (Users[user].uid === useruid) Users[user].turn = true;
         else Users[user].turn = false;
     }
     updateUsersUI(Users);
+    stopMyTurnUI();
+    console.log('not my turn', Users);
 }
 
 function playMyTurn(stagedpieces)

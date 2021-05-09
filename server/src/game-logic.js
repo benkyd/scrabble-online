@@ -21,6 +21,7 @@ GAME OBJECT
     }],
     // Index of players whos turn it is
     turn: int,
+    turntotal: int,
     // Array of GAMESTATEs, latest at head of array
     gamestates: [],
     tilebag: [],
@@ -204,6 +205,7 @@ function BeginGame(lobby)
         locale: gameowner.locale,
         players: players,
         turn: 0,
+        turntotal: 0,   
         gamestates: [gamestate],
         tilebag: tilebag,
         tileset: Dist.GetTileSet(gameowner.locale)
@@ -259,9 +261,7 @@ function PlayTurn(gameuid, playeruid, turn)
 {
     const game = ActiveGames[gameuid];
 
-    ActiveGames[gameuid].gamestate.push(turn);
-
-    console.log(turn);
+    ActiveGames[gameuid].gamestates.push(turn);
 
     const turninfo = gameNextTurn(gameuid);
 
@@ -271,11 +271,19 @@ function PlayTurn(gameuid, playeruid, turn)
 function SkipTurn(gameuid, playeruid)
 {
     console.log('skip');
+    gameNextTurn(gameuid);
 }
 
 function gameNextTurn(gameuid)
 {
-
+    const PlayerCount = ActiveGames[gameuid].players.length;
+    ActiveGames[gameuid].turn++;
+    ActiveGames[gameuid].turn %= PlayerCount;
+    ActiveGames[gameuid].turntotal++;
+    return {
+        // i forgot why this is an object, there's more attributes i forgot about
+        turnplayer: ActiveGames[gameuid].players[ActiveGames[gameuid].turn],
+    };
 }
 
 // returns tuple ([newtileset], [newusertiles])

@@ -11,6 +11,11 @@ const IPlayerScores = document.querySelectorAll('.player-scores');
 // playlog
 const PlayLog = document.querySelector('#moves');
 
+// buttons
+const IExchangeButton = document.querySelectorAll('.button-exchange');
+const ISkipButton = document.querySelectorAll('.button-skip');
+const IPlayButton = document.querySelectorAll('.button-play');
+
 function initUI()
 {
     IPlayerScores.forEach(e => {
@@ -18,6 +23,16 @@ function initUI()
     });
     PlayLog.innerHTML = '';
     ChatBox.value = '';
+
+    IExchangeButton.forEach(e => {
+        e.disabled = true;
+    });
+    ISkipButton.forEach(e => {
+        e.disabled = true;
+    });
+    IPlayButton.forEach(e => {
+        e.disabled = true;
+    });
 }
 
 const UserUIReplacer = (p, u, n, s) => `<div class="p${p} player${u} player">
@@ -69,6 +84,32 @@ function updateUsersUI(users)
             });
         }
     }
+}
+
+function startMyTurnUI()
+{
+    IExchangeButton.forEach(e => {
+        e.disabled = false;
+    });
+    ISkipButton.forEach(e => {
+        e.disabled = false;
+    });
+    IPlayButton.forEach(e => {
+        e.disabled = false;
+    });
+}
+
+function stopMyTurnUI()
+{
+    IExchangeButton.forEach(e => {
+        e.disabled = true;
+    });
+    ISkipButton.forEach(e => {
+        e.disabled = true;
+    });
+    IPlayButton.forEach(e => {
+        e.disabled = true;
+    });
 }
 
 function onExchangeTiles()

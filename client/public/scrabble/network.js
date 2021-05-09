@@ -271,17 +271,18 @@ function netSkipTurn()
 
 function onTurnError(socket, args)
 {
-
+    console.log(args);
 }
 
 function onturnProcessed(socket, args)
 {
-    
+    console.log('proc', args);
 }
 
 function onTurnStart(socket, args)
 {
-
+    console.log('start', args);
+    startOthersTurn(args.turninfo.turnplayer.uid);
 }
 
 // is game singleplayer?
