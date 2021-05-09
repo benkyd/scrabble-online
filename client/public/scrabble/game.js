@@ -23,9 +23,9 @@ let MyTurn = false;
 
 let pastTurns = [];
 
-function initGame(oldboardstates, boardstate, tileset, myplayer, players)
+function initGame(boardstates, tileset, myplayer, players)
 {
-    pastTurns = oldboardstates;
+    pastTurns.push(...boardstates);
 
     // construct piece array
     // structure [{letter: '', score: int}]
@@ -70,12 +70,9 @@ function initGame(oldboardstates, boardstate, tileset, myplayer, players)
     if (Users[0].me)
         MyTurn = true;
 
-    console.log(Users, MyTurn);
-
     // construct UI
     initUI();
     setupUsersUI(Users, 0);
-
 
     return true;
 }
@@ -96,7 +93,11 @@ function playMyTurn(stagedpieces)
 
     // TODO: THE SERVER SHOULD NOTTTTTT TRUST THIS
     // but the it's 7pm on the sunday before the deadline
-    let boardtiles = [pastTurns[pastTurns.length-1]];
+
+    // COPY NOT REF
+    let oldboardtiles = Object.assign([], pastTurns[pastTurns.length-1].boardtiles);
+    let boardtiles = Object.assign([], pastTurns[pastTurns.length-1].boardtiles);
+
     for (const piece of stagedpieces)
     {
         const pos = JSON.parse(piece.dataset.coords);
@@ -107,7 +108,6 @@ function playMyTurn(stagedpieces)
             // TBD (by the server)
             score: -1
         });
-        console.log(piece);
     }
 
     const turn = {  
@@ -117,11 +117,11 @@ function playMyTurn(stagedpieces)
         turntype: 'PLACE',
         // servers job
         outcome: {},
-        oldboardtiles: pastTurns[pastTurns.length-1],
+        oldboardtiles: oldboardtiles,
         boardtiles: boardtiles
     }
 
-    console.log(turn);
+    console.log(turn, pastTurns);
 
     return true;
 }

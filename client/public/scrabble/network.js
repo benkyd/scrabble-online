@@ -202,13 +202,12 @@ function onGameBegin(socket, args)
     }
 
     console.log(args);
-    const oldboardstates = args.game;
-    const boardstate = args.game.gamestates[args.game.gamestates.length-1];
+    const boardstates = args.game.gamestates;
     const tileset = args.tileset;
     const myplayer = args.gameuser;
     const players = args.game.players;
 
-    if (!oldboardstates || !boardstate || !myplayer || !players || !tileset)
+    if (!boardstates || !myplayer || !players || !tileset)
     {
         ConnectionState.forEach(e => {
             e.innerHTML = localeString('error-game-begin');
@@ -216,7 +215,7 @@ function onGameBegin(socket, args)
         return;
     }
 
-    const status = initGame(oldboardstates, boardstate, tileset, myplayer, players);
+    const status = initGame(boardstates, tileset, myplayer, players);
 
     if (!status)
     {
