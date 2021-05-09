@@ -97,6 +97,10 @@ function startMyTurnUI()
     IPlayButton.forEach(e => {
         e.disabled = false;
     });
+    document.querySelectorAll('.unplayed-piece').forEach(e => {
+        if (e.classList.contains('played-piece'))
+            e.classList.remove('played-piece');
+    });
 }
 
 function stopMyTurnUI()
@@ -109,6 +113,10 @@ function stopMyTurnUI()
     });
     IPlayButton.forEach(e => {
         e.disabled = true;
+    });
+    document.querySelectorAll('.unplayed-piece').forEach(e => {
+        if (!e.classList.contains('played-piece'))
+            e.classList.add('played-piece');
     });
 }
 

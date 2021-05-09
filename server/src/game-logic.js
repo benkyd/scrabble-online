@@ -270,7 +270,6 @@ function PlayTurn(gameuid, playeruid, turn)
 
 function SkipTurn(gameuid, playeruid)
 {
-    console.log('skip');
     gameNextTurn(gameuid);
 }
 

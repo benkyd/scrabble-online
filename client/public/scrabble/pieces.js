@@ -132,6 +132,12 @@ function renderBoardState(pieces)
     setupPieces();
 }
 
+function removeStagedPieces()
+{
+    for (const piece of document.querySelectorAll('.staged-piece'))
+        piece.remove();
+}
+
 // places for board coordinate (0-14)
 function placePieceOnBoard(piece, x, y)
 {

@@ -247,7 +247,7 @@ function onGameBegin(socket, args)
 
 function onStartTurn(socket, args)
 {
-    console.log('my turn');
+    console.log('It\'s my turn!');
     startMyTurn();
 }
 
@@ -276,12 +276,12 @@ function onTurnError(socket, args)
 
 function onturnProcessed(socket, args)
 {
-    console.log('proc', args);
+    processTurn(args.outcome);
 }
 
 function onTurnStart(socket, args)
 {
-    console.log('start', args);
+    console.log('Turn Starting!');
     startOthersTurn(args.turninfo.turnplayer.uid);
 }
 

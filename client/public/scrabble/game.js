@@ -88,7 +88,6 @@ function startMyTurn()
     }
     updateUsersUI(Users);
     startMyTurnUI();
-    console.log('my turn', Users);
 }
 
 function startOthersTurn(useruid)
@@ -102,7 +101,6 @@ function startOthersTurn(useruid)
     }
     updateUsersUI(Users);
     stopMyTurnUI();
-    console.log('not my turn', Users);
 }
 
 function playMyTurn(stagedpieces)
@@ -150,7 +148,8 @@ function skipMyTurn()
     netSkipTurn();
 }
 
-function processOthersTurn()
+function processTurn(turn)
 {
-
+    removeStagedPieces();
+    renderBoardState(turn.boardtiles);
 }

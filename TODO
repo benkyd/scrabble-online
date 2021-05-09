@@ -39,13 +39,14 @@
     ✔ Game creation @done(21-04-26 17:38)
     → Multiplayer game logic
         → Process turns
-        → Display turns on client
+        ✔ Display turns on client @done(21-05-09 22:45)
+            → Server returns everything new to do with the game
     ✘ Singleplayer game logic - OUT OF SCOPE @cancelled(21-04-11 01:04)
     ✘ AI CPU player @cancelled(21-04-11 01:07)
 
 ☐ Client
-    → Display multiplayer game info
-        → Update dynamically
+    ✔ Display multiplayer game info @done(21-05-09 22:44)
+        ✔ Update dynamically @done(21-05-09 22:44)
 
 ☐ Code
     → Refactor to code portsoc eslint
@@ -53,6 +54,7 @@
     → WHY THE HELL ARE THEY CALLED USERS IN SOME PLACES AND PLAYERS IN OTHERS
 
 ☐ Bugfixes
+    → If a user leaves their current game then makes a new one, it's corrupted
     → If a user disconnects during a game, the game is irrevokably corrupted
 
 
