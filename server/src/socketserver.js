@@ -109,9 +109,7 @@ function ClientIdentify(socket, args)
 
     // User reconnecting to game after disconnect (Not sure what this entails, mainly for debugging)
     if (intent === 'GAME' && oldIntent === 'GAME')
-    {
-        socket.emit('identify-success', {connected: true, user: user});
-        
+    {        
         // TODO: lobby is left when user disconnects, do this properly you lazy shit
         const lobby = Game.Lobbies.GetLobbyByUserUID(user.uid);
         const game = Game.Logic.GetGameByUserUID(user.uid);
@@ -122,6 +120,7 @@ function ClientIdentify(socket, args)
             socket.emit('identify-error', err.toError);
             return;
         }
+        socket.emit('identify-success', {connected: true, user: user});
 
         socket.join(lobby.uid);
         
