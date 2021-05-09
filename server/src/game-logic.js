@@ -182,6 +182,7 @@ NOTES
 */
 function PlayTurn(gameuid, playeruid, newstate)
 {
+    const game = ActiveGames[gameuid];
 
 }
 
@@ -193,7 +194,7 @@ function ExchangeTiles(tileset, tilesToExchange)
 
 function UserLeaveGame(useruid)
 {
-    
+
 }
 
 // same as how the 

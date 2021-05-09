@@ -3,6 +3,8 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
+    background-color: rgb(237, 237, 237);
+    color: rgb(31, 31, 31);
 }
 
 .red {

@@ -16,7 +16,7 @@
         <script src="../locale.js"></script>
 
         <div id="container">
-
+            
         <div id="game-info-left">
             <div id="logo">
                 <svg viewBox="0 0 80 20">
@@ -31,9 +31,9 @@
                 </div>
             </div>
         </div>
-
+                
         <div id="game-container">
-            
+
         <div id="game-board">
             <div class="game-board-row" id="row-1">
                 <div class="game-board-cell" id="col-a"></div>
@@ -312,9 +312,9 @@
             </div>
             <div class="connection-state"><script>document.write(localeString('status'))</script>:</div>
             <div id="game-controls">
-                <input type="button" value="Exchange tiles">
-                <input type="button" value="Skip turn">
-                <input type="button" value="Play turn">
+                <input type="button" value="Exchange tiles" onclick="onExchangeTiles()">
+                <input type="button" value="Skip turn" onclick="onSkipTurn()">
+                <input type="button" value="Play turn" onclick="onPlayTurn()">
             </div>
         </div>
 
@@ -328,9 +328,9 @@
                 </div>
             </div>
             <div id="game-controls">
-                <input type="button" value="Exchange tiles">
-                <input type="button" value="Skip turn">
-                <input type="button" value="Play turn">
+                <input type="button" value="Exchange tiles" onclick="onExchangeTiles()">
+                <input type="button" value="Skip turn" onclick="onSkipTurn()">
+                <input type="button" value="Play turn" onclick="onPlayTurn()">
             </div>
             <div id="moves">
                 <div class="move">Jerry played OXYPHENBUTAZONE for 40 points</div>

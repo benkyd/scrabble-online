@@ -121,6 +121,11 @@ score {
     flex-grow: 2;
 }
 
+.theirturn {
+    background-color: aquamarine;
+}
+
+
 #game-controls {
     border: 1px dotted black;
 

@@ -71,6 +71,8 @@ async function Router(socket)
     // once all clients have connected with identify
     socket.on('lobby-game-begin', args => LobbyGameBegin(socket, args));
     socket.on('game-play-turn', args => GamePlayTurn(socket, args))
+    socket.on('game-skip-turn', args => GamePlayTurn(socket, {skip: true}));
+    socket.on('game-exchange-tiles', args => GameExchangeTiles(socket, args));
 
 
     socket.on('disconnect', args => HandleDisconnect(socket, ...args));
@@ -391,7 +393,15 @@ function LobbyGameBegin(socket, args)
 
 function GamePlayTurn(socket, args)
 {
-    
+    if (args.skip === true)
+    {
+
+    }
+}
+
+function GameExchangeTiles(socket, args)
+{
+
 }
 
 
@@ -404,7 +414,7 @@ function HandleDisconnect(socket, args)
     // if the user is the last user in a game - delete it
     // if the user is leaving, change their status so reconnect is allowed
 
-    // TODO: THAT^^^
+    // TODO: VERY IMPORTANTTTT THAT^^^
 
     // if user is in a lobby, leave and if user own's a lobby, destruct
     // leave lobby before user is disconnected

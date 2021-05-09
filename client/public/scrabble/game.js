@@ -36,8 +36,13 @@ function initGame(boardstate, tileset, myplayer, players)
         drawerStructure.push(piece);
     }
     addPiecesToDrawer(drawerStructure);
+
+    // construct UI
+    initUI();
     
-    
-    
+    console.log(players);
+
+    setupUsersUI(players, 0);
+
     return true;
 }

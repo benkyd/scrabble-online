@@ -50,6 +50,9 @@
 ☐ Code
     → Refactor to code portsoc eslint
     → Refactor game client
+    → WHY THE HELL ARE THEY CALLED USERS IN SOME PLACES AND PLAYERS IN OTHERS
 
 ☐ Bugfixes
     → If a user disconnects during a game, the game is irrevokably corrupted
+
+

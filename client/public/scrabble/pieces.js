@@ -20,36 +20,39 @@ Number.prototype.clamp = function(min, max) {
 
 const Drawer = document.querySelector('#piece-drawer');
 
-/*
-TILE OBJECT
-{
-
-}
-*/
-let PiecesDrawer = [];
-
 // Expects structure [{letter: '', score: int}]
 function addPiecesToDrawer(pieces)
 {
+    let ret = [];
     for (const piece of pieces)
     {
         const domPiece = document.createElement('piece');
         domPiece.innerText = piece.letter;
         domPiece.classList.add('unselectable');
         domPiece.classList.add('unplayed-piece');
+    
         const score = document.createElement('score');
         score.innerText = piece.score;
+    
         domPiece.appendChild(score);
         Drawer.appendChild(domPiece);
+    
+        ret.push (domPiece);
     }
+
     setupPieces();
     updatePieceEventListeners();
+    
+    return ret;
 }
 
 // Removes regardless of vadility
 function removePiecesFromDrawer(pieces)
 {
-
+    for (const piece of pieces)
+    {
+        piece.remove();
+    }
 }
 
 
