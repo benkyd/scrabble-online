@@ -186,7 +186,7 @@ function BeginGame(lobby)
     for (const player in players)
     {
         // start all players with 7 random tiles
-        for (let i = 0; i < 6; i++)
+        for (let i = 0; i < 7; i++)
         {
             let t, r;
             do {
@@ -197,8 +197,6 @@ function BeginGame(lobby)
             tilebag.splice(r, 1);
             players[player].activetiles.push(t);
         }
-        players[player].activetiles.push('_');
-
     }
 
     const gamestate = {
@@ -434,6 +432,7 @@ function PlayTurn(gameuid, playeruid, turn)
     // no recursion this time
 
     let words = [];
+    let wordsbasic = [];
     for (const newpiece of diff)
     {
 
@@ -466,7 +465,8 @@ function PlayTurn(gameuid, playeruid, turn)
 
         for (let i = 0; i < 4; i++)
         {
-            let word = '';
+            let word = [];
+            let wordbasic = '';
             const direction = directions[i];
             
             let coords = {x: newpiece.pos.x, y: newpiece.pos.y};
@@ -476,25 +476,27 @@ function PlayTurn(gameuid, playeruid, turn)
                 // console.log(ret);
                 if (ret === false)
                     break;
-                word += ret.letter;
+                word.push(ret);
+                wordbasic += ret.letter;
                 coords.x += direction.x;
                 coords.y += direction.y;
             }
             if (word.length === 1) continue;
             words.push(word);
-            console.log(word);
+            wordsbasic.push(wordbasic);
         }
     }
 
     // remove same-in-reverse words
-    for (const word in words)
+    for (const word in wordsbasic)
     {
-        const reverse = words[word].split('').reverse().join('');
-        if (words.includes(reverse))
+        const reverse = wordsbasic[word].split('').reverse().join('');
+        if (wordsbasic.includes(reverse))
+        {
+            wordsbasic.splice(word, 1); 
             words.splice(word, 1); 
+        }
     }
-
-    console.log(words);
 
     // update tiles with scores
     turn.boardtiles = turn.oldboardtiles.concat(turn.boardtiles);
@@ -514,6 +516,7 @@ function PlayTurn(gameuid, playeruid, turn)
 
     // process turn and allocate scores
 
+
     // for every new word
     // calculate based on TL/DL/DW/TW and tile score the score
     // send to client
@@ -521,7 +524,28 @@ function PlayTurn(gameuid, playeruid, turn)
 
     // give user new tiles
 
+    /*
+    outcome: {
+        valid: bool,
+        points: pointsgained,
+        words: [{ 
+            word: word,
+            points: points,
+            tiles: [{
+                pos: {x: x, y: y},
+                modifier: modifier,
+                letter: letter,
+                score: int
+            }]
+        }],
+    } 
+    */
 
+    const outcome = {
+
+    };
+
+    turn.outcome = outcome;
     ActiveGames[gameuid].gamestates.push(turn);
     ActiveGames[gameuid].turn = turninfo.newTurn;
     ActiveGames[gameuid].turntotal = turninfo.newTotalTurn;

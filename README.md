@@ -63,6 +63,7 @@ To see what needs to be completed code-wise, take a look at `TODO`, there you wi
 ### Acknowledgements
 
 Express.js - HTTP Routing and Management
+
 Socket.io - Socket Routing and Management
 
 Inês Filipa Baiõa Antunes - Tranlations (Portuguese, Spanish)
