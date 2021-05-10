@@ -149,6 +149,15 @@ function GetGameByUserUID(useruid)
     return false;
 }
 
+function GetGameUserByUserUID(useruid)
+{
+    for (const game in ActiveGames)
+        for (const player of ActiveGames[game].players)
+            if (player.uid === useruid) return player;
+
+    return false;
+}
+
 function GetTurnUser(gameuid)
 {
     if (!ActiveGames[gameuid]) return false;
@@ -277,14 +286,32 @@ function PlayTurn(gameuid, playeruid, turn)
     }
 
     // process outcome
+    const temptiles = turn.oldboardtiles.concat(turn.boardtiles)
 
     // check if user is allowed to make that move
+    const gameplayer = GetGameUserByUserUID(playeruid);
+    console.log(gameplayer);
 
     // process turn and allocate scores
 
     // give user new tiles
-    
-    turn.boardtiles = turn.oldboardtiles.append(turn.boardtiles);
+
+    // update tiles with scores
+    turn.boardtiles = turn.oldboardtiles.concat(turn.boardtiles);
+    for (const tile in turn.boardtiles)
+    {
+        let score = 0;
+        for (const pointband of Dist.GetDist(game.locale).dist)
+        {
+            if (pointband.letters.includes(turn.boardtiles[tile].letter))
+            {
+                score = pointband.points;
+                break;
+            }
+        }
+        turn.boardtiles[tile].score = score;
+    }
+
     ActiveGames[gameuid].gamestates.push(turn);
     ActiveGames[gameuid].turn = turninfo.newTurn;
     ActiveGames[gameuid].turntotal = turninfo.newTotalTurn;
@@ -327,9 +354,9 @@ function gameNextTurn(gameuid)
 }
 
 // same as how the 
-function EndGame()
+function EndGame(gameuid)
 {
-
+    delete ActiveGames[gameuid];    
 }
 
 
@@ -359,6 +386,7 @@ module.exports = {
 
     // Get game exports
     GetGameByUserUID: GetGameByUserUID,
+    GetGameUserByUserUID: GetGameUserByUserUID,
     GetTurnUser: GetTurnUser,
 
     // Change game state exports

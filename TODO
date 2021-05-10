@@ -15,8 +15,8 @@
         → Update with new locales   
     ✔ Spanish (Ines) @done(21-04-11 01:03)
         → Update with new locales   
-    → French (Alexendro)
-    → Czech (Mikdore)
+    ✘ French (Alexendro) @cancelled(21-05-10 18:22)
+    ✘ Czech (Mikdore) @cancelled(21-05-10 18:22)
     → Go through code again once finished and pick out locales
 
 ☐ Lobbying logic
@@ -28,14 +28,14 @@
     → Find appropriate scrabble dictionary for
         ✔ Portuagese @done(21-04-19 02:10)
         ✔ Spanish @done(21-04-19 02:10)
-        ✔ French @done(21-04-19 02:10)
-        → Czech
+        ✔ French @done(21-05-10 18:22)
+        ✘ Czech @cancelled(21-05-10 18:22)
     → Optimise! n-ary tree
 
 ☐ Game networking
-    → Figure out game reconnection procedure
-        → Perhaps players skip a turn if they disconnect on their turn
-        → Game should go on until 1 person remains
+    ✔ Figure out game reconnection procedure @done(21-05-10 18:22)
+        ✘ Perhaps players skip a turn if they disconnect on their turn @cancelled(21-05-10 18:22)
+        ✘ Game should go on until 1 person remains @cancelled(21-05-10 18:22)
     → Game chat
 
 ☐ Game logic
@@ -52,13 +52,13 @@
         ✔ Update dynamically @done(21-05-09 22:44)
 
 ☐ Code
-    → Refactor to code portsoc eslint
-    → Refactor game client
+    ✘ Refactor to code portsoc eslint @cancelled(21-05-10 18:22)
+    ✘ Refactor game client @cancelled(21-05-10 18:22)
     → WHY THE HELL ARE THEY CALLED USERS IN SOME PLACES AND PLAYERS IN OTHERS
     → Why in some places is it user.name and others user.username
+    → Should lobbies persist once game starts?
 
 ☐ Bugfixes
-    → If a user leaves their current game then makes a new one, it's corrupted
+    ✔ If a user leaves their current game then makes a new one, it's corrupted @done(21-05-10 17:56)
     → If a user disconnects during a game, the game is irrevokably corrupted
-
-
+        → Usually, if a player leaves, it's fine, but if the host leaves. The lobbby is destructed and the logic creates a new game on the spot and they're the only player

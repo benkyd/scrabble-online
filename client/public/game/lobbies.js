@@ -162,10 +162,10 @@ socket.on('lobby-create-error', obj => {
 
     const errorDiv = document.createElement('div');
     errorDiv.id = 'lobby-error';
-    errorDiv.innerHTML = localeString('error-bold')  + ' ' + localeString('error-creating-lobby') + ' ' + JSON.stringify(args);
+    errorDiv.innerHTML = localeString('error-bold')  + ' ' + localeString('error-creating-lobby') + ' ' + JSON.stringify(obj);
     errorDiv.classList.add('red');
     CreateLobbyBlock.appendChild(errorDiv);
-    pageLog(localeString('error-bold') + ' ' + localeString('error-creating-lobby') + ' ' + JSON.stringify(args));
+    pageLog(localeString('error-bold') + ' ' + localeString('error-creating-lobby') + ' ' + JSON.stringify(obj));
 });
 
 

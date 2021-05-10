@@ -3,4 +3,4 @@ client/node_modules/
 server/node_modules/
 *.log
 *.env
-.turns-debug.json
+turns-debug.json

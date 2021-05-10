@@ -458,8 +458,15 @@ function HandleDisconnect(socket, args)
     // if user is in a game, notify the game logic
     // if the user is the last user in a game - delete it
     // if the user is leaving, change their status so reconnect is allowed
-
     // TODO: VERY IMPORTANTTTT THAT^^^
+
+    // quick fix, prevents game destruction
+    // if (user.intent === 'GAME')
+    // {
+    //     Game.Registrar.UserDisconnect(user.uid);
+    //     Logger.info(`SOCKET ${socket.id} DISCONNECTED FROM GAME`);
+    //     return;
+    // }
 
     // if user is in a lobby, leave and if user own's a lobby, destruct
     // leave lobby before user is disconnected
@@ -526,6 +533,8 @@ function EmitGameBegin(game)
     const userturnstartconnection = Game.Registrar.GetConnectionByUser(userturnstart);
 
     io.to(userturnstartconnection).emit('game-your-turn');
+
+    Logger.debug(JSON.stringify(game.players, null, 2));
 }
 
 function EmitGameReconnect(user, game)
@@ -543,12 +552,17 @@ function EmitGameReconnect(user, game)
     // NOTE it shouldn't ever be their turn on a reconnect
     // as the game logic should pass control to next player
     // as the game order is changed
+    if (!Game.Logic.GetTurnUser(game.uid)) return;
     const userturnstart = Game.Logic.GetTurnUser(game.uid).uid;
     if (userturnstart === user.uid)
+    {    
+        io.to(gameuserconnection).emit('game-your-turn');
+    } else
     {
-        const userturnstartconnection = Game.Registrar.GetConnectionByUser(userturnstart);
-    
-        io.to(userturnstartconnection).emit('game-your-turn');
+        // TODO: this needs to send game heuristics
+        io.to(gameuserconnection).emit('game-turn-start');
     }
+    
+    Logger.debug(JSON.stringify(game.players, null, 2));
 }
 

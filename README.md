@@ -34,12 +34,17 @@ or just use environment variables
 
 ### Bugs and Issues
 
+Prettymuch all of the bugs i'm aware of occur when a user reconnects to a game that's taking place. ESPECIALLY if that user is the host of the game
+
 ### Contributing
 
-To contribute a translation 
+To contribute a translation there's a few scripts that need to be run
+
+To see what needs to be completed code-wise, take a look at `TODO`, there you will find tasks that need to be completed as well as known bugs. There's also a lot of TODOs in the code :)
 
 ### Acknowledgements
 
 Express.js - HTTP Routing and Management
 Socket.io - Socket Routing and Management
+
 Inês Filipa Baiõa Antunes - Tranlations (Portuguese, Spanish)

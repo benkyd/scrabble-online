@@ -52,6 +52,11 @@ function addPiecesToDrawer(pieces)
 // Removes regardless of vadility
 function removePiecesFromDrawer(pieces)
 {
+    if (pieces === '*')
+    {
+        Drawer.innerHTML = '';
+        return;
+    }
     for (const piece of pieces)
     {
         piece.remove();
@@ -216,10 +221,47 @@ function piecePlaced(piece)
         BoardSounds[0].play();
 
         placePieceOnBoard(piece, coords.x, coords.y);
-
+        
         piece.classList.remove('unplayed-piece');
         piece.classList.add('staged-piece');
         piece.dataset.coords = JSON.stringify(coords);
+
+        // Wildcard! (done clientside because of laziness)
+        let letter = piece.dataset.letter;
+        if (letter === '_')
+        {
+            // TODO: this would be a pretty good function for elsewhere..
+            const tilesetincludes = (l) => {
+                for (const range of TileSet)
+                    if (range.letters.includes(l)) return true;
+                return false;
+            };
+            
+            letter = prompt('You placed a wildcard! what would you like the letter to be?').toUpperCase();
+            if (letter === null || !tilesetincludes(letter))
+            {
+                DrawerSounds[Math.floor(Math.random() * 3)].play();
+        
+                piece.classList.remove('staged-piece');
+                piece.classList.remove('small-piece');
+                piece.classList.add('unplayed-piece');
+                delete piece.dataset.coords;
+        
+                setupPieces();
+                return;
+            }
+
+            piece.dataset.letter = letter;
+            // no way to work this out here
+
+            let score = -1;
+            for (const range in TileSet)
+                if (TileSet[range].letters.includes(letter))
+                    score = TileSet[range].points;
+
+            piece.dataset.score = score;
+            piece.innerHTML = `${piece.dataset.letter}<score>${piece.dataset.score}</score>`;
+        }
 
         setupPieces();
     } else

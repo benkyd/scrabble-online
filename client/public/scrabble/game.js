@@ -20,12 +20,15 @@ NOTES
 let Users = [];
 // just shorthand, so long as i remember to keep it updated lmao
 let MyTurn = false;
+let TileSet = [];
 
 let pastTurns = [];
 
 function initGame(boardstates, tileset, myplayer, players)
 {
     pastTurns.push(...boardstates);
+
+    TileSet = tileset;
 
     // construct piece array
     // structure [{letter: '', score: int}]

@@ -129,6 +129,16 @@ function onIdentifyError(socket, args)
     ConnectionState.forEach(e => {
         e.innerHTML = JSON.stringify(args);
     });
+    removePiecesFromDrawer('*');
+    addPiecesToDrawer([
+        {letter: 'H', score: 1},
+        {letter: 'E', score: 2},
+        {letter: 'L', score: 3},
+        {letter: 'L', score: 4},
+        {letter: 'O', score: 5},
+        {letter: 'O', score: 6},
+        {letter: 'O', score: 7}
+    ]);
     onDisconnect();
 }
 
@@ -299,6 +309,15 @@ if (isSingleplayer)
         e.innerHTML = localeString('no-connection-singleplayer');
     });
     alert('Singleplayer is not implemented yet! a practice board will be set up to demonstrate tech and tile stuff');
+    addPiecesToDrawer([
+        {letter: 'H', score: 1},
+        {letter: 'E', score: 2},
+        {letter: 'L', score: 3},
+        {letter: 'L', score: 4},
+        {letter: 'O', score: 5},
+        {letter: 'O', score: 6},
+        {letter: 'O', score: 7}
+    ]);
 } else
 {
     initMultiplayer();
