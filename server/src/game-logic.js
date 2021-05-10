@@ -433,9 +433,9 @@ function PlayTurn(gameuid, playeruid, turn)
 
     // no recursion this time
 
+    let words = [];
     for (const newpiece of diff)
     {
-        let wordsFromPiece = [];
 
         const check = (x, y) => {
             for (const checkpiece of temptiles)
@@ -452,6 +452,17 @@ function PlayTurn(gameuid, playeruid, turn)
             {x: 0, y: -1},
             {x: 0, y: 1}
         ];
+
+        // if piece is in the middle of used pieces, ignore it
+        let clashes = 0;
+        for (const newpiecetmp of diff)
+        {
+            if (newpiece.pos.x + 1 === newpiecetmp.pos.x && newpiece.pos.y === newpiecetmp.pos.y) clashes++;
+            if (newpiece.pos.x === newpiecetmp.pos.x && newpiece.pos.y + 1 === newpiecetmp.pos.y) clashes++;
+            if (newpiece.pos.x - 1 === newpiecetmp.pos.x && newpiece.pos.y === newpiecetmp.pos.y) clashes++;
+            if (newpiece.pos.x === newpiecetmp.pos.x && newpiece.pos.y - 1 === newpiecetmp.pos.y) clashes++;
+        }
+        if (clashes > 1) continue;
 
         for (let i = 0; i < 4; i++)
         {
@@ -470,12 +481,20 @@ function PlayTurn(gameuid, playeruid, turn)
                 coords.y += direction.y;
             }
             if (word.length === 1) continue;
-            wordsFromPiece.push(word);
+            words.push(word);
             console.log(word);
         }
-
     }
 
+    // remove same-in-reverse words
+    for (const word in words)
+    {
+        const reverse = words[word].split('').reverse().join('');
+        if (words.includes(reverse))
+            words.splice(word, 1); 
+    }
+
+    console.log(words);
 
     // update tiles with scores
     turn.boardtiles = turn.oldboardtiles.concat(turn.boardtiles);
