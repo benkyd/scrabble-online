@@ -33,6 +33,10 @@ function initUI()
     IPlayButton.forEach(e => {
         e.disabled = true;
     });
+    if (MyTurn)
+        startMyTurnUI();
+    else
+        stopMyTurnUI();
 }
 
 const UserUIReplacer = (p, u, n, s) => `<div class="p${p} player${u} player">
@@ -88,6 +92,10 @@ function updateUsersUI(users)
 
 function startMyTurnUI()
 {
+    for (const piece of document.querySelectorAll('piece, nopiece'))
+    {
+        piece.classList.remove('locked');
+    }
     IExchangeButton.forEach(e => {
         e.disabled = false;
     });
@@ -96,15 +104,15 @@ function startMyTurnUI()
     });
     IPlayButton.forEach(e => {
         e.disabled = false;
-    });
-    document.querySelectorAll('.unplayed-piece').forEach(e => {
-        if (e.classList.contains('played-piece'))
-            e.classList.remove('played-piece');
     });
 }
 
 function stopMyTurnUI()
 {
+    for (const piece of document.querySelectorAll('piece, nopiece'))
+    {
+        piece.classList.add('locked');
+    }
     IExchangeButton.forEach(e => {
         e.disabled = true;
     });
@@ -113,10 +121,6 @@ function stopMyTurnUI()
     });
     IPlayButton.forEach(e => {
         e.disabled = true;
-    });
-    document.querySelectorAll('.unplayed-piece').forEach(e => {
-        if (!e.classList.contains('played-piece'))
-            e.classList.add('played-piece');
     });
 }
 

@@ -401,17 +401,27 @@ function GamePlayTurn(socket, args)
         return; 
     }
 
-    Logger.game(`USER ${user.uid} (${user.name}) IS ATTEMPTING TO PLAY A TURN IN GAME ${game.uid}`);
+    Logger.game(`USER ${user.uid} (${user.username}) IS ATTEMPTING TO PLAY A TURN IN GAME ${game.uid}`);
 
     if (args.skip === true)
     {
-        const {outcome, turninfo} = Game.Logic.SkipTurn(game.uid, user.uid);
+        const [outcome, turninfo] = Game.Logic.SkipTurn(game.uid, user.uid);
+        io.to(game.uid).emit('game-turn-processed', {
+            outcome: outcome
+        });
+
+        const nextuser = Game.Registrar.GetConnectionByUser(turninfo.turnplayer.uid);
+        
+        io.to(game.uid).emit('game-turn-start', {
+            turninfo: turninfo
+        });
+
+        io.to(nextuser).emit('game-your-turn');
     } else
     {
         // TODO: validate args
         const [outcome, turninfo] = Game.Logic.PlayTurn(game.uid, user.uid, args)
         
-        // give user new tiles
         // process errorsq
 
         io.to(game.uid).emit('game-turn-processed', {

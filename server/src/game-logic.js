@@ -181,9 +181,10 @@ function BeginGame(lobby)
         {
             let t, r;
             do {
+                // TODO: this goes out of range
                 r = Math.floor(Math.random() * tilebag.length + 1);
                 t = tilebag[r];
-            } while (t === null)
+            } while (t === undefined)
             tilebag.splice(r, 1);
             players[player].activetiles.push(t);
         }
@@ -260,28 +261,37 @@ NOTES
 function PlayTurn(gameuid, playeruid, turn)
 {
     const game = ActiveGames[gameuid];
-
-    ActiveGames[gameuid].gamestates.push(turn);
-
     const turninfo = gameNextTurn(gameuid);
 
+    ActiveGames[gameuid].gamestates.push(turn);
+    
+    // give user new tiles
+
+    console.log(game);
     return [turn, turninfo];
 }
 
 function SkipTurn(gameuid, playeruid)
 {
-    gameNextTurn(gameuid);
+    const turninfo = gameNextTurn(gameuid);
+    // get last game state
+    const turn = {
+        playeruid: 
+    };
+    
+    return [turn, turninfo];
 }
 
 function gameNextTurn(gameuid)
 {
-    const PlayerCount = ActiveGames[gameuid].players.length;
-    ActiveGames[gameuid].turn++;
-    ActiveGames[gameuid].turn %= PlayerCount;
-    ActiveGames[gameuid].turntotal++;
+    const playerCount = ActiveGames[gameuid].players.length;
+    let newTurn = ActiveGames[gameuid].turn += 1;
+    newTurn = ActiveGames[gameuid].turn % PlayerCount;
+    const newTotalTurn = ActiveGames[gameuid].turntotal += 1;
     return {
-        // i forgot why this is an object, there's more attributes i forgot about
         turnplayer: ActiveGames[gameuid].players[ActiveGames[gameuid].turn],
+        newTurn: newTurn,
+        newTotalTurn: newTotalTurn
     };
 }
 

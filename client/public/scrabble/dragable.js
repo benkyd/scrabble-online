@@ -14,7 +14,7 @@ function mouseDown(event, element)
     event.preventDefault();
 
     // disalow picking up of played pieces
-    if (element.classList.contains('played-piece')) return;
+    if (element.classList.contains('played-piece') || element.classList.contains('locked')) return;
 
     piecePickedUp(element);
     

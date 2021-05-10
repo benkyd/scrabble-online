@@ -52,6 +52,7 @@
     → Refactor to code portsoc eslint
     → Refactor game client
     → WHY THE HELL ARE THEY CALLED USERS IN SOME PLACES AND PLAYERS IN OTHERS
+    → Why in some places is it user.name and others user.username
 
 ☐ Bugfixes
     → If a user leaves their current game then makes a new one, it's corrupted
