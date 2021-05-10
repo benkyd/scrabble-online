@@ -263,13 +263,33 @@ function PlayTurn(gameuid, playeruid, turn)
     const game = ActiveGames[gameuid];
     const turninfo = gameNextTurn(gameuid);
 
+    turn.turn = turninfo.newTurn;
+    turn.oldboardtiles = ActiveGames[gameuid].gamestates[ActiveGames[gameuid].gamestates.length - 1].boardtiles;
+
+    // generate diff between oldboardtiles and newboardtiles
+    const diff = turnDiff(turn.oldboardtiles, turn.boardtiles);
+    if (diff.length === 0)
+    {
+        const error = {
+            error: 'error-game-no-change'
+        };
+        return [error, undefined, undefined, undefined] 
+    }
+
+    // process outcome
+
+    // check if user is allowed to make that move
+
+    // process turn and allocate scores
+
+    // give user new tiles
+    
+    turn.boardtiles = turn.oldboardtiles.append(turn.boardtiles);
     ActiveGames[gameuid].gamestates.push(turn);
     ActiveGames[gameuid].turn = turninfo.newTurn;
-    ActiveGames[gameuid].turn = turninfo.newTotalTurn;
+    ActiveGames[gameuid].turntotal = turninfo.newTotalTurn;
     
-    // give user new tiles
-
-    return [turn, turninfo];
+    return [undefined, turn, turninfo, {}];
 }
 
 function SkipTurn(gameuid, playeruid)
@@ -287,7 +307,7 @@ function SkipTurn(gameuid, playeruid)
     
     ActiveGames[gameuid].gamestates.push(turn);
     ActiveGames[gameuid].turn = turninfo.newTurn;
-    ActiveGames[gameuid].turn = turninfo.newTotalTurn;
+    ActiveGames[gameuid].turntotal = turninfo.newTotalTurn;
     
     return [turn, turninfo];
 }
@@ -298,6 +318,7 @@ function gameNextTurn(gameuid)
     let newTurn = ActiveGames[gameuid].turn += 1;
     newTurn = ActiveGames[gameuid].turn % playerCount;
     const newTotalTurn = ActiveGames[gameuid].turntotal += 1;
+
     return {
         turnplayer: ActiveGames[gameuid].players[newTurn],
         newTurn: newTurn,
@@ -305,21 +326,31 @@ function gameNextTurn(gameuid)
     };
 }
 
-// returns tuple ([newtileset], [newusertiles])
-function ExchangeTiles(tileset, tilesToExchange)
-{
-
-}
-
-function UserLeaveGame(useruid)
-{
-
-}
-
 // same as how the 
 function EndGame()
 {
 
+}
+
+
+// verrryyy naive way of doing it but it returns the difference in tiles between args
+function turnDiff(turntilesold, turntilesnew)
+{
+    let ret = [];
+    if (turntilesold.length === 0) return turntilesnew;
+    if (turntilesnew.length === 0) return []; // because there's no new tiles ennit
+    for (const tile1 of turntilesold)
+    {
+        for (const tile2 of turntilesnew)
+        {
+            if (JSON.stringify(tile1) === JSON.stringify(tile2))
+                continue;
+            if (ret.includes(tile2) || ret.includes(tile1))
+                continue;
+            ret.push(tile2);
+        }
+    }
+    return ret;
 }
 
 

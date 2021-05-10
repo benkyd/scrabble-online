@@ -271,7 +271,8 @@ function netSkipTurn()
 
 function onTurnError(socket, args)
 {
-    console.log(args);
+    console.log('error', args);
+    alert('Error in your turn: ' + args.error);
 }
 
 function onturnProcessed(socket, args)

@@ -420,9 +420,14 @@ function GamePlayTurn(socket, args)
     } else
     {
         // TODO: validate args
-        const [outcome, turninfo] = Game.Logic.PlayTurn(game.uid, user.uid, args)
+        const [err, outcome, turninfo, newuserpieces] = Game.Logic.PlayTurn(game.uid, user.uid, args)
         
-        // process errorsq
+        // process errors
+        if (err)
+        {
+            socket.emit('game-turn-error', err);
+            return;
+        }
 
         io.to(game.uid).emit('game-turn-processed', {
             outcome: outcome
