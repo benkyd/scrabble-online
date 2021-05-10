@@ -30,5 +30,6 @@ loadLoacale();
 if (localStorage.getItem('locale') == null)
 {
     localStorage.setItem('locale', 'en');
+    alert('Welcome to scrabble, the language has been set to EN-GB. The page will now refresh with your preferences');
     location.reload();
 }

@@ -186,7 +186,7 @@ function BeginGame(lobby)
     for (const player in players)
     {
         // start all players with 7 random tiles
-        for (let i = 0; i < 7; i++)
+        for (let i = 0; i < 6; i++)
         {
             let t, r;
             do {
@@ -197,6 +197,8 @@ function BeginGame(lobby)
             tilebag.splice(r, 1);
             players[player].activetiles.push(t);
         }
+        players[player].activetiles.push('_');
+
     }
 
     const gamestate = {
@@ -285,12 +287,100 @@ function PlayTurn(gameuid, playeruid, turn)
         return [error, undefined, undefined, undefined] 
     }
 
-    // process outcome
-    const temptiles = turn.oldboardtiles.concat(turn.boardtiles)
-
     // check if user is allowed to make that move
     const gameplayer = GetGameUserByUserUID(playeruid);
-    console.log(gameplayer);
+    for (const newpiece of diff)
+    {
+        if (!gameplayer.activetiles.includes(newpiece.letter))
+        {
+            // If they've got a wild card
+            if (gameplayer.activetiles.includes('_'))
+            {
+                // make sure it's actually allowed
+                const tileset = Dist.GetDist(game.locale).dist;
+                const tilesetincludes = (l) => {
+                    for (const range of tileset)
+                        if (range.letters.includes(l)) return true;
+                    return false;
+                };
+
+                if (!tilesetincludes(newpiece.letter))
+                {
+                    const error = {
+                        error: 'error-game-illegal-move'
+                    };
+                    return [error, undefined, undefined, undefined] 
+                }
+
+                // then replace it and continue
+                const replacer = gameplayer.activetiles.indexOf('_');
+                gameplayer.activetiles[replacer] = newpiece.letter;
+            } else
+            {
+                const error = {
+                    error: 'error-game-illegal-move'
+                };
+                return [error, undefined, undefined, undefined] 
+            }
+        }
+    }
+    console.log(GetGameByUserUID(playeruid));
+
+    // process outcome
+    const temptiles = turn.oldboardtiles.concat(turn.boardtiles);
+    // algorithm for getting words
+    let words = [];
+    for (const newpiece of diff)
+    {
+        const traverse = (frompiece, direction, word) => {
+            // check up, down, left, right for others
+            const check = (x, y) => {
+                for (const checkpiece of temptiles)
+                {
+                    if (!checkpiece.visited) checkpiece.visited = false;
+                    // console.log(checkpiece);
+                    // there's a piece there
+                    if (checkpiece.pos.x === x && checkpiece.pos.y === y && checkpiece.visited === false)
+                    {
+                        console.log(word);
+                        temptiles[temptiles.indexOf(checkpiece)].visited = true;
+                        console.log(temptiles);
+                        return traverse(checkpiece, direction, word + checkpiece.letter);
+                    }
+                    return word;
+                }
+            }
+    
+            if (direction === 0)
+            {
+                let up    = check(frompiece.pos.x    , frompiece.pos.y + 1);
+                words.push(up);
+            }
+            if (direction === 0)
+            {
+                let right = check(frompiece.pos.x + 1, frompiece.pos.y    );
+                words.push(right);
+            }
+            if (direction === 0)
+            {
+                let down  = check(frompiece.pos.x    , frompiece.pos.y - 1);
+                words.push(down);
+            }
+            if (direction === 0)
+            {
+                let left  = check(frompiece.pos.x - 1, frompiece.pos.y    );
+                words.push(left);
+            }
+
+            return word;
+        }
+        // traverse from the piece in all directions
+        traverse(newpiece, 0, newpiece.letter);
+        traverse(newpiece, 1, newpiece.letter);
+        traverse(newpiece, 2, newpiece.letter);
+        traverse(newpiece, 3, newpiece.letter);
+    }
+    console.log(words);
 
     // process turn and allocate scores
 
