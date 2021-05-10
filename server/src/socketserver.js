@@ -429,6 +429,8 @@ function GamePlayTurn(socket, args)
             return;
         }
 
+        socket.emit('game-new-pieces', {pieces: newuserpieces});
+
         io.to(game.uid).emit('game-turn-processed', {
             outcome: outcome
         });

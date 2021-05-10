@@ -156,3 +156,34 @@ function processTurn(turn)
     removeStagedPieces();
     renderBoardState(turn.boardtiles);
 }
+
+function newPieces(pieces)
+{
+    removePiecesFromDrawer('*');
+    let drawerStructure = [];
+
+    for (const tile of pieces)
+    {
+        let points = 0;
+        for (const pointband of TileSet)
+        {
+            if (tile === '_')
+            {
+                points = '_';
+                break;
+            }
+            if (pointband.letters.includes(tile))
+            {
+                points = pointband.points;
+                break;
+            }
+        }
+
+        const piece = {
+            letter: tile,
+            score: points
+        }
+        drawerStructure.push(piece);
+    }
+    addPiecesToDrawer(drawerStructure);
+}

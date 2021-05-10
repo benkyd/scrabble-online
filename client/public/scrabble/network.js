@@ -49,7 +49,7 @@ function initMultiplayer()
     socket.on('game-turn-processed', args => onturnProcessed(socket, args)); // server returns turn (to all users)
     socket.on('game-turn-start', args => onTurnStart(socket, args)); // others turn
     
-    socket.on('game-new-pieces', args => onTurnStart(socket, args));
+    socket.on('game-new-pieces', args => gameNewPieces(socket, args));
     
     console.log('multiplayer ready');
 }    
@@ -294,6 +294,12 @@ function onTurnStart(socket, args)
 {
     console.log('Turn Starting!');
     startOthersTurn(args.turninfo.turnplayer.uid);
+}
+
+function gameNewPieces(socket, args)
+{
+    console.log(args);
+    newPieces(args.pieces)
 }
 
 // is game singleplayer?

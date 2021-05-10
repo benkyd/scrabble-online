@@ -2,6 +2,7 @@ const Logger = require('./logger.js');
 const Registrar = require('./game-registrar.js');
 const Lobbies = require('./lobbies.js');
 const Dist = require('./letter-distributions.js');
+const Dict = require('./dictionary.js');
 const Helpers = require('./helpers.js');
 
 /*
@@ -310,127 +311,30 @@ function PlayTurn(gameuid, playeruid, turn)
                     return [error, undefined, undefined, undefined] 
                 }
 
-                // then replace it and continue
-                const replacer = gameplayer.activetiles.indexOf('_');
-                gameplayer.activetiles[replacer] = newpiece.letter;
+                // then remove it (because it was placed) and continue
+                gameplayer.activetiles.splice(gameplayer.activetiles.indexOf('_'), 1);
             } else
             {
-                const error = {
-                    error: 'error-game-illegal-move'
-                };
-                return [error, undefined, undefined, undefined] 
+                // const error = {
+                //     error: 'error-game-illegal-move'
+                // };
+                // return [error, undefined, undefined, undefined] 
             }
         }
+    }
+
+    // remove tiles from users drawer
+    for (const piece of diff)
+    {
+        gameplayer.activetiles.splice(gameplayer.activetiles.indexOf(piece.letter), 1);
     }
 
     // process outcome
     const temptiles = turn.oldboardtiles.concat(turn.boardtiles);
     // algorithm for getting words
-    // let words = [];
-    // for (const newpiece of diff)
-    // {
-    //     const traverse = (frompiece, direction, word) => {
-    //         // check up, down, left, right for others
-    //         const check = (x, y) => {
-    //             for (const checkpiece of temptiles)
-    //             {
-    //                 if (!checkpiece.visited) checkpiece.visited = false;
-    //                 // console.log(checkpiece);
-    //                 // there's a piece there
-    //                 if (checkpiece.pos.x === x && checkpiece.pos.y === y && checkpiece.visited === false)
-    //                 {
-    //                     console.log(word);
-    //                     temptiles[temptiles.indexOf(checkpiece)].visited = true;
-    //                     console.log(temptiles);
-    //                     return traverse(checkpiece, direction, word + checkpiece.letter);
-    //                 }
-    //                 return word;
-    //             }
-    //         }
-    
-    //         if (direction === 0)
-    //         {
-    //             let up    = check(frompiece.pos.x    , frompiece.pos.y + 1);
-    //             words.push(up);
-    //         }
-    //         if (direction === 0)
-    //         {
-    //             let right = check(frompiece.pos.x + 1, frompiece.pos.y    );
-    //             words.push(right);
-    //         }
-    //         if (direction === 0)
-    //         {
-    //             let down  = check(frompiece.pos.x    , frompiece.pos.y - 1);
-    //             words.push(down);
-    //         }
-    //         if (direction === 0)
-    //         {
-    //             let left  = check(frompiece.pos.x - 1, frompiece.pos.y    );
-    //             words.push(left);
-    //         }
-
-    //         return word;
-    //     }
-    //     // traverse from the piece in all directions
-    //     traverse(newpiece, 0, newpiece.letter);
-    //     traverse(newpiece, 1, newpiece.letter);
-    //     traverse(newpiece, 2, newpiece.letter);
-    //     traverse(newpiece, 3, newpiece.letter);
-    // }
-    // console.log(words);
-
-    // const traverse = (x, y, direction, acc) => {
-        
-    //     console.log(temptiles)
-    //     for (const checkpiece of temptiles)
-    //     {
-    //         if (direction === 0)
-    //         {
-    //             if (x === checkpiece.pos.x && y + 1 === checkpiece.pos.y)
-    //             {
-    //                 return traverse(x, y + 1, direction, acc + checkpiece.letter);
-    //             }
-    //         }
-    //         if (direction === 1)
-    //         {
-    //             if (x + 1 === checkpiece.pos.x && y === checkpiece.pos.y)
-    //             {
-    //                 return traverse(x + 1, y, direction, acc + checkpiece.letter);
-    //             }
-    //         }
-    //         if (direction === 2)
-    //         {
-    //             if (x === checkpiece.pos.x && y - 1 === checkpiece.pos.y)
-    //             {
-    //                 return traverse(x, y - 1, direction, acc + checkpiece.letter);
-    //             }
-    //         }
-    //         if (direction === 3)
-    //         {
-    //             if (x - 1 === checkpiece.pos.x && y === checkpiece.pos.y)
-    //             {
-    //                 return traverse(x - 1, y, direction, acc + checkpiece.letter);
-    //             }
-    //         }
-    //         return acc;
-    //     }
-
-    // }
-
-    // for (const newpiece of diff)
-    // {
-    //     let wordsFromPiece = [];
-    //     wordsFromPiece.push(traverse(newpiece.pos.x, newpiece.pos.y, 0, newpiece.letter));
-    //     wordsFromPiece.push(traverse(newpiece.pos.x, newpiece.pos.y, 1, newpiece.letter));
-    //     wordsFromPiece.push(traverse(newpiece.pos.x, newpiece.pos.y, 2, newpiece.letter));
-    //     wordsFromPiece.push(traverse(newpiece.pos.x, newpiece.pos.y, 3, newpiece.letter));
-    //     console.log(wordsFromPiece);
-    // }
-
+ 
     // Attempt #3 with 3 hours before the deadline
-
     // no recursion this time
-
     let words = [];
     let wordsbasic = [];
     for (const newpiece of diff)
@@ -498,6 +402,22 @@ function PlayTurn(gameuid, playeruid, turn)
         }
     }
 
+    if (words.length === 0)
+    {
+        const error = {
+            error: 'error-game-illegal-move'
+        };
+        return [error, undefined, undefined, undefined] 
+    }
+
+    // check dictionary
+    for (const word in wordbasic)
+    {
+        let reversedword = word.split('').reverse().join('');
+        
+    }
+
+
     // update tiles with scores
     turn.boardtiles = turn.oldboardtiles.concat(turn.boardtiles);
     for (const tile in turn.boardtiles)
@@ -514,18 +434,9 @@ function PlayTurn(gameuid, playeruid, turn)
         turn.boardtiles[tile].score = score;
     }
 
-    // process turn and allocate scores
-
-
-    // for every new word
-    // calculate based on TL/DL/DW/TW and tile score the score
-    // send to client
-
-
-    // give user new tiles
-
     /*
-    outcome: {
+    OUTCOME OBJECT
+    {
         valid: bool,
         points: pointsgained,
         words: [{ 
@@ -540,17 +451,56 @@ function PlayTurn(gameuid, playeruid, turn)
         }],
     } 
     */
-
-    const outcome = {
-
+    // process turn and allocate scores
+    let outcome = {
+        valid: true,
+        points: 0,
+        words: []
     };
+    for (const word of words)
+    {
+        let wordscore = 0;
+        let wordoperations = [];
+        for (const letter of word)
+        {
+            if (letter.modifier === 'NONE') wordscore += letter.score;
+            if (letter.modifier === 'DL') wordscore += (letter.score * 2);
+            if (letter.modifier === 'TL') wordscore += (letter.score * 3);
+            if (letter.modifier === 'DW') { wordscore += letter.score; wordoperations.push('DW'); }
+            if (letter.modifier === 'TW') { wordscore += letter.score; wordoperations.push('TW'); }
+        }
+        for (const op of wordoperations)
+        {
+            if (op === 'DW') wordscore *= 2;
+            if (op === 'TW') wordscore *= 3;
+        }
+        outcome.points += wordscore;
+        outcome.words.push({
+            word: word.reduce((p, c) => p += c.letter, ''),
+            points: wordscore,
+            tiles: word
+        });
+    }
+
+    // give user new tiles
+    while (gameplayer.activetiles.length != 7)
+    {
+        let t, r;
+        do {
+            // TODO: this goes out of range
+            r = Math.floor(Math.random() * ActiveGames[gameuid].tilebag.length + 1);
+            t = ActiveGames[gameuid].tilebag[r];
+        } while (t === undefined)
+        ActiveGames[gameuid].tilebag.splice(r, 1);
+        gameplayer.activetiles.push(t);
+    }
 
     turn.outcome = outcome;
     ActiveGames[gameuid].gamestates.push(turn);
     ActiveGames[gameuid].turn = turninfo.newTurn;
     ActiveGames[gameuid].turntotal = turninfo.newTotalTurn;
     
-    return [undefined, turn, turninfo, {}];
+    return [undefined, turn, turninfo, gameplayer.activetiles];
 }
 
 function SkipTurn(gameuid, playeruid)
