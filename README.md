@@ -14,7 +14,7 @@ Simple client/server scrabble game implemented in JavaScript with lots of room t
 
 ### Configuration Guide
 
-Make sure your working directory is root/server
+Make sure your working directory is root/server/
 
 1. run ```npm i```
 2. run ```npm run setup```
@@ -30,6 +30,10 @@ To play singleplayer, simply press the singleplayer button, but note that there 
 To play multiplayer, simply find (or force) a friend to also load the site from your private IP or whatever other networking solution you may have, both enter your name on the home page. One of you needs to create a lobby and the other needs to join it with the buttons labled as such, press ready then bam, you're in a game. Turns are denoted by the colour on the person at the top left, if it's your turn. your name will be green, if it's theirs, their name will be blue. 
 
 PLEASE REMEMBER TO RESTART THE SERVER IF THE HOST OF THE GAME DISCONNECTS DURING THE GAME
+
+If it's really not working, here's a really quick demo of when it did https://gyazo.com/b0ac3ad2d8627e8a79098b91403749e2
+
+Remember to read the bottom of TODO and enjoy :)
 
 ### Implementation Rationale
 
