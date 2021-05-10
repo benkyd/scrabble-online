@@ -411,12 +411,26 @@ function PlayTurn(gameuid, playeruid, turn)
     }
 
     // check dictionary
-    for (const word in wordbasic)
+    for (const word in wordsbasic)
     {
-        let reversedword = word.split('').reverse().join('');
-        
+        let reversedword = wordsbasic[word].split('').reverse().join('');
+        const doesexist = Dict.FindWord(game.locale, wordsbasic[word].toUpperCase());
+        const doesreversedexist = Dict.FindWord(game.locale, reversedword.toUpperCase());
+        if (!doesexist && !doesreversedexist)
+        {
+            const error = {
+                error: 'error-game-word-not-exist',
+                word: wordsbasic[word]
+            };
+            return [error, undefined, undefined, undefined] 
+        }
+        if (doesreversedexist)
+        {
+            wordsbasic[word] = reversedword;
+            words[word].reverse();
+        }
+        Logger.game(`WORD ${wordsbasic[word]} FOUND`);
     }
-
 
     // update tiles with scores
     turn.boardtiles = turn.oldboardtiles.concat(turn.boardtiles);
@@ -496,6 +510,7 @@ function PlayTurn(gameuid, playeruid, turn)
     }
 
     turn.outcome = outcome;
+    gameplayer.score += outcome.points;
     ActiveGames[gameuid].gamestates.push(turn);
     ActiveGames[gameuid].turn = turninfo.newTurn;
     ActiveGames[gameuid].turntotal = turninfo.newTotalTurn;

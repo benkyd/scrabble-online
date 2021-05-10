@@ -155,6 +155,54 @@ function processTurn(turn)
 {
     removeStagedPieces();
     renderBoardState(turn.boardtiles);
+
+    /*
+    OUTCOME OBJECT
+    {
+        valid: bool,
+        points: pointsgained,
+        words: [{ 
+            word: word,
+            points: points,
+            tiles: [{
+                pos: {x: x, y: y},
+                modifier: modifier,
+                letter: letter,
+                score: int
+            }]
+        }],
+    } 
+      */
+    const outcome = turn.outcome;
+
+    if (!outcome.valid) return;
+
+    // GAMEUSERS OBJECT
+    // {
+    //     uid: uid,
+    //     name: name,
+    //     score: int,
+    //     me: bool,
+    //     turn: bool
+    // }
+    // NOTES
+
+    let newpoints = 0;
+
+    let lastuser = {};
+    for (const user in Users)
+    {
+        if(Users[user].uid != turn.playeruid) continue;
+        Users[user].score += turn.outcome.points;
+        lastuser = Users[user];
+    }
+
+    changePlayerScore(lastuser.uid, lastuser.score);
+
+    for (const word of turn.outcome.words)
+    {
+        addTurnDesc(word.word, lastuser.name, word.points);
+    }
 }
 
 function newPieces(pieces)

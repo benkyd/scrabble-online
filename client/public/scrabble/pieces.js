@@ -63,6 +63,18 @@ function removePiecesFromDrawer(pieces)
     }
 }
 
+function putPiecesBack()
+{
+    for (const piece of document.querySelectorAll('.staged-piece'))
+    {
+        piece.classList.remove('staged-piece');
+        piece.classList.remove('small-piece');
+        delete piece.dataset.coords;
+
+        DrawerSounds[Math.floor(Math.random() * 3)].play();
+    }
+    setupPieces();
+}
 
 function updateBoardCoords()
 {

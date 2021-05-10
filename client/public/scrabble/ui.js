@@ -1,9 +1,9 @@
 // DOES NOT DEAL WITH GAME BOARD
 
 // chat
-const ChatBox = document.querySelector('#game-chat');
-const ChatMessageBox = document.querySelector('#game-chat-input');
-const ChatMessageSubmit = document.querySelector('#game-chat-button');
+// const ChatBox = document.querySelector('#game-chat');
+// const ChatMessageBox = document.querySelector('#game-chat-input');
+// const ChatMessageSubmit = document.querySelector('#game-chat-button');
 
 // players
 const IPlayerScores = document.querySelectorAll('.player-scores');
@@ -22,7 +22,7 @@ function initUI()
         e.innerHTML = '';
     });
     PlayLog.innerHTML = '';
-    ChatBox.value = '';
+    // ChatBox.value = '';
 
     IExchangeButton.forEach(e => {
         e.disabled = true;
@@ -89,6 +89,15 @@ function updateUsersUI(users)
         }
     }
 }
+
+function changePlayerScore(playeruid, score)
+{
+    document.querySelectorAll(`.player${playeruid}`).forEach(e => {
+        const scoreElement = e.querySelector('.player-score');
+        scoreElement.innerText = score;
+    });
+}
+
 
 function startMyTurnUI()
 {
@@ -169,17 +178,7 @@ function onPlayTurn()
     }
 }
 
-function onMessageSend()
+function addTurnDesc(word, player, points )
 {
-
-}
-
-function onTurnProcess()
-{
-
-}
-
-function onTurnPlay(oldturnuser, newturnuser, newboardstate)
-{
-
+    PlayLog.innerText += `${player} played ${word} for ${points} points!\n`;
 }

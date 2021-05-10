@@ -282,7 +282,14 @@ function netSkipTurn()
 function onTurnError(socket, args)
 {
     console.log('error', args);
-    alert('Error in your turn: ' + args.error);
+    if (args.error === 'error-game-word-not-exist')
+    {
+        alert(`${args.word} is not a word!`);
+    } else
+    {
+        alert('Error in your turn: ' + args.error);
+    }
+    putPiecesBack();
 }
 
 function onturnProcessed(socket, args)
