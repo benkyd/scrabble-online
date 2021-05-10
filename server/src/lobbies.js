@@ -73,8 +73,7 @@ function IsLobbyReady(lobbyuid)
     if (!Lobbies[lobbyuid]) return false;    
     // only support 2-4 players
     // https://en.wikipedia.org/wiki/Scrabble
-    // TODO: URGENT ADD THIS BACK AFTER TESTING
-    // if (Lobbies[lobbyuid].players.length <= 1) return false;
+    if (Lobbies[lobbyuid].players.length <= 1) return false;
     if (Lobbies[lobbyuid].players.length > 4) return false;
 
     return Lobbies[lobbyuid].players.every(e => e.ready);

@@ -59,6 +59,9 @@
     → Should lobbies persist once game starts?
 
 ☐ Bugfixes
-    ✔ If a user leaves their current game then makes a new one, it's corrupted @done(21-05-10 17:56)
+    → If a user leaves their current game then makes a new one, it's corrupted  
     → If a user disconnects during a game, the game is irrevokably corrupted
         → Usually, if a player leaves, it's fine, but if the host leaves. The lobbby is destructed and the logic creates a new game on the spot and they're the only player
+    → Sometimes it scores words wrong and it requires a restart
+    → Sometimes it recognises words wrong and it requires a restart
+    → Sometimes it doesnt pass the turn along and it requires a restart
