@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Ben Kyd <benjaminkyd@gmail.com> (https://benkyd.co.uk)",
+  "author": "REDACTED",
   "license": "UNLICENSED",
   "dependencies": {
     "eslint": "^7.23.0",

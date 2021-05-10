@@ -264,10 +264,11 @@ function PlayTurn(gameuid, playeruid, turn)
     const turninfo = gameNextTurn(gameuid);
 
     ActiveGames[gameuid].gamestates.push(turn);
+    ActiveGames[gameuid].turn = turninfo.newTurn;
+    ActiveGames[gameuid].turn = turninfo.newTotalTurn;
     
     // give user new tiles
 
-    console.log(game);
     return [turn, turninfo];
 }
 
@@ -276,8 +277,17 @@ function SkipTurn(gameuid, playeruid)
     const turninfo = gameNextTurn(gameuid);
     // get last game state
     const turn = {
-        playeruid: 
+        playeruid: playeruid,
+        turn: turninfo.newTurn,
+        turntype: 'SKIP',
+        outcome: {},
+        oldboardtiles: ActiveGames[gameuid].gamestates[ActiveGames[gameuid].gamestates.length - 1],
+        boardtiles: ActiveGames[gameuid].gamestates[ActiveGames[gameuid].gamestates.length - 1]
     };
+    
+    ActiveGames[gameuid].gamestates.push(turn);
+    ActiveGames[gameuid].turn = turninfo.newTurn;
+    ActiveGames[gameuid].turn = turninfo.newTotalTurn;
     
     return [turn, turninfo];
 }
@@ -286,10 +296,10 @@ function gameNextTurn(gameuid)
 {
     const playerCount = ActiveGames[gameuid].players.length;
     let newTurn = ActiveGames[gameuid].turn += 1;
-    newTurn = ActiveGames[gameuid].turn % PlayerCount;
+    newTurn = ActiveGames[gameuid].turn % playerCount;
     const newTotalTurn = ActiveGames[gameuid].turntotal += 1;
     return {
-        turnplayer: ActiveGames[gameuid].players[ActiveGames[gameuid].turn],
+        turnplayer: ActiveGames[gameuid].players[newTurn],
         newTurn: newTurn,
         newTotalTurn: newTotalTurn
     };

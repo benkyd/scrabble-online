@@ -436,6 +436,7 @@ function GamePlayTurn(socket, args)
 
         io.to(nextuser).emit('game-your-turn');
     }
+    require('fs').appendFileSync('../turns-debug.json', JSON.stringify(Game.Logic.GetGameByUserUID(user.uid), null, 4));
 }
 
 function GameExchangeTiles(socket, args)

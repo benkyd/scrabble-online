@@ -8,7 +8,7 @@
     "setup": "npm i",
     "test": "nodemon index.js"
   },
-  "author": "Ben Kyd <benjaminkyd@gmail.com> (https://benkyd.co.uk)",
+  "author": "REDACTED",
   "license": "UNLICENSED",
   "dependencies": {
     "body-parser": "^1.19.0",
