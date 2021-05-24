@@ -8,8 +8,8 @@
     "setup": "npm i",
     "test": "nodemon launchserver.js"
   },
-  "author": " REDACTED",
-  "license": "UNLICENSED",
+  "author": "Ben Kyd <benjaminkyd@gmail.com> (https://benkyd.co.uk)",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1"
   }

@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "REDACTED",
-  "license": "UNLICENSED",
+  "author": "Ben Kyd <benjaminkyd@gmail.com> (https://benkyd.co.uk)",
+  "license": "MIT",
   "dependencies": {
     "eslint": "^7.23.0",
     "eslint-config-portsoc": "^0.8.1"

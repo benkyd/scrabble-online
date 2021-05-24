@@ -8,8 +8,8 @@
     "setup": "npm i",
     "test": "nodemon index.js"
   },
-  "author": "REDACTED",
-  "license": "UNLICENSED",
+  "author": "Ben Kyd <benjaminkyd@gmail.com> (https://benkyd.co.uk)",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
     "colors": "^1.4.0",
